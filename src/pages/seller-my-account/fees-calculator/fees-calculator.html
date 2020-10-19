@@ -1,0 +1,212 @@
+<ion-content padding class="fee-calculator">
+<div class="wrapper">
+	<div class="container fee-calculator-main mb-3">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-xl-12 col-12 set-fontSize">
+                <p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+				<p class="mb-2 set-fontSize">
+					<a href="#/home" class="breadcrumblink">Home</a> &nbsp;&nbsp;
+						<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+                    <a class="breadcrumblink font-weight-bold" disabled>Fees Calculator</a></p>
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="col-lg-12 col-md-12 col-12 p-0">
+                <h5 class="mb-2">Fees Calculator</h5>
+                <p class="set-fontSize">Enter your information below and click <b>Calculate Fees</b> to get an estimate of total fees for
+                    your item</p>
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="col-lg-9 col-md-12 col-12">
+                <div class="row bg-light border rounded pb-3 mr-lg-0 set-fontSize">
+                    <div class="col-lg-12 col-md-12 col-12 pt-3 pb-1">
+                        <span class="badge badge-warning badge-calculator">1</span> <span class="select-text">Select a category</span>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-12 pt-2 pb-2 pl-4">
+                        <p class="m-0 set-fontSize">Fees vary, depending on the category. for the most accurate fee estimate, please
+                            select all applicable subcategories</p>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-12 pl-0 p-2">
+                        <form class="form set-fontSize d-lg-flex d-inline-block d-md-flex table-responsive">
+                            <div class="form-group col-md-3 col-12 set-fontSize">
+                                 <label><span class="text-danger font-weight-bold">*</span>Category</label>
+								<select id="categories_select" class="form-control calculator-controal" #categories_select="ngModel" name="category_id" required ngModel>
+									<option value="" selected>-- Select Category -- </option>
+									<option *ngFor="let categoriesselect of show_category?.data" value="{{categoriesselect.id}}" >{{categoriesselect.category_name}}</option>
+								</select>
+								<div *ngIf="categories_select.invalid && (categories_select.dirty || categories_select.touched)" class="error-box text-danger">
+									<div *ngIf="categories_select.errors.required">
+										* Select Category.
+									</div>
+								</div>
+                            </div>
+							
+							<div *ngFor="let categoriesselect of show_category?.data" [ngClass]="{'col-md-4 col-12 col-lg-3 p-0':categories_select.value == categoriesselect?.id}">
+								<div class="form-group col-md-12 col-12 set-fontSize" *ngIf="categories_select.value == categoriesselect?.id">
+									<label><span class="text-danger font-weight-bold">*</span>Primary Category</label>
+									<select id="subcategories_select" class="form-control calculator-controal" size="0" #subcategories_select="ngModel" name="subcategory_id" required ngModel>
+										<option value="" selected>-- Select Primary Category -- </option>
+										<option *ngFor="let catego of categoriesselect?.sub" value="{{catego.id}}" id="{{catego.facility_charges}}" >{{catego.category_name}}</option>
+									</select>
+									<div *ngIf="subcategories_select.invalid && (subcategories_select.dirty || subcategories_select.touched)" class="error-box text-danger">
+										<div *ngIf="subcategories_select.errors.required">
+											* Select Primary Category.
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-group col-md-3 col-12 set-fontSize">
+                                <label>Featured Deals Days</label>
+								<select id="daily_dealDay" class="form-control calculator-controal" #daily_dealDay="ngModel" name="daily_dealDay" ngModel>
+									<option value="" selected>-- Select Days -- </option>
+									<option *ngFor="let allday of featureitem" value="{{allday[1]}}">{{allday[0] | replaceString:allday[0]}} <span *ngIf="allday[0] == 'Days_1'">Day</span><span *ngIf="allday[0] != 'Days_1'">Days</span></option>
+								</select>
+							</div>
+							
+							<div class="form-group col-md-3 col-12 set-fontSize">
+                                <label>Season Deals Days</label>
+								<select id="season_dealDay" class="form-control calculator-controal" #season_dealDay="ngModel" name="season_dealDay" ngModel>
+									<option value="" selected>-- Select Days -- </option>
+									<option *ngFor="let allday of seasonitem" value="{{allday[1]}}">{{allday[0] | replaceString:allday[0]}} <span *ngIf="allday[0] == 'Days_1'">Day</span><span *ngIf="allday[0] != 'Days_1'">Days</span></option>
+								</select>
+							</div>
+                        </form>
+                    </div>
+                </div>
+				
+				<div class="row bg-light border rounded pb-3 mt-3 mr-lg-0 set-fontSize">
+                    <div class="col-lg-12 col-md-12 col-12 pt-3 pb-1">
+                        <span class="badge badge-warning badge-calculator">2</span> <span class="select-text">Select listing information</span>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-12 pt-2 pb-2 pl-4">
+                        <p class="m-0 font-weight-bold">Listing Detail</p>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-12 pl-0 p-2">
+                        <form class="form-inline">
+                            <div class="form-group col-lg-4 col-md-4 col-12">
+                                <label for="BuyItNow" class="pb-2"><span class="text-danger font-weight-bold">*</span>Item Fixed Price</label>
+                                <input class="form-control form-control-sm startingprice-buyitnow" #BuyItNow="ngModel" required ngModel id="BuyItNow" name="BuyItNow" type="number" placeholder="Price" pattern="^([1-9][0-9]{0,6}?)$">
+								<div *ngIf="BuyItNow.invalid && (BuyItNow.dirty || BuyItNow.touched)" class="text-danger">
+									<div *ngIf="BuyItNow.errors.required">
+										* Enter price.
+									</div>
+									<div *ngIf="BuyItNow.errors.pattern">
+										* The price must be a valid number greater than 0 and maximum price length is 7.
+									</div>
+								</div>
+							</div>
+						</form>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-12 pt-2 pb-2 pl-4 mt-3">
+                        <p class="m-0 font-weight-bold">Listing Upgrades</p>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12 pl-0 pl-4 pr-4">
+                        <label class="custom-control custom-checkbox pl-4">
+                            <input type="checkbox" class="custom-control-input" name="subtitle" id="subtitle">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Subtitle</span>
+                        </label>
+					</div>
+					<div class="col-lg-4 col-md-4 col-12 pl-0 pl-4 pr-4">
+                        <label class="custom-control custom-checkbox pl-4">
+                            <input type="checkbox" class="custom-control-input" name="BuyItNowPrice" id="BuyItNowPrice">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Buy It Now Price</span>
+                        </label>
+					</div>
+				</div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-12 pt-3 pb-3 mt-lg-0 mt-md-4 mt-4 bg-light border rounded estimated-fees-section">
+                <h6 class="m-0 text-left">Your Estimated Fees</h6>
+                <div class="row m-0 set-fontSize">
+                    <div class="col-lg-12 col-md-12 col-12 order-total p-0 mt-2">
+                        <div class="row m-0">
+                            <div class="col-lg-7 col-md-7 col-7 pt-2 pb-2 pr-1 pl-1 text-left">
+                                <span>Item Insertion Fees:</span>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-5 pt-2 pb-2 pr-1 pl-1 text-left">
+                                <span class="font-weight-bold">{{show_feesData?.data.insertion_fee}} AED</span>
+                            </div>
+                        </div> 
+						<div class="row m-0" *ngIf="feature_item_fees > 0">
+                            <div class="col-lg-7 col-md-7 col-7 pt-2 pb-2 pr-1 pl-1 text-left">
+                                <span>Featured Deals Fees:</span>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-5 pt-2 pb-2 pr-1 pl-1 text-left">
+                                <span class="font-weight-bold">{{feature_item_fees}} AED</span>
+                            </div>
+                        </div>
+						<div class="row m-0" *ngIf="season_item_fees > 0">
+                            <div class="col-lg-7 col-md-7 col-7 pt-2 pb-2 pr-1 pl-1 text-left">
+                                <span>Season Deals Fees:</span>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-5 pt-2 pb-2 pr-1 pl-1 text-left">
+                                <span class="font-weight-bold">{{season_item_fees}} AED</span>
+                            </div>
+                        </div>
+						<div class="row m-0" *ngIf="total_category_fees > 0">
+                            <div class="col-lg-7 col-md-7 col-7 pt-2 pb-2 pr-1 pl-1 text-left">
+                                <span>Category Fees:</span>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-5 pt-2 pb-2 pr-1 pl-1 text-left">
+                                <span class="font-weight-bold">{{total_category_fees}} AED ({{category_fees_percentage}}%)</span>
+                            </div>
+                        </div>
+						<div class="row m-0" *ngIf="subtitle_fees > 0">
+                            <div class="col-lg-7 col-md-7 col-7 pt-2 pb-2 pr-1 pl-1 text-left">
+                                <span>Subtitle Fees:</span>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-5 pt-2 pb-2 pr-1 pl-1 text-left">
+                                <span class="font-weight-bold">{{subtitle_fees}} AED</span>
+                            </div>
+                        </div>
+						<div class="row m-0" *ngIf="buyitnow_fees > 0">
+                            <div class="col-lg-7 col-md-7 col-7 pt-2 pb-2 pr-1 pl-1 text-left">
+                                <span>Buy It Now Price:</span>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-5 pt-2 pb-2 pr-1 pl-1 text-left">
+                                <span class="font-weight-bold">{{buyitnow_fees}} AED</span>
+                            </div>
+                        </div>
+						<div class="row m-0" *ngIf="discount_fees > 0">
+                            <div class="col-lg-7 col-md-7 col-7 pt-2 pb-2 pr-1 pl-1 text-left">
+                                <span>Discount:</span>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-5 pt-2 pb-2 pr-1 pl-1 text-left">
+                                <span class="font-weight-bold">{{discount_fees}} AED</span>
+                            </div>
+                        </div>
+                        <div class="row m-0">
+                            <div class="col-lg-12 col-md-12 col-12 p-0 text-left linearBg3">
+                            </div>
+                        </div>
+                        <div class="row m-0">
+                            <div class="col-lg-7 col-md-7 col-7 pt-2 pb-2 pr-1 pl-1 text-left">
+                                <span class="font-weight-bold">Total:</span>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-5 pt-2 pb-2 pr-1 pl-1 text-left">
+                                <span class="font-weight-bold">{{totalFees}} AED</span>
+                            </div>
+                        </div>
+                        <div class="row m-0">
+                            <div class="col-lg-12 col-md-12 col-12 pt-2 pb-2 pr-1 pl-1 text-left">
+                                <button class="btn theme-light-btn w-100" role="button" type="submit" (click)="calculateFees()">Calculate Fees
+                                </button>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-12 pt-2 pb-2 pr-1 pl-1 text-left" *ngIf="localItem?.role == 'seller'">
+                                <button class="btn theme-dark-btn w-100" role="button" type="button" (click)="clickToDraftList()">Start Over</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<footer-page></footer-page>
+</div>
+</ion-content>
+
+

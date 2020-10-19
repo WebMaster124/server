@@ -1,0 +1,272 @@
+
+<ion-content padding class="leave-feedback">
+	<div class="wrapper">
+		<div class="container leave-feedback-main">
+            <div class="row setFont_size">
+                <div class="col-lg-12 col-md-12 col-xl-12 col-12">
+                    <p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+					<p class="mb-2">
+                        <a href="#/home" class="breadcrumblink">Dibdaa</a> &nbsp;<i class="fa fa-angle-right"></i>&nbsp;
+                        <a (click)="goToback()" class="breadcrumblink">Order details</a> &nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+                        <a class="breadcrumblink font-weight-bold" disabled>RATE AND REVIEW</a></p>
+                </div>
+            </div>
+           
+			<div class="row">
+				<div class="col-lg-3 col-md-3 col-12 mt-3 mb-3">
+					<a (click)="gotoProductdetailspage(detailsData?.ProId)" >
+						<img src="{{trandingImgUrl}}{{detailsData?.ProId}}/S/{{detailsData?.ProImage}}" class="img-fluid menclothesimages">
+					</a>
+				</div>
+				<div class="col-lg-9 col-md-9 col-12 mt-3 mb-3">
+					<h5 class="mb-3 rate-and-review">RATE AND REVIEW</h5>
+					<a (click)="goToback()" class="producttitle-link">
+						<h6 class="producttitle ">
+							{{detailsData?.ProTitle}}
+						</h6>
+					</a>
+					<form class="mt-3" *ngIf="reviewAdded == false" #frm="ngForm" method="post" role="form" novalidate>
+                        <div class="form-group row ml-0 mr-0">
+                            <div class="col-sm-3 col-md-5 col-lg-3 pr-0">
+                                <label class="col-form-label"><span class="text-danger">*</span>
+                                    Rate this product :-
+                                </label>
+                            </div>
+                            <div class="col-sm-9 col-md-7 col-lg-9 rating-star">
+                                <div id="reviewStars-input">
+                                    <input id="star-4" type="radio" name="reviewStars" value="5" [(ngModel)]="reviewStars" required #review="ngModel">
+                                    <label title="Excellent" for="star-4"></label>
+
+                                    <input id="star-3" type="radio" name="reviewStars" value="4" [(ngModel)]="reviewStars" required>
+                                    <label title="Good" for="star-3"></label>
+
+                                    <input id="star-2" type="radio" name="reviewStars" value="3" [(ngModel)]="reviewStars" required>
+                                    <label title="Regular" for="star-2"></label>
+
+                                    <input id="star-1" type="radio" name="reviewStars" value="2" [(ngModel)]="reviewStars" required>
+                                    <label title="Poor" for="star-1"></label>
+
+                                    <input id="star-0" type="radio" name="reviewStars" value="1" [(ngModel)]="reviewStars" required>
+                                    <label title="Bad" for="star-0"></label>
+
+                                    <div *ngIf="review.invalid" class="error-box">
+                                        <div *ngIf="review.errors.required">
+                                            * Select option.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="setFont_size pt-2">
+                                    <span *ngIf="review?.value == 5">Excellent</span>
+                                    <span *ngIf="review?.value == 4">Good</span>
+                                    <span *ngIf="review?.value == 3">Regular</span>
+                                    <span *ngIf="review?.value == 2">Poor</span>
+                                    <span *ngIf="review?.value == 1">Bad</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row ml-0 mr-0 mb-0">
+                            <div class="col-sm-3 col-md-5 col-lg-3 pr-0">
+                                <label class="col-form-label"><span class="text-danger">*</span>Feedback
+                                    type :-</label>
+                            </div>
+                            <div class="col-sm-9 col-md-7 col-lg-9 rating-type pl-0">
+                                <div class="row m-0 setFont_size">
+                                    <div class="col-lg-3 pt-lg-2 col-md-12 col-12 form-group">
+                                        <input type="radio" id="possitive" name="feedback_type" value="Positive" [(ngModel)]="feedback_type" required #feedbacktype="ngModel">
+                                        <label for="possitive"><i class="fa fa-plus-circle text-success feedback-range"></i>
+                                            Possitive</label>
+                                    </div>
+                                    <div class="col-lg-3 pt-lg-2 col-md-12 col-12 form-group">
+                                        <input type="radio" id="negative" name="feedback_type" value="Negative" [(ngModel)]="feedback_type" required>
+                                        <label for="negative"><i class="fa fa-minus-circle text-danger feedback-range"></i>
+                                            Negative</label>
+                                    </div>
+                                    <div class="col-lg-3 pt-lg-2 col-md-12 col-12 form-group">
+                                        <input type="radio" id="neutral" name="feedback_type" value="Neutral" [(ngModel)]="feedback_type" required>
+                                        <label for="neutral"><i class="fa fa-dot-circle-o text-secondary feedback-range"></i>
+                                            Neutralt</label>
+                                    </div>
+                                </div>
+                                <div *ngIf="feedbacktype.invalid" class="error-box pl-3">
+                                    <div *ngIf="feedbacktype.errors.required">
+                                        * Select option.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="tell-us-more">Tell us more</label>
+                        </div>
+                        <div class="form-group row ml-0 mr-0">
+                            <div class="col-sm-3 col-md-5 col-lg-3 pr-0">
+                                <label class="col-form-label"><span class="text-danger">*</span>Communicaton with Seller :-</label>
+                            </div>
+                            <div class="col-sm-9 col-md-7 col-lg-9 rating-star">
+                                <div id="CommunicatonStars-input">
+                                    <input id="star-9" type="radio" name="communicationStars" value="5" [(ngModel)]="communicationStars" required #communication="ngModel">
+                                    <label title="Excellent" for="star-9" ></label>
+
+                                    <input id="star-8" type="radio" name="communicationStars" value="4" [(ngModel)]="communicationStars" required>
+                                    <label title="Good" for="star-8"></label>
+
+                                    <input id="star-7" type="radio" name="communicationStars" value="3" [(ngModel)]="communicationStars" required>
+                                    <label title="Regular" for="star-7"></label>
+
+                                    <input id="star-6" type="radio" name="communicationStars" value="2" [(ngModel)]="communicationStars" required>
+                                    <label title="Poor" for="star-6"></label>
+
+                                    <input id="star-5" type="radio" name="communicationStars" value="1" [(ngModel)]="communicationStars" required>
+                                    <label title="Bad" for="star-5"></label>
+
+                                    <div *ngIf="communication.invalid" class="error-box">
+                                        <div *ngIf="communication.errors.required">
+                                        * Select option.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row ml-0 mr-0">
+                            <div class="col-sm-3 col-md-5 col-lg-3 pr-0">
+                                <label class="col-form-label"><span class="text-danger">*</span>Do you recommend it? :-</label>
+                            </div>
+                            <div class="col-sm-9 col-md-7 col-lg-9 rating-star">
+                                <div id="ItemStars-input">
+                                    <input id="star-14" type="radio" name="itemStars" value="5" [(ngModel)]="itemStars" required #itemstr="ngModel">
+                                    <label title="Excellent" for="star-14"></label>
+
+                                    <input id="star-13" type="radio" name="itemStars" value="4" [(ngModel)]="itemStars" required>
+                                    <label title="Good" for="star-13"></label>
+
+                                    <input id="star-12" type="radio" name="itemStars" value="3" [(ngModel)]="itemStars" required>
+                                    <label title="Regular" for="star-12"></label>
+
+                                    <input id="star-11" type="radio" name="itemStars" value="2" [(ngModel)]="itemStars" required>
+                                    <label title="Poor" for="star-11"></label>
+
+                                    <input id="star-10" type="radio" name="itemStars" value="1" [(ngModel)]="itemStars" required>
+                                    <label title="Bad" for="star-10"></label>
+
+                                    <div *ngIf="itemstr.invalid" class="error-box">
+                                        <div *ngIf="itemstr.errors.required">
+                                            * Select option.
+                                        </div>
+                                    </div>
+                               </div>
+                            </div>
+                        </div>
+                        <div class="form-group row ml-0 mr-0">
+                            <div class="col-sm-3 col-md-5 col-lg-3 pr-0">
+                                <label class="col-form-label"><span class="text-danger">*</span>Value for money :-</label>
+                            </div>
+                            <div class="col-sm-9 col-md-7 col-lg-9 rating-star">
+                                <div id="MoneyStars-input">
+                                    <input id="star-20" type="radio" name="moneyStars" value="5" [(ngModel)]="moneyStars" required #moneystr="ngModel">
+                                    <label title="Excellent" for="star-20"></label>
+
+                                    <input id="star-19" type="radio" name="moneyStars" value="4" [(ngModel)]="moneyStars" required>
+                                    <label title="Good" for="star-19"></label>
+
+                                    <input id="star-18" type="radio" name="moneyStars" value="3" [(ngModel)]="moneyStars" required>
+                                    <label title="Regular" for="star-18"></label>
+
+                                    <input id="star-17" type="radio" name="moneyStars" value="2" [(ngModel)]="moneyStars" required>
+                                    <label title="Poor" for="star-17"></label>
+
+                                    <input id="star-16" type="radio" name="moneyStars" value="1" [(ngModel)]="moneyStars" required>
+                                    <label title="Bad" for="star-16"></label>
+
+                                    <div *ngIf="moneystr.invalid" class="error-box">
+                                        <div *ngIf="moneystr.errors.required">
+                                            * Select option.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row ml-0 mr-0">
+                            <div class="col-sm-3 col-md-5 col-lg-3 pr-0">
+                                <label class="col-form-label"><span class="text-danger">*</span>Item dispatched :-</label>
+                            </div>
+                            <div class="col-sm-9 col-md-7 col-lg-9 rating-star">
+                                <div id="DispatchedStars-input">
+                                    <input id="star-25" type="radio" name="dispatchedStars" value="5" [(ngModel)]="dispatchedStars" required #dispatchedstr="ngModel">
+                                    <label title="Excellent" for="star-25"></label>
+
+                                    <input id="star-24" type="radio" name="dispatchedStars" value="4" [(ngModel)]="dispatchedStars" required>
+                                    <label title="Good" for="star-24"></label>
+
+                                    <input id="star-23" type="radio" name="dispatchedStars" value="3" [(ngModel)]="dispatchedStars" required>
+                                    <label title="Regular" for="star-23"></label>
+
+                                    <input id="star-22" type="radio" name="dispatchedStars" value="2" [(ngModel)]="dispatchedStars" required>
+                                    <label title="Poor" for="star-22"></label>
+
+                                    <input id="star-21" type="radio" name="dispatchedStars" value="1" [(ngModel)]="dispatchedStars" required>
+                                    <label title="Bad" for="star-21"></label>
+
+                                    <div *ngIf="dispatchedstr.invalid" class="error-box">
+                                        <div *ngIf="dispatchedstr.errors.required">
+                                            * Select option.
+                                        </div>
+                                    </div>
+                               </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="tell-us-more">Write your review</label>
+                            <div class="toggale-button">
+                                <div class="form-group row ml-0 mr-0 mt-3 mb-3">
+                                    <label for="review-title" class="col-sm-3 col-md-5 col-lg-3 col-form-label"><span class="text-danger">*</span>Title your review :-</label>
+                                    <div class="col-sm-12 col-md-6 col-lg-5 col-12">
+                                        <input type="text" class="form-control" name ="title" id="review-title" placeholder="Title your review" #title="ngModel" required ngModel maxlength="40" minlength="3" (keypress)="onKeyPressed($event)">
+                                        <div *ngIf="title.invalid && (title.dirty || title.touched)" class="error-box">
+                                            <div *ngIf="title.errors.required">
+                                                * Enter title.
+                                            </div>
+                                            <div *ngIf="title.errors.minlength">
+                                                * Minimum title length is 3.
+                                            </div>
+                                            <div *ngIf="title.errors.maxlength">
+                                                * Maximum title length is 40.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row m-0">
+                                    <label for="review-title" class="col-sm-3 col-md-5 col-lg-3 col-form-label"><span class="text-danger">*</span>Write your review :-</label>
+                                    <div class="col-sm-9 col-md-7 col-lg-9">
+                                        <textarea class="form-control" rows="3" name="description" id="checkout-instruction" placeholder="Write your review" #description="ngModel" required ngModel maxlength="200" minlength="6" (keypress)="onKeyPressed($event)"></textarea>
+                                        <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error-box">
+                                            <div *ngIf="description.errors.required">
+                                                * Enter description.
+                                            </div>
+                                            <div *ngIf="description.errors.minlength">
+                                                * Minimum description length is 6.
+                                            </div>
+                                            <div *ngIf="description.errors.maxlength">
+                                                * Maximum description length is 200.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group text-center mt-4 mb-4">
+                            <div class="text-danger d-none showFeedbackError pt-2 pb-2 setFont_size">Your are already give feedback on this product</div>
+                            <button type="submit" class="btn theme-light-btn mr-3" (click)="submitForm()" [disabled]="!frm.valid">Submit</button>
+                            <button type="reset" class="btn theme-dark-btn ml-3" (click)="resetFunc()">Reset</button>
+                        </div>
+                    </form>
+                    <div class="form-group text-center p-5" *ngIf="reviewAdded == true">
+                        <h5> Thank You! </h5>
+                        <img src="assets/images/tick-512.png" width="60px" height="60px" />
+                        <p class="mt-3 setSpace_mobile" > Your review has been successfully submitted. </p>
+                    </div>
+				</div>
+			</div>
+		</div>
+        	<!--================Footer Area =================-->
+	<footer-page></footer-page>
+	</div>
+</ion-content>

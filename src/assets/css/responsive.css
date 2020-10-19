@@ -1,0 +1,476 @@
+@media only screen and (max-width: 1225px) and (min-width: 769px){
+    .xzoom-container .galleryimg{
+        width: 230px!important;
+    }
+}
+@media (max-width: 768px) and (min-width: 479px) {
+    .perfectpicstitle h6 {
+        font-size: 0.8rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-logo img.dibdaalogo {
+        height: auto;
+        width: 150px;
+        margin-top: 7px;
+    }
+    .container {
+        background-color: #fff;
+    }
+	ul.nav.topnavigation.firstnav {
+		display: none;
+	}
+	ul.nav.topnavigation.secondnav {
+		display: none;
+	}
+	.ion-page{
+		top:0 !important;
+	}
+	.banner{
+		padding-top: 10px;
+	}
+    .collapse.show {
+        z-index: 999;
+        background: #ffffff;
+    }
+	.header_top_area {
+		letter-spacing: 0.5px;
+		z-index: 1 !important;
+		position: relative;
+	}
+    .header_top_area .choosecategorysection {
+        display: none;
+    }
+    .product-listing .pricetxtbox {
+        width: 40px!important;
+    }
+    .listsellmain {
+        display: none;
+    }
+
+    .shop_header_area .navbar .navbar-nav li a {
+        line-height: 70px;
+    }
+	.shop_header_area{
+		display:block !important;
+	}
+    .shop_header_area .navbar {
+        padding: 0;
+        background-color: transparent !important;
+        border-top: none;
+        border-bottom: none;
+        height: 43px;
+    }
+    .header_top_area img.dibdaalogo {
+        display: block;
+        margin: 0 auto;
+        width: auto;
+        height: auto;
+    }
+    .shopnowbtndetail {
+        top: 0!important;
+    }
+    .xzoom-container {
+        width: 100% !important;
+    }
+    .xzoom-container .galleryimg{
+        width: 100% !important;
+    }
+    .productdescriptiontabrow {
+        margin-left: 0!important;
+        margin-right: 0!important;
+    }
+    .cart-summary .cart-summary-total h4{
+        font-size: 1.4rem;
+    }
+    .link-list.menu-banner {
+        display: none;
+    }
+    .top-header {
+        border-bottom: none !important;
+		background-color:#fff;
+		letter-spacing: 0.5px;
+		font-size: 0.8rem;
+		z-index: 1 !important;
+		position: relative;
+    }
+    body.add-product .add-product-form .theme-dark-btn, body.add-product .add-product-form .theme-light-btn {
+        display: block;
+        margin: 0 auto;
+        width: 215px !important;
+    }
+    .seller-account .paginationlist ul.pagination .page-link {
+        font-size: 0.8rem !important;
+        padding: .5rem .75rem !important;
+    }
+    .theme-light-btn{
+        font-size: 0.8rem!important;
+        padding: .275rem 0.8rem !important;
+    }
+    .theme-dark-btn{
+        font-size: 0.8rem!important;
+        padding: .275rem 0.8rem !important;
+    }
+    .wstbootslider .carousel-control-next {
+        right: 0 !important;
+    }
+    .seller-profil-sub{
+        width: auto!important;
+    }
+    .img-seller-profile{
+        width: 65px;
+    }
+    .seller-profile-main .profile .user {
+        width: max-content;
+        margin: 0 auto;
+    }
+    .profile .seller-profil-sub {
+        width: auto !important;
+    }
+    .profile .seller-profil-sub-all-link {
+        width: 600px !important;
+    }
+	footer{
+		margin-bottom:0 !important;
+	}
+	.shop_header_area{
+		display:block !important;
+	}
+	.top_header_left input.searchtxt {
+        height: 40px!important;
+    }
+    .top_header_left select.allcategories {
+        height: 33px !important;
+    }
+    .leave-message .chat-img1 {
+        width: 10%!important;
+    }
+    .leave-message .leave-message-main .chat_area .chat-body1{
+        width: 90%!important;
+    }
+    .news-letter .theme-dark-btn{
+        padding: .575rem .75rem!important;
+    }
+	page-product-details .xzoom-thumbs , page-preview-product .xzoom-thumbs {
+		width: auto !important;
+	}
+    .banner .owl-prev{
+        top: 35% !important;
+    }
+    .banner .owl-next{
+        top: 35% !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .border-bidder-info{
+        border-right: none!important;
+    }
+    ul.nav.topnavigation.firstnav {
+        display: none;
+    }
+    ul.nav.topnavigation.secondnav {
+        display: none;
+    }
+    .top-header {
+		    border-bottom: none !important;
+		background-color:#fff;
+		letter-spacing: 0.5px;
+		font-size: 0.8rem;
+		z-index: 1 !important;
+		position: relative;
+        width: 100% !important;
+    }
+	.header_top_area{
+		letter-spacing: 0.5px;
+		z-index: 1 !important;
+		position: relative;
+	}
+    .itemconditionform .pricetxtbox {
+        width: 50px!important;
+    }
+    .advance-search .origional-place {
+        top: 10px;
+    }
+    .seller-account .product-save-title {
+        font-size: 0.9rem !important;
+    }
+	.shop_header_area{
+		display:block !important;
+	}
+	.ion-page{
+		top:0 !important;
+	}
+	/*.banner{
+		padding-top:180px;
+	}*/
+    .advance-search .origional-place {
+        top: 10px;
+    }
+
+    body.seller-account .product-save-title {
+        font-size: 0.9rem !important;
+    }
+
+    /*    .xzoomsmallhidden {
+            display: none!important;
+        }*/
+    .theme-light-btn {
+        font-size: 0.8rem !important;
+        padding: .275rem 0.8rem !important;
+    }
+
+    .theme-dark-btn {
+        font-size: 0.8rem !important;
+        padding: .275rem 0.8rem !important;
+    }
+
+    .header_top_area img.dibdaalogo {
+        display: block;
+        margin: 0 auto;
+        width: auto;
+        height: auto;
+    }
+
+    .seller-account .paginationlist ul.pagination .page-link {
+        padding: .5rem .40rem !important;
+    }
+
+    .top_header_left .input-group {
+        margin-top: 10px;
+    }
+
+    .top_header_left input.searchtxt {
+        width: 70% !important;
+    }
+
+    .top_header_left form.form-inline.searchanythingform a.advancedlink {
+        display: none;
+    }
+
+    .top-left {
+        display: none;
+    }
+
+    .feature_inner .featuredalign {
+        padding-bottom: 30px;
+    }
+
+    .feature_inner .featuredsecond {
+        padding-bottom: 20px;
+        padding-top: 20px;
+    }
+
+    .allourfavourite .allourfavouritespeacial .muchlessdiv {
+        padding-bottom: 30px;
+    }
+
+    .banner .owl-carousel .owl-item img {
+        height: auto;
+        margin-top: 40px;
+    }
+
+	.banner .owl-prev{
+		top: 45% !important;
+	}
+	.banner .owl-next{
+		top: 45% !important;
+	}
+    .f_extra_widget {
+        padding-left: 0;
+    }
+
+    .footer_widgets {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    footer {
+        text-align: center;
+		margin-bottom:0 !important;
+    }
+
+    .footer_copyright {
+        padding: 0 0 16.5px;
+    }
+
+    .panel-body .showpassworddiv {
+        flex: 0 0 21% !important;
+        max-width: 21% !important;
+    }
+
+    .paginationlist .page-link {
+        font-size: 0.9rem !important;
+        padding: .5rem 0.5rem !important;
+    }
+
+    .paginationlist .arrowprevnext {
+        font-size: 1rem !important;
+        bottom: 0 !important;
+    }
+
+    .itemconditionform {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .productdescriptiontabrow {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .searchshoptxtbox {
+        width: 59% !important;
+    }
+
+    .productdescriptiontab .itemspecificssub .firsttd {
+        min-width: 115px !important;
+        width: 115px !important;
+    }
+
+    .productdescriptiontab .shipingandhandling .firsttd {
+        min-width: 115px !important;
+        width: 115px !important;
+    }
+
+    .itempricediv .addtocart .buyitnowbtn {
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    .itempricediv .addtocart .addtocartbtn {
+        width: 100%;
+    }
+
+    .itempricediv .addtocart .addtowatchlist {
+        text-align: center;
+    }
+
+    .xzoom-container {
+        width: auto !important;
+    }
+
+    .xzoom-container .galleryimg {
+        width: 100% !important;
+        margin: 0 auto 10px auto;
+        display: block;
+    }
+
+    img.gallerysmallimg {
+        width: 78px;
+    }
+
+    .top_header_left form.form-inline.searchanythingform {
+        flex-flow: row wrap !important;
+    }
+
+    .top_header_left .input-group input {
+        margin-bottom: 5px;
+        border-top-right-radius: 5px !important;
+        border-bottom-right-radius: 5px !important;
+    }
+
+    .top_header_left select.allcategories {
+        border-top-left-radius: 5px !important;
+        border-bottom-left-radius: 5px !important;
+    }
+
+    .productdescriptiontab .tablistinbtn {
+        font-size: 12px;
+        position: relative;
+        bottom: 4px;
+    }
+
+    .productdescriptiontab .tablistinbtn.active.show {
+        top: auto !important;
+        bottom: 4px !important;
+    }
+
+    ul.nav.detailnavigationtab {
+        position: relative;
+        top: 5px;
+    }
+
+    .cart-summary .cartsummarymain .cartsummaryimg {
+        width: 175px !important;
+        height: 175px !important;
+    }
+
+    .profile .seller-profil-sub {
+        width: auto !important;
+    }
+
+    .profile .seller-profil-sub-all-link {
+        width: 320px !important;
+    }
+	.shop_header_area{
+		display:block !important;
+	}
+	.cart-summary .cartsummarymain .cartsummaryimg {
+        width: 175px !important;
+        height: 175px !important;
+    }
+
+    .profile .seller-profil-sub {
+        width: auto !important;
+    }
+
+    .profile .seller-profil-sub-all-link {
+        width: 320px !important;
+    }
+    .leave-message .chat-img1 {
+        width: 20%!important;
+    }
+    .leave-message .leave-message-main .chat_area .chat-body1{
+        width: 80%!important;
+    }
+	page-product-details .xzoom-thumbs , page-preview-product .xzoom-thumbs {
+		width: auto !important;
+	}
+	
+}
+
+@media (max-width: 360px) {
+	.shop_header_area{
+		display:block !important;
+	}
+	.banner{
+		padding-top:10px;
+	}
+	.ion-page{
+		top:0 !important;
+	}
+    .featuresalesevents h2 {
+        font-size: 1.2rem;
+    }
+
+    .Tredingondibdaa h2 {
+        font-size: 1.2rem;
+    }
+
+    .couponoffer p {
+        letter-spacing: 0;
+    }
+
+    .DailyDeals h2 {
+        font-size: 1.2rem;
+    }
+
+    .allourfavourite .allourfavouritespeacial h2 {
+        font-size: 1.8rem;
+    }
+
+    .muchmoreformuchless .muchmoreformuchlessspeacial h2 {
+        font-size: 1.8rem;
+    }
+
+    .editorpicks h2 {
+        font-size: 1.2rem;
+    }
+
+    .feature_perfect_area h2 {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+}

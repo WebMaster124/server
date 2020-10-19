@@ -1,0 +1,94 @@
+page-viewpurchase-userlist {
+	.wrapper{
+		margin-top: 100px;
+	}
+	.setFont-size{
+		font-size:0.8rem !important;
+	}
+	.purchase-user-list {
+		.breadcrumblink{
+			color: $color_black;
+		}
+		
+		.frontbg{
+			background-color: #F47321;
+			box-shadow: 0 6px 10px -2px #808080;
+			h6{
+				color: #ffffff;
+				font-size: 1rem !important;
+				font-weight: bold;
+				letter-spacing: 0.5px;
+				text-transform: capitalize;
+				margin-bottom: 0.5rem !important;
+			}
+		}
+		.paginate_background{
+			background-color: #f2f2f2;
+		}
+	  .add-product-form {
+		.theme-dark-btn, .theme-light-btn {
+		  display: block;
+		  margin: 0 auto;
+		  width: 250px !important;
+		}
+	  }
+	  .page-listing-first-td {
+		min-width: 115px;
+	  }
+	  .add-product-main {
+		border: 1px solid $color_Silver;
+		border-top: none;
+	  }
+	  .form-control {
+		font-size: 0.9rem !important;
+	  }
+	  .changeorderStatusbutton{
+		padding: 5px 15px;
+		border-radius: 5px;
+		color: #fff;
+		background-color: #ec731e;
+		font-weight: 600;
+		letter-spacing: 1px;
+	  }
+	  .changeorderStatusbutton:hover{
+		color: #fff;
+	  }
+	  .custom-control-indicator {
+		background-color: $frontColor !important;
+		outline: none;
+		width: 0.9rem !important;
+		height: 0.9rem !important;
+	  }
+	  .custom-control-description {
+		font-weight: normal;
+	  }
+	  a.temporary-password {
+		color: $frontColor;
+		font-size: 0.9rem;
+		letter-spacing: 0.5px;
+	  }
+	  p {
+		font-size: 0.9rem;
+		width: 100%;
+		letter-spacing: 0.5px;
+	  }
+	 
+	  a {
+		color: $frontColor;
+		font-weight: normal;
+	  }
+	  .information-circle {
+		color: $frontColor;
+	  }
+	  .add-product-img {
+		height: 150px;
+		width: 150px;
+		border: 2px solid $color_Silver;
+		border-radius: 10px;
+	  }
+	  .receiving-payment-email {
+		position: relative;
+		bottom: 8px;
+	  }
+	}
+}

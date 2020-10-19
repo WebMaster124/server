@@ -1,0 +1,297 @@
+page-view-cart {
+	.wrapper{
+		margin-top: 100px;
+	}
+	.add-to-cart {
+      .about-your-cart {
+        max-height: 260px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+      }
+	h4 {
+		font-size: 1.5rem;
+	}
+	.set_fontSize{
+		font-size:14px !important;
+	}
+	.navbar-nav{
+      margin: 0 auto;
+    }
+	.seller_atag{
+		color:#e5731b !important;
+	}
+  .cartsummarymain {
+	.update_cart{
+		display: block;
+		padding-right: 20px;
+		font-size: 14px;
+		margin-top: 5px;
+		color:#e5731b;
+		cursor:pointer;
+	}
+	.error_span{
+		display: block;
+		font-size: 14px;
+		margin-top: 5px;
+		color: red;
+		cursor: pointer;
+	}
+	.span_red{
+		color:red;
+	}
+    border-radius: 5px;
+    h2 {
+      font-size: $fontsizeh2;
+      color: #000000;
+    }
+    h6 {
+      color: $color_semiblack;
+    }
+    .cartactualprice {
+      color: #CB1F27;
+    }
+    .strikethrough {
+      text-decoration: line-through;
+    }
+    .strikethroughnormal {
+      color: #777777;
+      font-size: 0.9rem;
+      font-weight: normal;
+    }
+    .removesavelater {
+      letter-spacing: 0.5px;
+      color: #0654BA;
+      font-weight: $font-weight600;
+      font-size: $fontsizeone;
+      font-family: $OpenSans-SemiBold;
+    }
+    a:hover h6 {
+      color: $frontColor;
+      text-decoration: underline;
+    }
+    .cartsummaryimgdiv {
+      border: 1px solid $color_Silver;
+      width: auto;
+      margin: 0 auto;
+    }
+    .cartsummaryimg {
+		width: 150px;
+    }
+    .table td, .table th {
+      padding: .20rem;
+      vertical-align: top;
+      border-top: 0;
+      letter-spacing: 0.5px;
+      font-family: $OpenSans-Regular;
+    }
+    .bordercartsummarybottom {
+      border-bottom: 2px dotted $secondary_color;
+    }
+    .pricetxtbox {
+      display: inline-block;
+      width: 70px;
+      padding: 5px 5px;
+      font-size: $pfontsize;
+      line-height: 0.5;
+      color: $color_semiblack;
+      font-weight: $font-weightbold;
+      background-color: $color_white;
+      border-radius: 5px;
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+  }
+      .SocialLink{
+        a{
+          font-size: 1.5rem;
+          line-height: 30px;
+          font-family: "OpenSans-Regular", Sans Serif;
+          color: #797b7b;
+          font-weight: 400;
+          -webkit-transition: all 400ms linear 0s;
+          transition: all 400ms linear 0s;
+        }
+      }
+  .cart-summary-total {
+    border: 1px solid $secondary_color;
+    -moz-box-shadow: 5px 5px 5px $secondary_color;
+    -webkit-box-shadow: 5px 5px 5px $secondary_color;
+    box-shadow: 5px 5px 5px $secondary_color;
+    border-radius: 3px;
+    height: max-content;
+    .totalitems {
+      color: #777777;
+      font-size: 0.9rem;
+      font-weight: normal;
+    }
+    .border-bottom-summary {
+      border-bottom: 1px solid $color_semiblack;
+    }
+    .proceedtocheckout {
+		background: -webkit-gradient(linear, left top, left bottom, from(#F47321), to(#c27410)) !important;
+		
+		/*background: -moz-linear-gradient(top, #F39114, #c27410) !important;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$frontColor', endColorstr='#c27410') !important;*/
+		color: $color_white;
+		font-weight: $font-weightbold;
+		padding: .275rem 1rem;
+		font-size: 1rem;
+		line-height: 1.5;
+		border-radius: .20rem;
+		border: 1px solid #c27410;
+		transition: unset;
+		width: 100%;
+		-webkit-box-shadow: 0 5px 0 rgba(0, 0, 0, .2);
+		-moz-box-shadow: 0 5px 0 rgba(0, 0, 0, .2);
+		box-shadow: 0 5px 0 $secondary_color;
+		letter-spacing: 0.5px;
+    }
+    .proceedtocheckout:hover {
+      background: #c27410;
+      border: 1px solid #c27410;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$frontColor', endColorstr='#c27410');
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+    }
+    .proceedtocheckout:focus {
+      background: #c27410;
+      border: 1px solid #c27410;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$frontColor', endColorstr='#c27410');
+    }
+    .proceedtocheckout:active {
+      background: #c27410;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$frontColor', endColorstr='#c27410');
+    }
+
+    .btn-primary:not([disabled]):not(.disabled).active, .btn-primary:not([disabled]):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+      box-shadow: none !important;
+    }
+    .btn-primary.focus, .btn-primary:focus {
+      box-shadow: none !important;
+    }
+    p {
+      letter-spacing: 0.5px;
+    }
+    .rotate {
+      -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+      -moz-transform: rotate(90deg); /* Firefox */
+      -ms-transform: rotate(90deg); /* IE 9 */
+      transform: rotate(90deg); /* Standard syntax */
+    }
+    .accordiana {
+      font-size: $pfontsize;
+      color: $color_semiblack;
+      font-weight: normal;
+    }
+    .accordiana:hover {
+      text-decoration: none;
+    }
+    .accordianpaneldefault {
+      border-bottom: 1px solid $color_Silver;
+    }
+    .collapse.show {
+      padding-top: 1.3px;
+    }
+  }
+  .continue-shoping {
+    border: 1px solid $secondary_color;
+    -moz-box-shadow: 5px 5px 5px $secondary_color;
+    -webkit-box-shadow: 5px 5px 5px $secondary_color;
+    box-shadow: 5px 5px 5px $secondary_color;
+    border-radius: 3px;
+    height: max-content;
+    .totalitems {
+      color: #777777;
+      font-size: 0.9rem;
+      font-weight: normal;
+    }
+    .border-bottom-summary {
+      border-bottom: 1px solid $color_semiblack;
+    }
+    .continue-shoping-btn {
+      background: -webkit-gradient(linear, left top, left bottom, from(#665a65), to(#40323F));
+      /*background: -moz-linear-gradient(top, #665a65, #40323F);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#665a65', endColorstr='#40323F');*/
+      color: $color_white;
+      font-weight: $font-weightbold;
+      padding: .275rem 1rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      border-radius: .20rem;
+      border: 1px solid $secondary_color;
+      transition: unset;
+      width: 100%;
+      -webkit-box-shadow: 0 5px 0 rgba(0, 0, 0, .2);
+      -moz-box-shadow: 0 5px 0 rgba(0, 0, 0, .2);
+      box-shadow: 0 5px 0 $secondary_color;
+      letter-spacing: 0.5px;
+    }
+    .continue-shoping-btn:hover {
+      color: $color_white;
+      border: 1px solid #40323F;
+      background: #261e25;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+	  opacity: 1 !important;
+    }
+    .continue-shoping-btn:focus {
+      background: #40323F;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#665a65', endColorstr='#40323F');
+    }
+    .continue-shoping-btn:active {
+      background: #40323F;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#665a65', endColorstr='#40323F');
+    }
+
+    .proceedtocheckout {
+      background: -webkit-gradient(linear, left top, left bottom, from($frontColor), to(#c27410));
+      /*background: -moz-linear-gradient(top, $frontColor, #c27410);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$frontColor', endColorstr='#c27410');*/
+      color: $color_white;
+      font-weight: $font-weightbold;
+      padding: .275rem 1rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      border-radius: .20rem;
+      border: 1px solid #c27410;
+      transition: unset;
+      width: 100%;
+      -webkit-box-shadow: 0 5px 0 rgba(0, 0, 0, .2);
+      -moz-box-shadow: 0 5px 0 rgba(0, 0, 0, .2);
+      box-shadow: 0 5px 0 $secondary_color;
+      letter-spacing: 0.5px;
+    }
+    .proceedtocheckout:hover {
+      background: #c27410;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c27410', endColorstr='#c27410');
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+	  opacity: 1 !important;
+    }
+    .proceedtocheckout:focus {
+      background: #c27410;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c27410', endColorstr='#c27410');
+    }
+    .proceedtocheckout:active {
+      background: #c27410;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c27410', endColorstr='#c27410');
+    }
+    .btn-primary:not([disabled]):not(.disabled).active, .btn-primary:not([disabled]):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+      box-shadow: none !important;
+    }
+    .btn-primary.focus, .btn-primary:focus {
+      box-shadow: none !important;
+    }
+    .continue-shoping-tbl {
+      line-height: 30px;
+      .border-tr {
+        border-top: 1px solid $secondary_color;
+        border-bottom: 1px solid $secondary_color;
+      }
+    }
+  }
+}
+}

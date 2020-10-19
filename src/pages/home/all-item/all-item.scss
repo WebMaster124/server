@@ -1,0 +1,125 @@
+page-all-item {
+	//top: 100px !important;
+	.wrapper{
+		margin-top: 100px;
+	}
+	
+	.featured-deals {
+		figure{
+			width: auto;
+			height: 200px;
+			float: none;
+			display: block;
+			vertical-align: top;
+			position: relative;
+			a{
+				.img-fluid{
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					margin: auto;
+					min-width: auto;
+					max-width: 100%;
+					max-height: 100%;
+					width: auto;
+					height: auto;
+				}
+			}
+		}
+		.w-20{
+			max-width: 20%!important;
+		}
+		.top-left-sticker{
+			position: absolute;
+			top: -4px;
+			left: 10px;
+		}
+		.sold-text{
+			color: #ffffff;
+			font-size: 11px;
+			font-weight: bold;
+			letter-spacing: 1px;
+			position: absolute;
+			width: 100%;
+			left: 0px;
+			-webkit-transform: rotate(315deg);
+			transform: rotate(315deg);
+			bottom: 57px;
+		}
+		.setImageSize{
+			max-width:65% !important;
+		}
+	.set_fontSize{
+		font-size:13px;
+	}
+	.navbar-nav{
+		margin:0 auto;
+	}
+	 .featured-deals-main {
+		.ratings {
+			position: relative;
+			vertical-align: middle;
+			display: inline-block;
+			color: #b1b1b1;
+			overflow: hidden;
+			letter-spacing: 3px;
+		}
+		.full-stars {
+			position: absolute;
+			left: 0;
+			top: 0;
+			white-space: nowrap;
+			overflow: hidden;
+			color: orange;
+		}
+		.empty-stars:before, .full-stars:before {
+			content:"\2605\2605\2605\2605\2605";
+			font-size: 12pt;
+		}
+		.empty-stars:before {
+			-webkit-text-stroke: 1px #848484;
+		}
+		.full-stars:before {
+			-webkit-text-stroke: 1px orange;
+		}
+		/* Webkit-text-stroke is not supported on firefox or IE */
+
+		/* Firefox */
+		 @-moz-document url-prefix() {
+			.full-stars {
+				color: #ECBE24;
+			}
+		}
+		letter-spacing: 0.5px;
+		.feature-deals-title {
+			color: $frontColor;
+		  a{
+			color: $frontColor;
+			text-decoration: none;
+		  }
+		}
+		.box-detail {
+		  min-height: 185px;
+		}	
+		.sale {
+		  border-top: 49px solid #dd1e31;
+		  border-right: 49px solid transparent;
+		  width: 0;
+		  height: 0;
+		  position: absolute;
+		  top: 1px;
+		  left: 16px;
+		}
+		.clockicon {
+		  position: absolute;
+		  bottom: 24px;
+		  left: 7px;
+		  font-size: 1.2rem;
+		  color: $color_white;
+		  font-weight: 500;
+		}
+	  }
+	}
+}

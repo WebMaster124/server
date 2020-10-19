@@ -1,0 +1,98 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>
+			<h6 *ngIf="checkKey == 'Address'">Edit/ Update  Your address</h6>
+                        
+                        
+			<h6 *ngIf="checkKey == 'Phone'">Change business phone number</h6>
+		</ion-title>
+		<ion-buttons end>
+			<button ion-button (click)="closeModal()"><i class="fa fa-close" style="font-size:26px"></i></button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+<ion-content padding *ngIf="checkKey == 'Address'">
+	<ng4geo-autocomplete [userSettings]="userSettings" (componentCallback)="autoCompleteCallback1($event)"></ng4geo-autocomplete>
+        
+        <!--<ng4geo-autocomplete [userSettings]="userSettings" (componentCallback)="autoCompleteCallback1($event)"></ng4geo-autocomplete>\n-->
+        
+<!--        <form #loginfrm="ngForm" class="form" id="login-form" method="post" role="form" novalidate>
+           <div class="form-group col-md-12">
+        
+        <h6 style='padding-top: 10px;'>Country or region <span style="color:red;">* </span></h6>
+        
+        <select id="categories_select" class="form-control" #categories_select="ngModel" name="country_id" required ngModel (change)="checkSaesonDeal(categories_select.value)">
+       
+             <option value disabled selected>Select Country</option>
+      <option *ngFor="let categoriesselect of show_category?.data" value="{{categoriesselect.id}}" >{{categoriesselect.country_name}}</option>
+         </select>
+        
+
+    
+        </div>
+        
+        
+        
+        
+           <div class="form-group col-md-12">
+               <h6>Street Address <span style="color:red;">* </span></h6>
+                 <input type="text" placeholder=" Flat/ House No. / Floor / Building" class="form-control"  name="flat"  #flat="ngModel" ngModel required> 
+       <input type="text" placeholder=" Colony / Street/ Locality" class="form-control" name="street" #street="ngModel" ngModel  style='margin-top: 10px;' >
+      
+    </div>
+        
+        
+          <div class="form-group col-md-12">
+         <h6>City <span style="color:red;">* </span></h6>
+        <input type="text" class="form-control" id="city" name="city" #city="ngModel" ngModel required >
+    </div>
+        
+        
+       
+        <div class="form-group col-md-12" >
+        <h6>State / Province / Region <span style="color:red;">* </span></h6>
+        <select  class="form-control" name="state_id"  #state_id="ngModel" ngModel required>
+             <option value disabled selected>Select State</option>
+             <option *ngFor="let stateselect of show_states?.data" value="{{stateselect.id}}" >{{stateselect.name}}</option>
+            
+          
+         </select>
+    </div>
+        
+              <div class="form-group col-md-12">
+                    <h6>Post / Zip Code <span style="color:red;">* </span></h6>
+       
+        <input type="text" class="form-control" id="pincode" name="pincode" #pincode="ngModel" ngModel required minlength="6">
+              
+     
+              
+              </div>
+        
+        
+        
+           <div class="form-group col-md-12" >
+               
+               <h5>Add Delivery Instruction</h5>
+        <h6>Do we need additional instructions to find this address</h6>
+        <textarea class="form-control"  name="landmark" #landmark="ngModel" ngModel placeholder="Provide details such as building description, a near by landmark, or other navigation instructions"></textarea>
+    </div>
+      
+        
+    
+        <div class="w-100 text-center mt-4"> <button type="submit" class="btn theme-light-btn" (click)="changeaddress(loginfrm)">Submit</button>
+    </div>
+            
+            
+    </form>-->
+</ion-content>
+
+<ion-content padding *ngIf="checkKey == 'Phone'">
+	<label class="p-3 setFontSize">Phone Number</label>
+	<int-phone-prefix [locale]="'en'" id="phonenumber" [formControl]="changeuserProfileForm.controls['phonenumber']" [ngClass]="{'error-border':!changeuserProfileForm.controls['phonenumber'].valid}"></int-phone-prefix>
+	<div class="error-box" *ngIf="changeuserProfileForm.controls['phonenumber'].hasError('minlength') && changeuserProfileForm.controls['phonenumber'].touched">* Minimum length is 7!</div>
+	<div class="error-box" *ngIf="changeuserProfileForm.controls['phonenumber'].hasError('required') && changeuserProfileForm.controls['phonenumber'].touched">* Phone is required!</div>
+	<div class="w-100 text-center mt-4">
+		<button type="submit" class="btn theme-light-btn" (click)="changePhone(changeuserProfileForm)">Change Phone Number</button>
+	</div>
+</ion-content>
+

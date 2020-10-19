@@ -1,0 +1,84 @@
+.scroll-content{
+	padding:0 !important;
+}
+page-home {
+	.cookiealert {
+  position: fixed !important;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin: 0 !important;
+  z-index: 999;
+  opacity: 0;
+  border-radius: 0;
+  background: #212327 url("../images/cubes.png");
+  transform: translateY(100%);
+  transition: all 500ms ease-out;
+  color: #ecf0f1;
+  font-size: 13px !important;
+}
+
+.cookiealert.show {
+  opacity: 1;
+  transform: translateY(0%);
+  transition-delay: 1000ms;
+}
+
+.cookiealert a {
+  text-decoration: underline
+}
+
+.cookiealert .acceptcookies {
+  margin-left: 10px;
+  vertical-align: baseline;
+}
+	.slider-content-center {
+		position: absolute;
+		top: 50%;
+		left: 0;
+		width: 350px;
+		transform: translate(0, -50%);
+		padding-left: 40px;
+		padding-right: 0;
+	}
+	.dynamic-bg-bnr1{
+		color: #147821;
+	}
+	ion-header{
+		position:relative !important;
+	}
+	.banner_font{
+		color:$color_white;
+	}
+	.shopnowbtndetail {
+		position: relative;
+		top: 20px;
+		border-radius: 0;
+		color: #147821;
+		border-color: #147821;
+		box-shadow: #147821 0px 0px 0px 0px inset;
+		background-color: transparent;
+		-webkit-transition-duration: 0.2s;
+		-webkit-transition-timing-function: linear;
+		cursor: pointer;
+	}
+	.shopnowbtndetail:hover {
+		box-shadow: 0 0 0 25px #147821 inset;
+		-webkit-transform: scale(1);
+		color: #ffffff !important;
+		cursor: pointer;
+	}
+	.bnr-description{
+		font-size: 1rem;
+	}
+	.alinkFooter{
+		color: rgba(0,0,0,.5) !important;
+		text-decoration: none;
+		&:hover{
+			color: $frontColor !important;
+		}
+	}
+	.alinkFootercopy:hover{
+		color: $frontColor !important;
+	}
+}

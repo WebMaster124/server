@@ -1,0 +1,663 @@
+<!--<ion-header>-->
+<div class="estatus"><span>Saving...</span></div>
+
+<div class="top-header " *ngIf="lg?.isLogin == false; else showdata;">
+	<div class="container back_color pl-lg-2">
+		<div class="row pl-lg-1 pr-lg-1">
+			<div class="col-lg-3 col-md-8 pl-lg-0 p-md-0">
+				<ul class="nav topnavigation firstnav">
+					<li class="nav-item dropdown withmydibdaa right-border pt-1 pb-1">
+						<a class="nav-link-top dropbtn"><i class="fa fa-user pr-2 login-iser-icon"></i> Hello. Guest123</a>
+						<div class="dropdown-content signindropdown">
+							<a class="btn theme-light-btn mt-3 mb-3 ml-4 mr-4" (click)="goToHomePage('login','HomePage')" role="button">Sign In</a>
+							<div class="text-center">Don't have an account?<br/>
+								<a class="signup-link mt-2 mb-2" (click)="goToHomePage('register','HomePage')">Sign Up</a>
+							</div>
+							<a (click)="goToHomePage('login','PurchaseHistory')">My Orders</a>
+							<a (click)="goToHomePage('login','MyAddresses')">My Addresses</a>
+							<a (click)="goToHomePage('login','WishList')">Wish Lists</a>
+							<a (click)="goToHomePage('login','account')">Account Settings</a>
+						</div>
+					</li>
+
+					<li class="nav-item pt-1 pb-1">
+						<a (click)="gotouserProfilepage('FeaturedDeals','FeaturedDeals')"class="nav-link-top">Featured Deals</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-lg-5 col-md-2 pl-0 pr-0 pt-1 pb-1 listsellmain text-left">
+					<img src="assets/images/Dibdaa-icon.png">
+					<span *ngIf="menu_category?.punch_line != '';else showStatic_Offline;"> {{menu_category?.punch_line}}</span>
+					<ng-template #showStatic_Offline>
+						<span>The pacifying experience in Buying & Selling !</span>
+					</ng-template>
+			</div>
+			<div class="col-lg-4 col-md-12 pl-2 pl-md-0 pt-md-0 pb-md-0 pr-md-3">
+				<ul class="nav topnavigation secondnav pt-1 pb-1">
+					<li class="nav-item right-border"><a (click)="goToHomePage('login','DraftListingPage')" class="btn theme-light-btn sell-btn ml-2">Sell</a></li>
+					<li class="nav-item right-border float-right d-lg-block d-none d-md-none pt-1 pb-1">
+						<a class="nav-link-top" (click)="gotouserProfilepage('','contact-us')">Help & Contact</a>
+					</li>
+					<li class="nav-item pt-1 pb-1">
+						<a class="nav-link-top" (click)="goToHomePage('dibdaaPremium','')">Dibdaa Premium</a>
+					</li>
+				</ul>
+				<div class="row ml-0 mb-2 mr-0 mt-1 justify-content-end">
+					<div class="col-lg-6 col-md-5 col-4 pl-lg-0 pl-md-4 d-block d-lg-none d-md-block p-0 mobile-logo text-md-center">
+						<a (click)="goToHomePage('Home','')">
+							<img src="assets/images/Dibdaa.png" class="dibdaalogo img-fluid" alt="Dibdaa Logo">
+						</a>
+					</div>
+					<div class="col-lg-6 col-md-4 col-6 d-block d-lg-none d-md-block text-right p-0 back_color mobile_toprightIcon">
+						<a (click)="searchToggle()"><i class="fa fa-search bellshoping pl-2"></i></a>
+						<a (click)="goToHomePage('login','HomePage')"><i class="fa fa-user bellshoping pl-2"></i></a>
+						<a (click)="goToHomePage('login','message')"><i class="fa fa-envelope bellshoping pl-2"></i></a>
+						<a (click)="goToHomePage('login','HomePage')"><i class="fa fa-bell bellshoping pl-2"></i></a>
+						<a (click)="goToHomePage('login','ViewCartPage')">
+							<i class="fa fa-shopping-cart bellshoping pl-2"></i>
+							<span class="badge badge-warning badge-shaping"></span>
+						</a>
+					</div>
+				</div>
+				<div class="search-bar" style="display: none;">
+					<div class="row p-md-4 p-4 m-0 justify-content-center">
+						<div class="col-lg-8 col-md-11 col-12 p-0">
+							<div class="top_header_left">
+								<div class="input-group d-lg-none">
+									<form #frmspec="ngForm" class="form-inline searchanythingform" id="search-form" method="post" role="form">
+										<input type="text" class="form-control searchtxt" placeholder="Search For Anything" aria-label="Search" id="searchKeyWord" name="searchKeyWord" #searchKeyWord="ngModel" ngModel>
+										<select class="form-control allcategories" id="gh-cat" #allcategories="ngModel" ngModel name="allcategories" >
+											<option value="" selected>All Categories</option>
+											<option *ngFor="let cat_disp of menu_category?.data" [value]="cat_disp?.id">{{cat_disp?.category_name}}</option>
+										</select>
+										<button type="submit" class="btn btn-primary searchbutton" (click)="SearchHome(frmspec.value)">Search</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+         </div>
+    </div>
+</div>
+
+<ng-template #showdata>
+	<div class="top-header">
+		<div class="container back_color pl-lg-2">
+			<div class="row pl-lg-1 pr-lg-1">
+				<div class="col-lg-3 col-md-8 pl-lg-0 p-md-0">
+					<ul class="nav topnavigation firstnav">
+						<li class="nav-item right-border dropdown my-account-dropdown pt-1 pb-1">
+							Hi! <span class="font-weight-bold">{{lg?.localItem.first_name}}</span> <i class="fa fa-caret-down"></i>
+							<div class="dropdown-content-my-account">
+								<div class="row m-0">
+									<div class="col-lg-4 col-md-4 col-4 pt-3">
+										<img src="assets/images/men-placeholder.png" class="img-fluid" *ngIf="lg?.localItem.profile_pic == ''">
+										<img src="{{userImg}}{{lg?.localItem.id}}/{{lg?.localItem.profile_pic}}" *ngIf="lg?.localItem.profile_pic != ''" class="img-fluid">
+									</div>
+									<div class="col-lg-8 col-md-8 col-8 pt-3">
+										<span class="set_fontSize_header">{{lg?.localItem.first_name}} {{lg?.localItem.last_name}} </span>
+										<p>
+											<a (click)="gotouserProfilepage(lg?.localItem.id,'UserProfile')" *ngIf="lg?.localItem.role == 'seller'">{{lg?.localItem.display_name}}</a>
+											<a (click)="gotouserProfilepage(lg?.localItem.id,'Buyerprofile')" *ngIf="lg?.localItem.role == 'buyer'">{{lg?.localItem.display_name}}</a>
+										</p>
+									</div>
+									<div class="col-lg-12 col-md-12 col-12 pt-2">
+										<p class="mb-2">
+											<a href="#/seller-my-account/account">Account settings</a>
+										</p>
+										<p class="mb-2"><a (click)="logOut()">Sign out</a></p>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="nav-item pt-1 pb-1">
+							<a (click)="gotouserProfilepage('FeaturedDeals','FeaturedDeals')" class="nav-link-top">Featured Deals</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-lg-5 col-md-2 pl-0 pr-0 pt-1 pb-1 listsellmain text-left">
+					<!--<a>-->
+						<img src="assets/images/Dibdaa-icon.png">
+						<span *ngIf="menu_category?.punch_line != '';else showStatic;">{{menu_category?.punch_line}}</span>
+						<ng-template #showStatic>
+							<span>The pacifying experience in Buying & Selling !</span>
+						</ng-template>
+					<!--</a>-->
+				</div>
+				<div class="col-lg-4 col-md-12 pl-2 pl-md-0 pt-md-0 pb-md-0 pr-md-2">
+					<ul class="nav topnavigation secondnav">
+						<li class="nav-item right-border">
+							<a (click)="gotouserProfilepage('','draft-listing')" class="btn theme-light-btn sell-btn ml-2" *ngIf="lg?.localItem.role == 'seller'">Sell</a>
+							<a (click)="gotouserProfilepage('','seller-business-info')" class="btn theme-light-btn sell-btn ml-2" *ngIf="lg?.localItem.role == 'buyer'">Sell</a>
+						</li>
+						<li class="nav-item right-border float-right d-lg-block d-none d-md-none pt-1 pb-1">
+							<a class="nav-link-top" (click)="gotouserProfilepage('','contact-us')">Help & Contact</a>
+						</li>
+						<li class="nav-item pt-1 pb-1">
+							<a class="nav-link-top" href="#/USR/dibdaaPremium">Dibdaa Premium</a>
+						</li>
+					</ul>
+					<div class="row ml-0 mb-2 mr-0 mt-1 justify-content-end">
+						<div class="col-lg-6 col-md-5 col-4 pl-lg-0 pl-md-4 d-block d-lg-none d-md-block p-0 mobile-logo text-md-center">
+							<a (click)="goToHomePage('Home','')">
+								<img src="assets/images/Dibdaa.png" class="dibdaalogo img-fluid" alt="Dibdaa Logo">
+							</a>
+						</div>
+						<div class="col-lg-6 col-md-4 col-6 d-block d-lg-none d-md-block text-right p-0 back_color mobile_toprightIcon">
+							<a (click)="searchToggle()"><i class="fa fa-search bellshoping pl-2"></i></a>
+							<a (click)="logOut()"><i class="fa fa-sign-out bellshoping pl-2"></i></a>
+							<a (click)="gotouserProfilepage('message','seller-my-account')">
+								<i class="fa fa-envelope bellshoping pl-2"></i>
+								<span class="badge badge-warning badge-shaping" id="ShowMsgCount" *ngIf="lg?.isLogin == true"></span>
+							</a>
+							<a (click)="gotouserProfilepage('all','notificationAll')">
+								<i class="fa fa-bell bellshoping pl-2"></i>
+								<span class="badge badge-warning badge-shaping" *ngIf="lg?.isLogin == true" id="announcementCount_mobile"></span>
+							</a>
+							<a (click)="viewCart()">
+								<i class="fa fa-shopping-cart bellshoping pl-2"></i>
+								<span class="badge badge-warning badge-shaping" *ngIf="lg?.isLogin == true" id="addtoCount_mobile"></span>
+							</a>
+						</div>
+					</div>
+					<div class="search-bar" style="display: none;">
+						<div class="row p-md-4 p-4 m-0 justify-content-center">
+							<div class="col-lg-8 col-md-11 col-12 p-0">
+								<div class="top_header_left">
+									<div class="input-group d-lg-none">
+										<form #frmspec="ngForm" class="form-inline searchanythingform" id="search-form" method="post" role="form">
+											<input type="text" class="form-control searchtxt" placeholder="Search For Anything" aria-label="Search" id="searchKeyWord" name="searchKeyWord" #searchKeyWord="ngModel" ngModel>
+											<select class="form-control allcategories" id="gh-cat" #allcategories="ngModel" ngModel name="allcategories">
+												<option value="" selected>All Categories</option>
+												<option *ngFor="let cat_disp of menu_category?.data" [value]="cat_disp?.id">{{cat_disp?.category_name}}</option>
+											</select>
+											<button type="submit" class="btn btn-primary searchbutton" (click)="SearchHome(frmspec.value)">Search</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</ng-template>
+
+<div class="header_top_area">
+	<div class="container"> 
+		<div class="row pl-lg-0 pr-lg-1 pt-1 justify-content-center mobile-sell-now back_color">
+			<div class="col-lg-2 col-md-2 col-4 pr-lg-2 pl-lg-0 mb-lg-0 mb-md-0 mt-lg-0 mt-md-1 m-0">
+				<a class="d-none d-lg-block d-md-none">
+					<img src="assets/images/Dibdaa.png" class="dibdaalogo pl-lg-2 pr-lg-4" alt="Dibdaa Logo" (click)="goToHomePage('Home','')">
+				</a>
+				<span *ngIf="lg?.isLogin == true">
+					<a class="btn theme-light-btn sell_mobile mt-md-2 mb-md-2 mt-3 mb-1 d-block d-lg-none d-md-block" (click)="gotouserProfilepage('','draft-listing')" *ngIf="lg?.localItem.role == 'seller'">Sell Now</a>
+					<a class="btn theme-light-btn sell_mobile mt-md-2 mb-md-2 mt-3 mb-1 d-block d-lg-none d-md-block" (click)="gotouserProfilepage('','seller-business-info')" *ngIf="lg?.localItem.role == 'buyer'">Sell Now</a>
+				</span>
+				<span *ngIf="lg?.isLogin == false">
+					<a class="btn theme-light-btn sell_mobile mt-md-2 mb-md-2 mt-3 mb-1 d-block d-lg-none d-md-block" (click)="goToHomePage('login','DraftListingPage')">Sell Now</a>
+				</span>
+			</div>
+			<div class="col-lg-8 col-md-12 pl-lg-0 d-none d-lg-block d-md-none">
+				<div class="top_header_left">
+					<div class="input-group">
+						<form #frmspec="ngForm" class="form-inline searchanythingform" id="search-form" method="post" role="form">
+							<input type="text" class="form-control searchtxt" placeholder="Search For Anything" aria-label="Search" id="searchKeyWord" name="searchKeyWord" #searchKeyWord="ngModel" ngModel>
+							<select class="form-control allcategories" name="allcategories" id="gh-cat" #allcategories="ngModel" ngModel>
+								<option value="">All Categories</option>
+								<option *ngFor="let cat_disp of menu_category?.data" value="{{cat_disp?.id}}">{{cat_disp?.category_name}}</option>
+							</select>
+							<button type="submit" class="btn btn-primary searchbutton" (click)="SearchHome(frmspec.value)">Search</button>
+							<a (click)="gotouserProfilepage('','advance-search')" class="advancedlink">Advanced</a>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-1 col-md-2 pl-2 p-md-0 d-none d-lg-block d-md-none">
+				<ul class="nav topnavigation secondnav">
+					<li class="nav-item right-border float-right" *ngIf="lg?.isLogin == true">
+						<a class="nav-link-top" (click)="gotouserProfilepage('','draft-listing')" *ngIf="lg?.localItem.role == 'seller'">Sell</a>
+						<a class="nav-link-top" (click)="gotouserProfilepage('','seller-business-info')" *ngIf="lg?.localItem.role == 'buyer'">Sell</a>
+					</li>
+					<li class="nav-item right-border float-right" *ngIf="lg?.isLogin == false">
+						<a class="nav-link-top" (click)="goToHomePage('login','DraftListingPage')">Sell</a>
+					</li>
+					<li class="nav-item dropdown withmydibdaa" style="float: right;">
+						<a class="nav-link-top dropbtn">My Dibdaa11</a>
+						<div class="dropdown-content" *ngIf="lg?.isLogin == true">
+							<a href="#/GetAll/RecentlyViewed">Recently Viewed</a>
+							<a href="#/seller-my-account/Bids">Bids/Offers</a>
+							<a href="#/seller-my-account/WishList">Wish List</a>
+							<a href="#/seller-my-account/PurchaseHistory">Purchase History</a>
+							<a href="#/seller-my-account/SavedSearches">Saved Searches</a>
+							<a href="#/seller-my-account/SavedSellers">Saved Sellers</a>
+							<a href="#/seller-my-account/Active">All Selling </a>
+							<a href="#/seller-my-account/SavedDrafts">My Drafts</a>
+							<a href="#/seller-my-account/account">My Account</a>
+						</div>
+						<div class="dropdown-content" *ngIf="lg?.isLogin == false">
+							<a (click)="goToHomePage('login','RecentlyViewed')">Recently Viewed</a>
+							<a (click)="goToHomePage('login','Bids')">Bids/Offers</a>
+							<a (click)="goToHomePage('login','WishList')">Wish List</a>
+							<a (click)="goToHomePage('login','PurchaseHistory')">Purchase History</a>
+							<a (click)="goToHomePage('login','SavedSearches')">Saved Searches</a>
+							<a (click)="goToHomePage('login','SavedSellers')">Saved Sellers</a>
+							<a (click)="goToHomePage('login','Active')">All Selling </a>
+							<a (click)="goToHomePage('login','SavedDrafts')">My Drafts</a>
+							<a (click)="goToHomePage('login','account')">My Account</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="col-lg-1 d-none d-lg-block d-md-none">
+				<div class="row">
+					<div class="col-lg-4 col-md-6 p-md-0 text-center dropdown" *ngIf="lg?.isLogin == false">
+						<a><i class="fa fa-bell bellshoping dropbtn"></i></a>
+						<div class="dropdown-contentbell">
+							<p class="nodata">Please <a (click)="goToHomePage('login','HomePage')">sign-in</a> to view notifications.</p>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 p-md-0 text-center" *ngIf="lg?.isLogin == true">
+						<a (click)="gotouserProfilepage('message','seller-my-account')">
+							<i class="fa fa-envelope bellshoping"></i>
+							<span class="badge badge-warning badge-shaping" id="ShowMessageCount" *ngIf="lg?.isLogin == true"></span>
+						</a>
+					</div>
+					<div class="col-lg-4 col-md-6 p-md-0 text-center" *ngIf="lg?.isLogin == false">
+						<a (click)="goToHomePage('login','message')">
+							<i class="fa fa-envelope bellshoping"></i>
+							<span class="badge badge-warning badge-shaping" id="ShowMessageCount" *ngIf="lg?.isLogin == true"></span>
+						</a>
+					</div>
+					<div class="col-lg-4 col-md-6 p-md-0 text-center dropdown" *ngIf="lg?.isLogin == true">
+						
+						<a><i class="fa fa-bell bellshoping dropbtn"></i></a>
+						<span class="badge badge-warning badge-shaping" id="announcementCount" *ngIf="lg?.isLogin == true"></span>
+						<div class="dropdown-contentbell pb-4">
+							<notification-component></notification-component>
+						</div>
+						
+					</div>
+					<div class="col-lg-4 col-md-6 p-md-0 text-center" *ngIf="lg?.isLogin == true">
+						<a (click)="viewCart()">
+							<i class="fa fa-shopping-cart bellshoping"></i>
+							<span class="badge badge-warning badge-shaping" id="addtoCount" *ngIf="lg?.isLogin == true"></span>
+						</a>
+					</div>
+					<div class="col-lg-4 col-md-6 p-md-0 text-center" *ngIf="lg?.isLogin == false">
+						<a (click)="goToHomePage('login','ViewCartPage')">
+							<i class="fa fa-shopping-cart bellshoping"></i>
+							<span class="badge badge-warning badge-shaping" id="addtoCount" *ngIf="lg?.isLogin == true"></span>
+						</a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<header class="shop_header_area">
+	<div class="headerfull">
+		<div class="wsmenucontainer clearfix" id="add_class_menu">
+			<div id="overlapblackbg"></div>
+			<div class="wsmobileheader clearfix"><a (click)="showMenu()" id="wsnavtoggle" class="animated-arrow"><span></span></a></div>
+			<div class="wsmain">
+				<nav class="wsmenu clearfix">
+					<ul class="mobile-sub wsmenu-list">
+						<li *ngIf="lg?.isLogin == true" class="mt-3 mb-3 d-lg-none">
+							<img src="assets/images/men-placeholder.png" class="img-fluid mb-2 mobile_usermenuImage" *ngIf="lg?.localItem.profile_pic == ''">
+							<img src="{{userImg}}{{lg?.localItem.id}}/{{lg?.localItem.profile_pic}}" *ngIf="lg?.localItem.profile_pic != ''" class="img-fluid mb-2 mobile_usermenuImage">
+							<h6 class="m-0 p-0">{{lg?.localItem.first_name}}  {{lg?.localItem.last_name}} </h6>
+						</li>
+						<li class="Shop_By_Departments">
+							<a class="navtext d-lg-none d-md-block d-block" (click)="clickonMenu('','shop-by-departments')"><span></span><span>Shop By Departments</span></a>
+							<a class="navtext d-lg-block d-md-none d-none"><span></span><span>Shop By Departments</span></a>
+							<div class="wsshoptabing wtsdepartmentmenu clearfix">
+								<div class="wsshopwp clearfix">
+									<ul class="wstabitem clearfix">
+										<li *ngFor="let menucategory of menu_category?.data;index as i" [ngClass]="{'wsshoplink-active':i===0}">
+											<a (click)="GoToCatList(menucategory.id,'Parent')">
+												<i class="fa fa-male" *ngIf="menucategory.category_name == 'Baby Items <2 years'"></i>
+												<i class="fa fa-male" *ngIf="menucategory.category_name == 'Fashion'"></i>
+												<i class="fa fa-television" *ngIf="menucategory.category_name == 'Electronics & Computers'"></i> 
+												<i class="fa fa-genderless" *ngIf="menucategory.category_name == 'Garden & Outdoor'"></i>
+												<i class="fa fa-home" *ngIf="menucategory.category_name == 'Home & Living'"></i>
+												<i class="fa fa-video-camera" *ngIf="menucategory.category_name == 'Entertainment'"></i>		
+												<i class="fa fa-genderless" *ngIf="menucategory.category_name == 'Health & Beauty'"></i>		
+												<i class="fa fa-genderless" *ngIf="menucategory.category_name == 'Toys'"></i>		
+												<i class="fa fa-soccer-ball-o" *ngIf="menucategory.category_name == 'Sporting & Hobbies'"></i>		
+												<i class="fa fa-genderless" *ngIf="menucategory.category_name == 'Other Categories'"></i>		
+												{{menucategory?.category_name}}
+											</a>
+											<div class="wstitemright clearfix">
+												<div class="container-fluid">
+													<div class="row">
+														<div class="col-lg-7 col-md-12 clearfix">
+															<div class="wstheading clearfix">Top Categories
+															</div>
+															<ul class="wstliststy01 clearfix">
+																<li *ngFor="let topcat of menucategory.sub.top;let i=index;" >
+																	<a id="{{topcat.id}}" (click)="GoToCatList(topcat.id,'Sub')">{{topcat.category_name}}</a>
+																</li>
+															</ul>
+															<div class="wstheading clearfix" *ngIf="menucategory.sub.additional.length != 0">
+																Additional Categories
+															</div>
+															<ul class="wstliststy01 clearfix">
+																<li *ngFor="let addcat of menucategory.sub.additional">
+																	<a id="{{addcat.id}}" (click)="GoToCatList(addcat.id,'Sub')">{{addcat.category_name}}</a>
+																</li>
+															</ul>
+														</div>
+														<div class="col-lg-5 col-md-12 clearfix">
+															<a class="wstmegamenucolr text-right" href="#/b/{{menucategory.id}}">
+																<img src="{{categoryImgRul}}{{menucategory?.category_image}}" alt="" *ngIf="menucategory?.category_image != null && menucategory?.category_image != ''">
+																<img src="assets/images/category.png" alt="" *ngIf="menucategory?.category_image == null || menucategory?.category_image == ''">
+															</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</li>
+						<li><a class="navtext homeactive" (click)="clickonMenu('','Home')">Home</a></li>
+						<li><a class="navtext" (click)="clickonMenu('about-us','about-us')">About Us</a></li>
+						<li *ngIf="lg?.isLogin == false">
+							<a class="navtext" (click)="goToHomePage('login','SavedSearches')">
+								<i class="fa fa-heart savedheart"></i> Saved
+							</a>
+						</li>
+						<li *ngIf="lg?.isLogin == true">
+							<a class="navtext" (click)="clickonMenu('SavedSearches','seller-my-account')">
+								<i class="fa fa-heart savedheart"></i> Saved
+							</a>
+						</li>
+						<li><a class="navtext" (click)="clickonMenu('Under50','Under50')"> Under {{menuvalue}} AED</a></li>
+						<li><a class="navtext" (click)="clickonMenu('','contact-us')"> Contact Us</a></li>
+						<li *ngIf="lg?.isLogin == true">
+							<a class="navtext d-lg-none" (click)="clickonMenu('','draft-listing')" *ngIf="lg?.localItem.role == 'seller'">Sell</a>
+							<a class="navtext d-lg-none" (click)="clickonMenu('','seller-business-info')" *ngIf="lg?.localItem.role == 'buyer'">Sell</a>
+						</li>
+						<li *ngIf="lg?.isLogin == false">
+							<a class="navtext d-lg-none" (click)="callCMSPage_menu('login','DraftListingPage')">Sell</a>
+						</li>
+						<li *ngIf="lg?.isLogin == true">
+							<a class="navtext d-lg-none" (click)="clickonMenu('Bids','seller-my-account')">My Dibdaa</a>
+						</li>
+						<li *ngIf="lg?.isLogin == false">
+							<a class="navtext d-lg-none" (click)="callCMSPage_menu('login','Bids')">My Dibdaa</a>
+						</li>
+						<li>
+							<a class="navtext d-lg-none" (click)="clickonMenu('','advance-search')">Advanced Search</a>
+						</li>
+						<li>
+							<a class="navtext d-lg-none" (click)="clickonMenu('','faq')">FAQ</a>
+						</li>
+						
+						<li>
+							<div class="footer_widgets_expand d-lg-none d-md-block d-block">
+								<div class="col-lg-9 mx-auto">
+									<div class="row">
+										<div class="col-sm-12 col-md-12 footer-dibdaa-mobile p-0">
+											<div id="accordion" role="tablist" aria-multiselectable="true" class="widget hidden-sm-up">
+												<div role="tab" id="headingOne">
+													<h4 class="card-header py-3 border-0">
+														<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="text-left">
+															Buy <i class="fa fa-angle-down"></i>
+														</a>
+													</h4>
+												</div>
+												<div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+													<div class="card-block">
+														<ul class="widget-list list-unstyled p-0">
+															<li class="mt-3"><a (click)="callCMSPage_menu('registration','')">Registration</a></li>
+															<li><a (click)="callCMSPage_menu('faq-listing','6')">Offers & buying help</a></li>
+															<li><a (click)="callCMSPage_menu('comingsoon','')">More Coming Soon…</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						
+						<li class="Shop_By_Departments">
+							<div class="footer_widgets_expand d-lg-none d-md-block d-block">
+								<div class="col-lg-9 mx-auto">
+									<div class="row">
+										<div class="col-sm-12 col-md-12 footer-dibdaa-mobile p-0">
+											<div id="accordion" role="tablist" aria-multiselectable="true" class="widget hidden-sm-up">
+												<div role="tab" id="headingOne">
+													<h4 class="card-header py-3 border-0">
+														<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseOne" class="text-left">
+															Sell <i class="fa fa-angle-down"></i>
+														</a> 
+													</h4>
+												</div>
+												<div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+													<div class="card-block">
+														<ul class="widget-list list-unstyled p-0">
+															<li class="mt-3"><a *ngIf="localItem != null" (click)="callCMSPage_menu('add-product')">Start Selling</a></li>
+															<li class="mt-3"><a *ngIf="localItem == null" (click)="callCMSPage_menu('login','DraftListingPage')">Start Selling</a></li>
+															<li><a (click)="callCMSPage_menu('selling-tools')">How To Selling Tools</a></li>
+															<li><a *ngIf="localItem == null" (click)="callCMSPage_menu('register_business','')">Business Accounts</a></li>
+															<li><a *ngIf="localItem != null && localItem.role == 'buyer'" href="#/seller-business-info">Business Accounts</a></li>
+															<li><a (click)="callCMSPage_menu('dibdaaPremium','')">Dibdaa Premium</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						
+						<li class="Shop_By_Departments">
+							<div class="footer_widgets_expand d-lg-none d-md-block d-block">
+								<div class="col-lg-9 mx-auto">
+									<div class="row">
+										<div class="col-sm-12 col-md-12 footer-dibdaa-mobile p-0">
+											<div id="accordion" role="tablist" aria-multiselectable="true" class="widget hidden-sm-up">
+												<div role="tab" id="headingOne">
+													<h4 class="card-header py-3 border-0">
+														<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseOne" class="text-left">
+															Tools &amp; Apps <i class="fa fa-angle-down"></i>
+														</a>
+													</h4>
+												</div>
+												<div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+													<div class="card-block">
+														<ul class="widget-list list-unstyled p-0">
+															<li class="mt-3"><a (click)="callCMSPage_menu('mobile-apps','')">Mobile Apps</a></li>
+															<li><a (click)="callCMSPage_menu('security','')">Security Awareness</a></li>
+															<li><a (click)="callCMSPage_menu('site-map','')">Site Map</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						
+						<li class="Shop_By_Departments">
+							<div class="footer_widgets_expand d-lg-none d-md-block d-block">
+								<div class="col-lg-9 mx-auto">
+									<div class="row">
+										<div class="col-sm-12 col-md-12 footer-dibdaa-mobile p-0">
+											<div id="accordion" role="tablist" aria-multiselectable="true" class="widget hidden-sm-up">
+												<div role="tab" id="headingOne">
+													<h4 class="card-header py-3 border-0">
+														<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseOne" class="text-left">
+															Stay Connected <i class="fa fa-angle-down"></i>
+														</a>
+													</h4>
+												</div>
+												<div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+													<div class="card-block">
+														<ul class="widget-list list-unstyled p-0" *ngIf="platform.is('core') == true || platform.is('mobileweb') == true">
+															<li><a href="https://www.facebook.com/dibdaa/" target="_blank"><i class="fa fa-facebook-square"></i> Facebook</a></li>
+															<li><a href="https://twitter.com/dibdaa" target="_blank"><i class="fa fa-twitter-square"></i> Twitter</a></li>
+															<li><a href="https://www.instagram.com/dibdaa/" target="_blank"><i class="fa fa-instagram"></i> Instagram</a></li>
+															<li><a href="https://www.linkedin.com/company/dibdaa/" target="_blank"><i class="fa fa-linkedin-square"></i> LinkedIN</a></li>
+														</ul>
+                                                        <ul class="widget-list list-unstyled p-0" *ngIf="platform.is('core') == false && platform.is('mobileweb') == false">
+                                                            <li><a (click)="openURLInBrowser_Menu('Facebook')"><i class="fa fa-facebook-square"></i> Facebook</a></li>
+                                                            <li><a (click)="openURLInBrowser_Menu('Twitter')"><i class="fa fa-twitter-square"></i> Twitter</a></li>
+                                                            <li><a (click)="openURLInBrowser_Menu('Instagram')"><i class="fa fa-instagram"></i> Instagram</a></li>
+                                                            <li><a (click)="openURLInBrowser_Menu('LinkedIn')"><i class="fa fa-linkedin-square"></i> LinkedIN</a></li>
+                                                        </ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						
+						<li class="Shop_By_Departments">
+							<div class="footer_widgets_expand d-lg-none d-md-block d-block">
+								<div class="col-lg-9 mx-auto">
+									<div class="row">
+										<div class="col-sm-12 col-md-12 footer-dibdaa-mobile p-0">
+											<div id="accordion" role="tablist" aria-multiselectable="true" class="widget hidden-sm-up">
+												<div role="tab" id="headingOne">
+													<h4 class="card-header py-3 border-0">
+														<a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseOne" class="text-left">
+															About Dibdaa <i class="fa fa-angle-down"></i>
+														</a>
+													</h4>
+												</div>
+												<div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+													<div class="card-block">
+														<ul class="widget-list list-unstyled p-0">
+															<li class="mt-3"><a (click)="callCMSPage_menu('company-info','')">Company Info</a></li>
+															<li><a (click)="callCMSPage_menu('news','')">News</a></li>
+															<li><a (click)="callCMSPage_menu('investord','')">Investors</a></li>
+															<li><a (click)="callCMSPage_menu('careers','')">Careers</a></li>
+															<li><a (click)="callCMSPage_menu('advertise','')">Advertise With Us</a></li>
+															<li><a (click)="callCMSPage_menu('policies','')">Policies</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						
+						<li class="Shop_By_Departments">
+							<div class="footer_widgets_expand d-lg-none d-md-block d-block">
+								<div class="col-lg-9 mx-auto">
+									<div class="row">
+										<div class="col-sm-12 col-md-12 footer-dibdaa-mobile p-0">
+											<div id="accordion" role="tablist" aria-multiselectable="true" class="widget hidden-sm-up">
+												<div role="tab" id="headingOne">
+													<h4 class="card-header py-3 border-0">
+														<a data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseOne" class="text-left">
+															Help &amp; Contact <i class="fa fa-angle-down"></i>
+														</a>
+													</h4>
+												</div>
+												<div id="collapseSix" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+													<div class="card-block">
+														<ul class="widget-list list-unstyled p-0">
+															<li class="mt-3"><a (click)="callCMSPage_menu('resolutioncenter','')">Resolution Center</a></li>
+															<li><a (click)="callCMSPage_menu('faq-listing','7')">Seller Center</a></li>
+															<!--<li><a (click)="callCMSPage_menu('contactUs','')">Contact Us</a></li> -->
+															<li>
+																<a (click)="callCMSPage_menu('Fees-CalculatorPage','')">Fees Calculator</a>
+															</li>
+															<li><a (click)="callCMSPage_menu('return','')">Dibdaa Returns</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						
+						<li class="Shop_By_Departments">
+							<div class="footer_widgets_expand d-lg-none d-md-block d-block">
+								<div class="col-lg-9 mx-auto">
+									<div class="row">
+										<div class="col-sm-12 col-md-12 footer-dibdaa-mobile p-0">
+											<div id="accordion" role="tablist" aria-multiselectable="true" class="widget hidden-sm-up">
+												<div role="tab" id="headingOne">
+													<h4 class="card-header py-3 border-0">
+														<a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseOne" class="text-left">
+															Community <i class="fa fa-angle-down"></i>
+														</a>
+													</h4>
+												</div>
+												<div id="collapseSeven" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+													<div class="card-block">
+														<ul class="widget-list list-unstyled p-0">
+															<li class="mt-3"><a (click)="callCMSPage_menu('announcements','')">Announcements</a></li>
+															<li><a (click)="callCMSPage_menu('knowledge','')">Knowledge Base</a></li>
+															<li><a (click)="callCMSPage_menu('charity','')">Dibdaa For Charity</a></li>
+															<li><a (click)="callCMSPage_menu('stuff','')">Free Stuff</a></li>
+															<li><a (click)="callCMSPage_menu('community','')">Dibdaa Community</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						
+						<li *ngIf="platform.is('core') == false && platform.is('mobileweb') == false" class=" Shop_By_Departments pt-3 pb-3">
+							App version : {{getapp_version}}
+						</li>
+						
+						<li class="float-right">
+							<div class="listsellmain text-right p-1">
+								<img src="assets/images/Dibdaa-icon.png">
+								<span class="ml-1">The pacifying experience in Buying & Selling !</span>
+							</div>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</header>
+
+<div id="myModal" class="modal fade" style="opacity: 1" >
+    <div class="modal-dialog" style="margin: 30px 30px 30px auto !important;width: 300px;">
+        <div class="modal-content" id="content1" style="position: relative;background-color: #fff;background-clip: padding-box;border: 1px solid rgba(0,0,0,.2);border-radius: 6px;outline: 0;box-shadow: 0 3px 9px rgba(0,0,0,.5);" *ngFor="let notData of shownotificationData?.data;let i = index">
+            <div class="modal-header">
+                <!--<button type="button" class="close" id="close1" data-dismiss="modal1" aria-hidden="true" (click)="close_modal(i)" style="margin-top: -10px;margin-right: 10px;padding: 0;cursor: pointer;background: 0 0;border: 0;">&times;</button>\n-->
+                <button type="button" class="close" id="close1" data-dismiss="modal1" aria-hidden="true" (click)="close_modal()" style="margin-top: 5px;margin-right: 10px;padding: 0;cursor: pointer;background: 0 0;border: 0;">&times;</button>
+            </div>
+            <div class="modal-body" style="position: relative;padding: 15px;padding-top: 0px;">
+                <p id="p" style="margin: 0 0 0px;font-size: 14px;">Subscribe to our mailing list to get the latest updates straight in your inbox.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div id="myModal" class="modal fade">\n<div class="modal-dialog">\n<div class="modal-content" id="content1">\n<div class="modal-header">\n<button type="button" class="close" id="close1" data-dismiss="modal1" aria-hidden="true">&times;</button>\n<h4 class="modal-title">1</h4>\n</div>\n<div class="modal-body">\n<p>Subscribe to our mailing list to get the latest updates straight in your inbox.</p>\n</div>\n</div>\n</div>\n</div>-->
+
+
+<!--</ion-header>-->
+<!--<ion-nav [root]="rootPage" >
+
+</ion-nav>-->

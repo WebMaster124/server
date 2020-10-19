@@ -1,0 +1,80 @@
+   
+
+<ion-content padding class="notificationdetails">
+	<div class="wrapper">
+		<div class="container featured-deals-main mb-3" *ngIf="singleNotification == true">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-xl-12 col-12 setFontSize">
+					<p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+					<p class="mb-2"><a href="#/home" class="breadcrumblink">Dibdaa</a> &nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+					<a class="breadcrumblink font-weight-bold" disabled>notification details</a></p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-12">
+				  <h5 class="m-0">Announcement by {{notificationDetailsData?.data[0].announcements_by}} {{notificationDetailsData?.data[0].ext}}</h5>
+				</div>
+			</div>
+			<div class="row m-0 bg-light mt-4">
+				<div class="col-lg-12 col-md-12 col-12 mt-0 pt-2 pb-2 setFontSize" id="about-us">
+					{{notificationDetailsData?.data[0].message}}
+				</div>
+                            
+				<div class="col-lg-12 col-md-12 col-12 mt-0 pt-2 pb-2 setFontSize" id="about-us" *ngIf="docsNotification == false">
+					<img id="preview_img" src="images/announce_attachment/{{notificationDetailsData?.data[0].announce_attachment}}" style="width: 20%;height: 100%;">
+                                        
+				</div>
+				<div class="col-lg-12 col-md-12 col-12 mt-0 pt-2 pb-2 setFontSize" id="about-us" *ngIf="docsNotification == true">
+				 <a href="images/announce_attachment/{{notidetails?.announce_attachment}}"  target="_blank">Link</a>
+					<!--<iframe id="preview_docs" src="images/announce_attachment/{{notificationDetailsData?.data[0].announce_attachment}}" style="width: 50%;height: 100%;"></iframe>
+                                     <embed id="preview_docs" src="images/announce_attachment/{{notificationDetailsData?.data[0].announce_attachment}}" style="width: 50%;height: 100%;">-->
+				</div>
+				<div class="col-lg-12 col-md-12 col-12 mt-0 pt-2 pb-2 setFontSize" id="about-us">
+					{{notificationDetailsData?.data[0].created_date}}
+				</div>
+			</div>
+		</div>
+		<div class="container featured-deals-main mb-3" *ngIf="multipleNotification == true">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-xl-12 col-12 setFontSize">
+					<p class="mb-2"><a href="#/home" class="breadcrumblink">Dibdaa</a> &nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+					<a class="breadcrumblink font-weight-bold" disabled>notification details</a></p>
+				</div>
+			</div>
+			<div class="row m-0 mb-2" *ngFor="let notidetails of notificationDetailsData?.data | paginate: {itemsPerPage: 10, currentPage:page_notification, id: 'page_notificationId', totalItems:notificationDetailsData?.count};let i=index;" [ngClass]="{'bg-unread': notidetails?.is_read == 0, 'bg-light': notidetails?.is_read == 1}">
+				<div class="col-lg-12 col-md-12 col-12 mt-2">
+					<h6 class="m-0 p-0">Announcement by {{notidetails?.announcements_by}}</h6>
+				</div>
+				<div class="col-lg-12 col-md-12 col-12 pt-2 pb-2 setFontSize" >
+					{{notidetails?.message}}
+				</div>
+				<div class="col-lg-12 col-md-12 col-12 pt-2 pb-2 setFontSize" *ngIf="notidetails?.ext == 'jpg'">
+										<img id="preview_img" src="images/announce_attachment/{{notidetails?.announce_attachment}}" style="width: 20%;height: 100%;">
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-12 pt-2 pb-2 setFontSize" *ngIf="notidetails?.ext == 'pdf'">
+				
+				
+				
+				            <a href="images/announce_attachment/{{notidetails?.announce_attachment}}"  target="_blank">Link</a>
+                                     <!--<iframe id="preview_docs" [src]="current_url" style="width: 50%;height: 100%;"></iframe>-->
+				
+				</div>
+                             
+                             
+                             <div class="col-lg-12 col-md-12 col-12 pt-2 pb-2 setFontSize" >
+					{{notidetails?.created_date}}
+				</div>
+				
+			</div> 
+		</div>
+		<div class="container featured-deals-main mb-3" *ngIf="multipleNotification == true">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-12 pt-3 paginationlist">
+					<pagination-controls (pageChange)="page_notification = $event" id="page_notificationId" maxSize="25" directionLinks="true" autoHide="true" class="text-center setFontSize"></pagination-controls>
+				</div>
+			</div>
+		</div>
+		<footer-page></footer-page>
+	</div>
+</ion-content>

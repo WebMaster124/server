@@ -1,0 +1,69 @@
+<ion-content padding>
+    <div class="wrapper">
+        <div class="container mb-3 pl-5 pr-5">
+            <div class="row text-left set_fontSize">
+                <div class="col-lg-12 col-md-12 col-xl-12 col-12 breadcrumblink_div pl-0">
+                    <p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+					<p class="set-Fonts">
+                        <a href="#/viewItem/{{getProductId}}" class="breadcrumblink">Back to previous page</a>
+                            &nbsp; | &nbsp;
+                        <a class="breadcrumblink" disabled>Product Reviews</a>
+                    </p>
+                    
+                </div>
+                <div class="col-lg-12 col-md-12 col-xl-12 col-12 breadcrumblink_div pl-0" *ngIf="reviewData?.total > 0">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-3 col-12 text-lg-left text-md-left text-center">
+                            <img src="{{showProductImage}}{{reviewData?.data[0].product_id}}/L/{{reviewData?.data[0].photos[0]}}" width="150px" height="150px" class="showImage">
+                        </div>
+                        <div class="col-lg-10 col-md-9 col-12 mt-lg-0 mt-md-0 mt-3">
+                            <span><h5 class="m-0">PRODUCT REVIEWS</h5></span>
+                            <span><h5 class="m-0 pt-2"><a href="#/viewItem/{{getProductId}}">{{reviewData?.data[0].product_title}}</a></h5></span>
+                            <p class="mt-3"><button class="btn theme-light-btn" (click)="leaveFeedback(reviewData?.data[0].product_id,reviewData?.data[0].product_title,reviewData?.data[0].photos[0],reviewData?.data[0].seller_id)">Write a review</button></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3 writeReview_div">
+                <div class="col-sm-12 mt-1">
+                    <div class="set_fontSize" *ngIf="reviewData?.total > 0">
+                        <div class="row pt-2 pb-2 itemdescription"*ngFor="let ratingdisp of reviewData?.data | paginate: {itemsPerPage: reviewData?.per_page, currentPage:reviewData?.current_page, id: 'review_pagination', totalItems: reviewData?.total}; let i = index" >
+                            <div class="col-sm-3 col-md-3 col-lg-3 col-12 mb-3 mb-lg-0 mb-md-0 mb-sm-0">
+                                <div>
+									<span class="ratings">
+										<div class="empty-stars"></div>
+                                        <div class="full-stars" style="width:0%" *ngIf="ratingdisp?.rate == 0"></div>
+										<div class="full-stars" style="width:20%" *ngIf="ratingdisp?.rate == 1"></div>
+										<div class="full-stars" style="width:40%" *ngIf="ratingdisp?.rate == 2"></div>
+										<div class="full-stars" style="width:60%" *ngIf="ratingdisp?.rate == 3"></div>
+										<div class="full-stars" style="width:80%" *ngIf="ratingdisp?.rate == 4"></div>
+										<div class="full-stars" style="width:100%" *ngIf="ratingdisp?.rate == 5"></div>
+									</span>
+                                </div>
+                                <div>by <a (click)="getTouserProfile(ratingdisp?.buyer_id)" class="text-primary">{{ratingdisp?.buyer_display_name}}</a></div>
+                                <div>{{ratingdisp?.created_date}}</div>
+                            </div>
+                            <div class="col-sm-9 col-md-9 col-lg-9 col-12">
+                                <div>
+                                    <h5 class="mb-1 m-0">{{ratingdisp?.title}}</h5>
+                                </div>
+                                <div>{{ratingdisp?.description}}</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 paginationlist m-0 pt-3 pb-0">
+                            <pagination-controls (pageChange)="page = getServerData($event)" id="review_pagination" maxSize="{{reviewData?.last_page}}" directionLinks="true" autoHide="false" class="text-center set_fontSize"></pagination-controls>
+                        </div>
+                    </div>
+                    <div class="row m-0" *ngIf="reviewData?.total <= 0">
+                        <div class="set_fontSize col-lg-12 col-12 text-center">
+                            <h5>No rating available</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    	
+<!--================Footer Area =================-->
+<footer-page></footer-page>
+</ion-content>

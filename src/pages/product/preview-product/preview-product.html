@@ -1,0 +1,455 @@
+<ion-content padding class="product-detail">
+<div class="wrapper">
+	<div class="container mb-3">
+        <div class="row ">
+            <div class="col-lg-12 col-md-12 col-xl-12 col-12 breadcrumblink_div">
+                <p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+				<p>
+					<a href="#/home" class="breadcrumblink">Dibdaa</a> &nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+					<a href="#/add-product" class="breadcrumblink">Add Product</a> &nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+                    <a class="breadcrumblink" disabled>Preview Product</a>
+                </p>
+            </div>
+        </div> 
+        <!--Varticle menu start-->
+        <div class="row m-0 justify-content-center">
+            <div class="col-lg-4 col-md-6 col-10 pl-lg-0">
+                <div id="magnific">
+					<div class="row">
+					<div class="large-5 column mr-3 col-12">
+						<div class="xzoom-container text-center" id="disp_zoom_img">
+							<img id="zoom_demo" class="galleryimg" src="{{showpreviewdata?.photos[0]}}">
+                            <div class="xzoom-thumbs gallery_demo">
+                                <img class="thumb_border" width="80" src="{{imgdisp}}" *ngFor="let imgdisp of showpreviewdata?.photos" />
+                            </div>
+						</div>
+                    </div>
+				        <div class="large-7 column"></div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="Upgrading text-center">
+                        <span class="Upgradingtxt breadcrumblink_div">Upgrading? Sell it, don't trade it. </span>
+                        <a class="btn theme-light-btn" role="button">Sell Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12 col-12 p-lg-0">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-12 pb-2 itemdescription mt-2">
+                        <h5 class="mb-1">{{showpreviewdata?.title}}</h5>
+                        <p class="mb-1 breadcrumblink_div">Warranty : {{showpreviewdata?.specification[0].Warranty[0]}}</p>
+                        <p class="mb-1">
+							<span class="ratings">
+								<div class="empty-stars"></div>
+								<div class="full-stars" style="width:0%"></div>
+							</span>
+                            <span class="text-primary">
+                                <a>0 product ratings </a>
+                            </span>
+                            <span class="writeDiv">
+                                <b>|</b> &nbsp;<a>Write a review</a>
+                            </span>
+                        </p>
+                        <div class="row m-0">
+                            <div class="col-lg-6 col-md-6 col-12 p-0">
+                                <p class="m-0 totalview"><i class="fa fa-eye"></i>  0 viewed per hour</p>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12 p-0">
+                                <p class="text-lg-right text-md-left text-left m-0">SKU No: 156989</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 col-md-12 col-12 pb-2 mt-3 itemconditionform p-md-0">
+                        <form class="form-horizontal breadcrumblink_div">
+                            <div class="form-group row mb-1">
+                                <label class="control-label col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right mt-1">Condition:</label>
+                                <div class="col-sm-10 col-lg-10 col-md-9 col-9">
+                                    <p class="font-weight-bold m-0">{{showpreviewdata?.p_condition}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-1">
+                                <label class="control-label col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right mt-1"></label>
+                                <div class="col-sm-10 col-lg-10 col-md-9 col-9">
+                                    <p class="font-italic">{{showpreviewdata?.condition_description}}
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-1" *ngIf="showpreviewdata?.specification[0].Color.length > 0">
+                                <label class="control-label col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right mt-1"><span class="text-danger font-weight-bold ">*</span>Color:</label>
+                                <div class="col-sm-10 col-lg-10 col-md-9 col-9">
+                                    <select class="form-control selectcolor select-color" id="color" name="select_color">
+                                        <option value="-1">-Select-</option>
+                                        <option *ngFor="let colorData of showpreviewdata?.specification[0].Color;" [value]="colorData">{{colorData}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-1 mt-3" *ngIf="showpreviewdata?.specification[0].Size.length > 0">
+                                <label class="control-label col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right mt-1"><span class="text-danger font-weight-bold Z">*</span>Size:</label>
+                                <div class="col-sm-10 col-lg-10 col-md-9 col-9">
+                                    <select class="form-control selectcolor select-size" id="size">
+                                        <option value="-1">-Select-</option>
+                                        <option *ngFor="let sizeData of showpreviewdata?.specification[0].Size;" [value]="sizeData">{{sizeData}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="priceformform-group row mt-3">
+                                <label class="control-label col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right mt-1 pricelabel">Quantity:</label>
+                                <div class="col-sm-3 col-lg-3 col-md-3 col-3">
+                                    <input type="number" class="form-control pricetxtbox" id="price1" value="1">
+                                </div>
+                                <p class="control-label col-sm-7 col-lg-7 col-md-5 col-6 p-lg-0 text-left pricelabel">
+                                     <span class="solditem">{{showpreviewdata?.quantity}}</span> Quantity available
+                                </p>
+                            </div>
+                        </form>
+						<div class="row itempricediv ml-0 mr-0 mt-0 pt-2 pb-2 mb-2 mt-3 breadcrumblink_div" *ngIf="showpreviewdata?.selling_type == 'Auction style';else showfixprice"> <!-- *ngIf="show_categoryDetails?.data[0].selling_type == 'Auction style';else showfixprice" -->
+                            <div class="col-lg-6 col-md-12 col-12 priceusdollar text-left">
+                                <div class="row">
+                                    <div class="col-lg-5 col-md-5 col-5 text-right pr-2">
+                                        Starting bid:
+                                    </div>
+                                    <div class="col-lg-7 col-md-7 col-7 pl-1">
+                                        <span class="pl-2 usdollarprice">{{showpreviewdata?.min_price}}</span>
+                                        <div class="row m-0">
+                                            <div class="col-lg-12 col-md-12 col-12 pl-1">
+                                                <div class="form-group">
+                                                    <input class="w-50 form-control form-control-sm bid-input" id="inputbid" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-12 pl-1 pr-0">
+                                                <p class="m-0 enter-price">Enter {{showpreviewdata?.price}} or more</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-7 col-7 offset-5 pl-2 offset-lg-0 offset-md-5 addtocart">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-12">
+                                        [<a> 0 bids </a>]
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-12 mt-2">
+                                        <a class="btn theme-light-btn" data-toggle="modal" data-target="#modalAuctionBid">Place bid</a>
+                                    </div>
+									<div class="col-lg-12 col-md-12 col-12 mt-2">
+										<a>
+											<p class="mb-1 addtowatchlist">
+												<i class="fa fa-plus pr-1"></i> Add to wish list
+											</p>
+										</a>
+									</div>
+                                </div>
+                            </div>
+                        </div>
+						<ng-template #showfixprice>
+							<div class="row itempricediv m-0 pt-2 mb-lg-4 breadcrumblink_div mb-3">
+								<div class="col-lg-6 col-md-12 col-12 priceusdollar text-left" *ngIf="showpreviewdata?.discount > 0">
+									List price: <span class="pl-2 text_deco"> {{showpreviewdata?.price}} AED </span> <br />
+                                    You save: <span class="pl-2">  {{showpreviewdata?.discount}} <span *ngIf="showpreviewdata?.discount == ''"> 0 </span>% OFF </span> <br />
+									Now: <span class="pl-2 usdollarprice"> {{ showpreviewdata?.price - showpreviewdata?.price * showpreviewdata?.discount / 100}} AED</span>
+								</div>
+								
+                                <div class="col-lg-6 col-md-12 col-12 priceusdollar text-left" *ngIf="showpreviewdata?.discount <= 0">
+                                    Price: <span class="pl-2"> {{showpreviewdata?.price}} AED </span>
+                                </div>
+
+								<div class="col-lg-6 col-md-12 col-12 addtocart">
+									<div class="row">
+										<div class="col-lg-12 col-md-4 col-6 mt-lg-0 mt-md-2 mt-2">
+											<a class="btn theme-light-btn" role="button">Buy It Now</a>
+										</div>
+										
+										<div class="col-lg-12 col-md-4 col-6 mt-2 mt-md-2">
+											<a class="btn theme-dark-btn" role="button">Add to cart</a>
+										</div>
+
+                                        <div class="col-lg-12 col-md-4 col-12 text-lg-left text-md-left text-center mt-2" *ngIf="showpreviewdata?.make_offer == 1">
+                                            <button class="btn theme-dark-btn">Make Offer</button>
+                                        </div>
+
+										<div class="col-lg-12 col-md-4 col-12 mt-2 text-lg-left text-md-left text-center">
+											<a>
+												<p class="mb-1 addtowatchlist">
+													<i class="fa fa-plus pr-1"></i> Add to wish list
+												</p>
+											</a>
+											
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-6 col-12 mt-1 morethansold text-center pt-2 pb-2 borderrightsold">
+									<p class="m-0 solditem">0 sold</p>
+								</div>
+								<div class="col-lg-4 col-md-6 col-12 mt-1 morethansold text-center pt-2 pb-2 borderrightsold">
+									<p class="m-0">0% sold</p>
+								</div>
+								<div class="col-lg-4 col-md-12 col-12 mt-1 morethansold text-center pt-2 pb-2">
+									<p class="m-0" *ngIf="showpreviewdata?.return_opt == 'No';else showreturn"> No Return </p>
+									<ng-template #showreturn>
+										<p class="m-0">{{showpreviewdata?.return_opt | replaceString:showpreviewdata?.return_opt}} <span *ngIf="showpreviewdata?.return_opt != 'No'">days </span>returns</p>
+											
+										<!--<p class="m-0" *ngIf="showpreviewdata?.return_opt == 'Days_30'">30 Days</p>
+										<p class="m-0" *ngIf="showpreviewdata?.return_opt == 'Days_60'">60 Days</p>
+										<p class="deleveryans m-0" *ngIf="showpreviewdata?.return_opt == 'No'">No Return</p>-->
+									</ng-template>
+								</div>
+							</div>
+						</ng-template>
+                        <div class="row mb-1 shiptedcondition breadcrumblink_div">
+                            <div class="col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right">Shipping:</div>
+                            <div class="col-sm-10 col-lg-10 col-md-9 col-9">
+                                <p class="font-weight-bold m-0 notshipindia">
+                                    <a (click)="shipingtabseedetail()"><span class="seedetails"> &nbsp;See details</span></a></p>
+                                <p class="m-0 itemlocation">item location: {{showpreviewdata?.product_address}}</p>
+                                <p class="m-0 itemlocation"><span> Ships to: {{showpreviewdata?.product_address}}  </span> </p>
+                            </div>
+                        </div>
+                        <div class="row mb-1 mt-1 breadcrumblink_div">
+                            <div class="col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right">Delivery: </div>
+                            <div class="col-sm-10 col-lg-10 col-md-9 col-9">
+                                <p class="deleveryans m-0"> 
+									<span>{{showpreviewdata?.shipment_type}}</span>									
+								</p>
+                            </div>
+                        </div>
+                        <div class="row mb-1 mt-1 paymentcondition breadcrumblink_div">
+                            <div class="col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right">Payment:</div>
+                            <div class="col-sm-10 col-lg-10 col-md-9 col-9">
+                                <div class="m-0" *ngIf="showpreviewdata?.payment_opt == '1,2'"><span ><img src="assets/images/logopaypal.png" class="mr-0"><img src="assets/images/payment_icons.png" class="img-fluid">,</span><span class="pl-2">Cash on delivery</span></div>
+                                <div class="m-0" *ngIf="showpreviewdata?.payment_opt == '1'"><span ><img src="assets/images/logopaypal.png" class="mr-0"><img src="assets/images/payment_icons.png" class="img-fluid"></span></div>
+                                <div class="m-0" *ngIf="showpreviewdata?.payment_opt == '2'"><span >Cash on delivery</span></div>
+                            </div>
+                        </div>
+                        <div class="row mb-1 mt-1 returnscondition breadcrumblink_div">
+                            <div class="col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right">Returns:</div>
+                            <div class="col-sm-10 col-lg-10 col-md-9 col-9">
+                                <p class="deleveryans m-0">{{ showpreviewdata?.return_opt |
+                                        replaceString:showpreviewdata?.return_opt}} <span
+                                                *ngIf="showpreviewdata?.return_opt != 'No'">days </span>
+                                        returns. <span *ngIf="showpreviewdata?.return_opt != 'No'">{{showpreviewdata?.return_policy}}</span>
+							</div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-12 pb-2 mt-3 pr-0 topratedplus">
+                        <div class="row pr-3">
+                            <div class="col-lg-12 col-md-6 col-12 toprateddiv pt-2 pb-2">
+                                <div class="row starcontent pb-1">
+                                    <div class="col-lg-9 col-md-8 col-8 pl-0 pr-0 breadcrumblink_div">
+                                        <a><p class="buysprytxt mb-1">{{localItem?.display_name}} ( 1 <i class="fa fa-star star"></i>  )</p></a>
+                                        <p class="mb-1">100% Positive feedback</p>
+                                    </div>
+                                    </div>
+                                <div class="row saveseller pt-1 breadcrumblink_div">
+                                    <div class="col-lg-12 col-md-12 col-12 pl-0 pr-0">
+                                        <a><p class="savesellertxt mb-1"><i class="fa fa-heart-o"></i> Save this seller</p></a>
+										
+                                        <a><p class="savesellertxt mb-1"> Contact seller</p></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="row productdescriptiontabrow mt-3">
+            <div class="col-lg-12 col-md-12 col-12 productdescriptiontab p-0">
+                <!-- Nav tabs -->
+                <div class="row ml-0 mr-0">
+                    <div class="col-lg-11 col-9 col-md-10 p-0">
+                        <ul class="nav detailnavigationtab" role="tablist">
+                            <li role="presentation" class="descriptiontabing active" id="descriptiontab">
+							<a href="#description" role="tab" class="btn tablistinbtn active show" data-toggle="tab">Description</a>
+                            </li>
+                            <li role="presentation" class="descriptiontabing">
+							<a href="#shippingandpayments" id="seedetailactivtab" class="btn tablistinbtn" role="tab" data-toggle="tab">Shipping ,Returns and Payments</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-1 col-3 col-md-2 text-right pl-0 pr-0 pr-xl-3 pr-lg-3">
+                        <a><p class="reportitem itemfortxt mb-0 breadcrumblink_div">Report item</p></a>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="col-lg-12 col-md-12 col-12 tab-content p-lg-4 p-md-3 p-2">
+                        <div role="tabpanel" class="tab-pane active" id="description">
+                            <div class="col-lg-12 col-md-12 col-12 pl-0 pr-0 mb-3 breadcrumblink_div">
+                                <p class="text-right itemnumber mb-2">SKU No: 156989</p>
+                                <p class="mb-2">Seller assumes all responsibility for this listing.</p>
+                                <p class="mb-0">Last updated on 
+									<span class="font-weight-bold">Apr 13, 2018 03:43:03</span>
+								</p>
+                            </div>
+                            <div class="row mb-2 mb-lg-3 mb-xl-3 ml-0 mr-0 frontbg">
+                                <div class="col-lg-12 col-md-12 col-12 pl-3 pt-2 pb-2">
+                                    <h6 class="m-0">Item specifics</h6>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-12 pl-3 pt-3 pb-1 pr-3 itemspecifics">
+                                <div class="row sellerrefurbished m-0 p-2 breadcrumblink_div">
+                                    <div class="col-lg-1 col-md-2 col-4 p-0">
+                                        <p class="m-0">Condition:</p>
+                                    </div>
+                                    <div class="col-lg-11 col-md-10 col-8 p-0">
+                                        <p class="m-0 font-weight-bold">{{showpreviewdata?.p_condition}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="row itemspecificssub m-0 pl-0 pr-0 pt-2 pb-2">
+                                    <div class="col-lg-6 col-md-12 col-12 p-0 pl-lg-4 pr-lg-2">
+                                        <table class="table breadcrumblink_div">
+                                            <tbody>
+												<tr *ngFor="let itmsp of specification_arr;index as i">
+													<td class="firsttd" *ngIf="itmsp[1].length > 0 && itmsp[1][0] != '' && itmsp[0] != 'Item_Description'">{{itmsp[0] | removeUnderscore:itmsp[0]}}:</td>
+													<td class="secondtd" *ngIf="itmsp[1].length > 0 && itmsp[1][0] != '' && itmsp[0] != 'Item_Description'">{{itmsp[1]}}</td>
+												</tr>
+                                           </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3 mb-2 mb-lg-3 mb-xl-3 ml-0 mr-0 frontbg target_div">
+                                <div class="col-lg-12 col-md-12 col-12 pl-3 pt-2 pb-2">
+                                    <h6 class="m-0">Product Description</h6>
+                                </div>
+                            </div>
+                            <div class="row mt-3 ml-0 mr-0 pb-3">
+                                <div class="col-lg-12 col-md-12 col-12 pl-3 pt-2 pb-2 shopvarticledetail">
+                                    <div class="shopvarticledetailsublaw mb-lg-3 breadcrumblink_div">
+                                        <p [innerHTML]="showpreviewdata?.specification[0].Item_Description"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="shippingandpayments">
+                            <div class="col-lg-12 col-md-12 col-12 pl-0 pr-0 mb-3">
+                                <p class="mb-2 breadcrumblink_div">Seller assumes all responsibility for this listing.</p>
+                            </div>
+                            <div class="row mb-2 mb-lg-3 mb-xl-3 ml-0 mr-0 frontbg">
+                                <div class="col-lg-12 col-md-12 col-12 pl-3 pt-2 pb-2">
+                                    <h6 class="m-0">Shipping and handling</h6>
+                                </div>
+                            </div>
+                            <div class="row shipingandhandling m-0 pb-3" id="shippingandhandlingtabdetail">
+                                <div class="col-lg-12 col-md-12 col-12 pl-3 pt-3 pb-1 pr-3">
+                                    <table class="table breadcrumblink_div">
+                                        <tbody>
+                                        <tr>
+                                            <td class="firsttd">Item location:</td>
+                                            <td class="secondtd">{{showpreviewdata?.product_address}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="firsttd">Shipping to:</td>
+                                            <td class="secondtd"><span> {{showpreviewdata?.product_address}} </span>
+											</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row mb-2 mb-lg-3 mb-xl-3 ml-0 mr-0 frontbg">
+                                <div class="col-lg-12 col-md-12 col-12 pl-3 pt-2 pb-2">
+                                    <h6 class="m-0">Return policy <span class="pl-4" *ngIf="showpreviewdata?.return_opt == 'No'">Not Applicable</span></h6>
+                                </div>
+                            </div>
+                            <div class="row shipingandhandling ml-0 mr-0 mt-3 mb-0 pb-3">
+                                <div class="col-lg-12 col-md-12 col-12 pl-3 pt-3 pb-1 pr-3" id="returnpolicy" *ngIf="showpreviewdata?.return_opt != 'No'">
+                                    <table class="table breadcrumblink_div">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col" class="pl-3">After receiving the item, contact seller
+                                                within
+                                            </th>
+                                            <th scope="col">Refund will be given as</th>
+                                            <th scope="col">Return shipping</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="pl-3">{{ showpreviewdata?.return_opt | replaceString:showpreviewdata?.return_opt }} <span *ngIf="showpreviewdata?.return_opt != 'No'">days </span> returns</td>
+                                            <td>-</td>
+                                            <td><span *ngIf="showpreviewdata?.ship_to == 'buyer'">Buyer pays for return shipping</span>
+                                                <span *ngIf="showpreviewdata?.ship_to == 'seller'">Seller pays for return shipping</span>
+                                                <span *ngIf="showpreviewdata?.ship_to != 'seller' && showpreviewdata?.ship_to != 'buyer'">-</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-12">
+                                    <div class="returnpolicydetails pl-3 pt-1 pb-1 pr-3">
+                                        <p class="m-0 breadcrumblink_div">Return policy details</p>
+                                    </div>
+                                    <div class="returnpolicydetailstxt pl-3 pt-1 pb-1 pr-3 breadcrumblink_div">
+                                        <p class="m-1">
+                                            {{ showpreviewdata?.return_policy }}
+                                        </p>
+                                        <p *ngIf="showpreviewdata?.return_policy == null">
+                                            Seller does not have a return policy
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-2 mb-lg-3 mb-xl-3 ml-0 mr-0 frontbg">
+                                <div class="col-lg-12 col-md-12 col-12 pl-3 pt-2 pb-2">
+                                    <h6 class="m-0">Payment details</h6>
+                                </div>
+                            </div>
+                            <div class="row shipingandhandling ml-0 mr-0 mt-3 mb-0 pb-3" id="paypalaccepted">
+                                <div class="col-lg-12 col-md-12 col-12 pt-2">
+                                    <div class="row m-0 returnpolicydetails pl-3 pt-1 pb-1 pr-3">
+                                        <div class="col-lg-5 col-md-5 col-7 pl-0">
+                                            <p class="m-0 breadcrumblink_div">Payment method</p>
+                                        </div>
+                                        <div class="col-lg-7 col-md-7 col-5 pl-0">
+                                            <p class="m-0 breadcrumblink_div"> Preferred / Accepted</p>
+                                        </div>
+                                    </div>
+                                </div>
+								<div class="row w-100 pl-5" *ngIf="showpreviewdata?.payment_opt == '1,2'">
+                                    <div class="col-lg-5 col-md-5 col-7 pt-2 pl-lg-4">
+                                        <img src="assets/images/logopaypal.png" class="img-fluid"> <img src="assets/images/payment_icons.png" class="img-fluid"> 
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-5 pt-2 pl-lg-1">
+                                        <p class="m-0 breadcrumblink_div">Accepted</p>
+                                    </div>
+
+                                    <div class="col-lg-5 col-md-5 col-7 pt-2 pl-lg-4">
+                                        <p class="m-0 breadcrumblink_div"> Cash On Delivery </p>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-5 pt-2 pl-lg-1">
+                                        <p class="m-0 breadcrumblink_div">Accepted</p>
+                                    </div>
+                                </div>
+
+                                <div class="row w-100 pl-5" *ngIf="showpreviewdata?.payment_opt == '1'">
+                                    <div class="col-lg-5 col-md-5 col-7 pt-2 pl-lg-4">
+                                        <img src="assets/images/logopaypal.png" class="img-fluid"> <img src="assets/images/payment_icons.png" class="img-fluid">
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-5 pt-2 pl-lg-1">
+                                        <p class="m-0 breadcrumblink_div">Accepted</p>
+                                    </div>
+                                </div>
+
+                                <div class="row w-100 pl-5" *ngIf="showpreviewdata?.payment_opt == '2'">
+                                    <div class="col-lg-5 col-md-5 col-7 pt-2 pl-lg-4">
+                                        <p class="m-0 breadcrumblink_div"> Cash On Delivery </p>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-5 pt-2 pl-lg-1">
+                                        <p class="m-0 breadcrumblink_div">Accepted</p>
+                                    </div>
+                                </div>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+    <!--================Footer Area =================-->
+<footer-page></footer-page>
+</ion-content>

@@ -1,0 +1,1067 @@
+<ion-content padding>
+    <div class="add-product">
+		<div class="wrapper">
+			<div class="container mb-lg-3">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-xl-12 col-12 mt-3 setFontSize">
+						<p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+						<p class="set-Fonts">
+							<a href="#/home" class="breadcrumblink">Dibdaa</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+							<a href="#/seller-my-account/Active" class="breadcrumblink">My Dibdaa <i class="fa fa-angle-right"> </i>&nbsp;&nbsp;</a>
+							<a class="breadcrumblink" disabled>Update Product</a>
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-12">
+						<h4 class="h4-class">Update Product</h4>
+					</div>
+				</div>
+				<div class="row" *ngIf="ifproductedit == false;else showImageedit">
+					<div class="col-lg-12 col-md-12 col-12 add-product-main mt-3 p-0">
+						<div class="col-lg-12 col-md-12 col-xl-12 col-12 pl-3 pt-2 pb-2 mb-4 frontbg">
+							<h6 class="m-0 text-left">Product Description</h6>
+						</div>
+						<div class="mt-3 pl-4 pr-4">
+							<form #frm="ngForm" class="form" id="add-prosuct" method="post" role="form" novalidate>
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label form-control-label set-fontSize">
+										<span class="text-danger font-weight-bold ">*</span>Title
+									</label>
+									<div class="col-lg-6">
+										<input class="form-control" type="text" name="title" id="main_title_text" #title_main="ngModel" required [(ngModel)]="view_Product?.data.title">
+										<div *ngIf="title_main.invalid && (title_main.dirty || title_main.touched)" class="error-box">
+											<div *ngIf="title_main.errors.required">
+												* Title is required.
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group row"> 
+									<label class="col-lg-3 col-form-label form-control-label set-fontSize">Subtitle
+										<span class="font-weight-normal"> ({{show_feesData?.data.subtitle_fee}} AED) </span>
+									</label>
+									<div class="col-lg-6">
+										<input class="form-control" type="text" name="subtitle" id="subtitle_text" [(ngModel)]="view_Product?.data.subtitle" (change)="showsubtotalFees()">
+									</div>
+								</div>
+								
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label form-control-label set-fontSize"><span
+											class="text-danger font-weight-bold">*</span>Category </label>
+									<div class="col-lg-3">
+										<select id="categories_select" class="form-control" name="category_id" disabled> <!-- (change)="showType(categories_select)"  -->
+											<option value="">-- Select Category -- </option>
+											<option value="{{view_Product?.data.parent_cat_id}}" selected>{{view_Product?.data.parent_cat_name}}</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label form-control-label set-fontSize"><span
+											class="text-danger font-weight-bold">*</span>Primary Category</label>
+									<div class="col-lg-3">
+										<select id="subcategories_select" class="form-control" name="subcategory_id" disabled>
+											<option value="">-- Select Sub Category -- </option>
+											<option value="{{view_Product?.data.category_id}}" selected>{{view_Product?.data.sub_category_name}}</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label form-control-label set-fontSize">
+										Secondary Category (optional)
+									</label>	
+									<div class="col-lg-3" >
+										<select id="categories_second" class="form-control" name="categories_second" multiple>
+											<option value="" selected>-- Select Secondary Category --</option>
+											<option *ngFor="let catego of view_Product?.sub_category" value="{{catego.id}}" [selected]="catego?.check == true" id="{{catego.facility_charges}}" [hidden]='view_Product?.data.category_id == catego.id'>{{catego.category_name}}</option>
+										</select>
+										<span class="set-fontSize d-lg-block d-none">(Press ctrl button to select multiple categories.)</span>
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label form-control-label set-fontSize">ISBN</label>
+									<div class="col-lg-3">
+										<select id="user_time_zone" class="form-control" name="isbn" #isbn="ngModel" ngModel (change)="chngeISBN(isbn.value)">
+											<option value="0" [selected]="view_Product?.data.isbn == '0'">Does not apply</option>
+											<option value="1" [selected]="view_Product?.data.isbn != '0'">Enter UPC/EAN/ISBN</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group row" *ngIf="view_Product?.data.isbn != '0'">
+									<label class="col-lg-3 col-form-label form-control-label set-fontSize"><span
+											class="text-danger font-weight-bold">*</span>Enter UPC/EAN/ISBN</label>
+									<div class="col-lg-3">
+										<input class="form-control" type="text" name="UPCISBN" id="upc_isbn" #UPCISBN="ngModel" required [(ngModel)]="view_Product?.data.isbn">
+										<div *ngIf="UPCISBN.invalid && (UPCISBN.dirty || UPCISBN.touched)" class="error-box">
+											<div *ngIf="UPCISBN.errors.required">
+												* Enter UPC/EAN/ISBN.
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group row" *ngIf="season_dealActive?.check_season_deal.msg == true">
+									<label class="col-lg-3 col-form-label form-control-label set-fontSize">
+										Season Deals
+									</label>
+									<div class="col-lg-3">
+										<select id="Season_deals" class="form-control" name="Season_deals" #Season_deals (change)="showDaysSelection(Season_deals.value)">
+											<option value="No" [selected]="view_Product?.data.season_deal == 'No'">No</option>
+											<option value="Yes" [selected]="view_Product?.data.season_deal == 'Yes'">Yes</option>
+										</select>
+									</div>
+								</div>
+								
+								<div class="form-group row" *ngIf="showsellDealDays == true">
+									<label class="col-lg-3 col-form-label form-control-label set-fontSize">
+										<span class="text-danger font-weight-bold">*</span>Select Days
+									</label>
+									<div class="col-lg-3">
+										<select id="Season_dealsDay" class="form-control" #Season_dealsDay="ngModel" name="Season_dealsDay" required ngModel (change)="showsellDayfees(Season_dealsDay.value)">
+											<option value="" selected>-- Select Days -- </option>
+											<option *ngFor="let allday of seasondealfees" value="{{allday[1]}}" id="{{allday[0] | replaceString:allday[0]}}">{{allday[0] | replaceString:allday[0]}} <span *ngIf="allday[0] == 'Days_1'">Day</span><span *ngIf="allday[0] != 'Days_1'">Days</span></option>
+										</select>
+										<div *ngIf="Season_dealsDay.invalid && (Season_dealsDay.dirty || Season_dealsDay.touched)" class="error-box">
+											<div *ngIf="Season_dealsDay.errors.required">
+												* Select Days.
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group row" *ngIf="season_dealActive?.check_season_deal.msg == false" class="d-none">
+									<label class="col-lg-3 col-form-label form-control-label set-fontSize">
+										Season Deals
+									</label>
+									<div class="col-lg-3">
+										<select id="Season_deals" class="form-control" name="Season_deals">
+											<option value="No" [selected]="view_Product?.data.season_deal == 'No'">No</option>
+										</select>
+									</div>
+								</div>
+								
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label form-control-label set-fontSize">
+										Featured Deals
+									</label>
+									<div class="col-lg-3">
+										<select id="daily_deal" class="form-control" name="daily_deal" #daily_deal="ngModel" required ngModel (change)="showDays(daily_deal.value)">
+											<option value="No" [selected]="view_Product?.data.daily_deal == 'No'">No</option>
+											<option value="Yes" [selected]="view_Product?.data.daily_deal == 'Yes'">Yes</option>										
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group row" *ngIf="view_Product?.data.daily_deal == 'Yes'">
+									<label class="col-lg-3 col-form-label form-control-label set-fontSize"><span
+											class="text-danger font-weight-bold">*</span>Select Days
+									</label>
+									<div class="col-lg-3">
+										<select id="daily_dealDay" class="form-control" #daily_dealDay="ngModel" name="daily_dealDay"  ngModel (change)="showDailyfees(daily_dealDay.value)"> <!-- required  -->
+											<option value="" selected> -- Select Days -- </option>
+											<option *ngFor="let allday of featureitem" [value]="allday[1]" id="{{allday[0] | replaceString:allday[0]}}" >{{allday[0] | replaceString:allday[0]}} <span *ngIf="allday[0] == 'Days_1'">Day</span><span *ngIf="allday[0] != 'Days_1'">Days</span></option>
+										</select>
+									</div>
+								</div>
+								
+								<div class="form-group row">
+									<div [ngClass]="{'col-lg-3 p-0': specdata?.label == 'Item Condition'}" *ngFor="let specdata of view_Product?.specification.specification" >
+										<label class="col-lg-12 col-form-label form-control-label set-fontSize" *ngIf="specdata?.label == 'Item Condition'">
+											<span class="text-danger font-weight-bold">*</span>Item Condition
+										</label>
+									</div>
+									<div [ngClass]="{'col-lg-3': specdata?.label == 'Item Condition'}" *ngFor="let specdata of view_Product?.specification.specification">
+										<select class="form-control" name="{{specdata?.label | replaceUnderscore:specdata?.label}}" *ngIf="specdata?.label == 'Item Condition'" id="condition_select">
+											<option *ngFor="let dropdownData of specdata?.value" value="{{dropdownData}}" [selected]="dropdownData == view_Product?.data.p_condition">{{dropdownData}}</option>
+										</select>
+									</div>
+								</div>
+								
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label form-control-label set-fontSize">
+										Item Condition Description
+									</label>
+									<div class="col-lg-6">
+										<textarea class="form-control" rows="3" id="comment" name="condition_description" #condition_description="ngModel" [(ngModel)]=" view_Product?.data.condition_description"></textarea>
+										
+									</div>
+								</div>
+								
+								<div class="form-group row" *ngIf="plt.is('core') == false && plt.is('mobileweb') == false">
+									<label class="col-lg-3 col-form-label form-control-label set-fontSize">
+										<span class="text-danger font-weight-bold">*</span>Photos</label>
+									<div class="col-lg-9">
+										<button type="submit" class="btn theme-light-btn-filupload mb-3" (click)="selectImage()">Select an Image</button>
+										<span class="set-fontSize">Please upload images only jpg, jpeg and png format. You can upload maximum 3MB size images. Add up to 10 photos. </span>
+										<div class="row m-0 image-preview-single" id="image_preview"></div>
+										<div class="image-preview-muliple row m-0" id="image_preview_append">
+										</div>
+									</div>
+									<div class="error-box showGIFError text-center w-100 pt-3 d-none"> Please upload images only jpg, jpeg and png format. </div>
+									<div class="error-box showFormatError text-center w-100 pt-3 d-none">
+										<span>You have exceeded the total amount of photos allowed. Only the first 10 photos have been uploaded.</span>
+									</div>
+								</div>
+								
+								<div class="form-group row" *ngIf="plt.is('core') == true || plt.is('mobileweb') == true">
+									<label class="col-lg-3 col-form-label form-control-label set-fontSize">
+										<span class="text-danger font-weight-bold">*</span>Photos</label>
+									<div class="col-lg-9">
+										<input type="hidden" role="uploadcare-uploader" name="content" data-multiple="true" data-max-size="3000000" data-multiple-min="1" data-multiple-max="10" data-image-shrink="1300x1300">
+										<div class="set-fontSize">Please upload images only jpg, jpeg and png format. You can upload maximum 3MB size images. Add up to 10 photos. </div>
+										<div class="set-fontSize mb-2">Click file count to image Edit. You can also drag and reorder your image. Your 1st image is your primary image.</div>
+										<div class="image-preview-single row m-0" id="image_preview">
+										</div>
+										<div class="image-preview-muliple row m-0" id="image_preview_append">
+										</div>
+									</div>
+									<div class="error-box showFormatError text-center w-100 pt-3 d-none">
+										<span>You have exceeded the total amount of photos allowed. Only the first 10 photos have been uploaded.</span>
+									</div>
+								</div>
+								<div class="col-lg-12 col-md-12 col-xl-12 col-12 pl-3 pt-2 pb-2 mb-4 front-bg-secondary">
+									<h6 class="m-0 text-left">Item specifics</h6>
+								</div>
+
+								<form #frmspec="ngForm" role="form" id="Item_specifics" name="Item-specifics" method="post" novalidate>
+									<div class="form-row">
+										<div [ngClass]="{'form-group' : specdata?.label !='Item Description' && specdata?.label != 'Item Condition','col-md-6' : specdata?.label !='Item Description' && specdata?.label != 'Item Condition', 'pr-lg-2' : specdata?.label !='Item Description' && specdata?.label != 'Item Condition', 'set-fontSize' : specdata?.label !='Item Description' && specdata?.label != 'Item Condition'}" *ngFor="let specdata of view_Product?.specification.specification">
+											<ng-template [ngIf]="specdata?.type == '1'">
+												<div *ngIf="specdata?.label == 'Type'">
+													<label>
+														<span class="text-danger font-weight-bold" *ngIf="specdata?.label =='Type' || specdata?.label =='Item Condition'">*</span>{{specdata?.label}}
+													</label>
+													<select class="form-control" name="{{specdata?.label | replaceUnderscore:specdata?.label}}">
+														<option *ngFor="let dropdownData of specdata?.value" value="{{dropdownData}}" [selected]="dropdownData == specdata?.selectedValue">{{dropdownData}}</option>
+													</select>
+												</div>
+												<div *ngIf="specdata?.label != 'Type' && specdata?.label !='Item Condition'">
+													<label> {{specdata?.label}} </label>
+													<select class="form-control" name="{{specdata?.label | replaceUnderscore:specdata?.label}}">
+														<option value="" *ngIf="specdata?.label !='Warranty'">Select</option>
+														<option *ngFor="let dropdownData of specdata?.value" value="{{dropdownData}}" [selected]="dropdownData == specdata?.selectedValue">{{dropdownData}}</option>
+													</select>
+												</div>
+											</ng-template>
+											<ng-template [ngIf]="specdata?.type == '2'">
+												<div *ngIf="specdata?.label !='Item Description'">
+													<label><span class="text-danger font-weight-bold" *ngIf="specdata?.label =='Item Description'">*</span>{{specdata?.label}}</label>
+													<input class="form-control" name="{{specdata?.label | replaceUnderscore:specdata?.label}}" type="text" [value]="specdata?.selectedValue">
+												</div>
+											</ng-template>
+											<ng-template [ngIf]="specdata?.type == '3'">
+											<label>{{specdata?.label}}</label><br/>
+												<label class="custom-control custom-checkbox pl-4" *ngFor="let checkboxselecteddata of specdata?.selectedValue">
+													<input type="checkbox" class="custom-control-input" name="{{specdata?.label | replaceUnderscore:specdata?.label}}" value="{{checkboxselecteddata}}" checked (change)="checkCheckboxforsize(specdata?.label,checkboxselecteddata)">
+													<span class="custom-control-indicator"></span>
+													<span class="custom-control-description">{{checkboxselecteddata}}</span>
+												</label>
+												<label class="custom-control custom-checkbox pl-4" *ngFor="let checkboxdata of specdata?.value">
+													<input type="checkbox" class="custom-control-input" name="{{specdata?.label | replaceUnderscore:specdata?.label}}" value="{{checkboxdata}}" (change)="checkCheckboxforsize(specdata?.label,checkboxdata)"> <!--  -->
+													<span class="custom-control-indicator"></span>
+													<span class="custom-control-description">{{checkboxdata}}</span>
+												</label>
+											</ng-template>
+										</div>
+									</div>
+									
+									<div class="col-lg-12 col-md-12 col-xl-12 col-12 pl-3 pt-2 pb-2 mb-4 front-bg-secondary" *ngIf="setCustomspecification?.Color != '' || setCustomspecification?.Size != ''">
+										<h6 class="m-0 text-left">Custom Item specifications</h6>
+									</div> 		
+									<div class="form-group row pl-3 pt-2 pb-2 mb-4" *ngIf="setCustomspecification?.Color != '' || setCustomspecification?.Size != ''">
+										<ul class="nav nav-tabs w-100 Custom_Item_specifications" role="tablist">
+											<li class="nav-item" *ngIf="setCustomspecification?.Color != ''">
+												<a class="nav-link active" href="#color" role="tab" data-toggle="tab">Color</a>
+											</li>
+											<li class="nav-item" *ngIf="setCustomspecification?.Size != ''">
+												<a class="nav-link" href="#Size" role="tab" data-toggle="tab">Size</a>
+											</li>
+										</ul>
+										<!-- Tab panes -->
+										<div class="tab-content">
+											<div role="tabpanel" class="tab-pane fade in active show" id="color" *ngIf="setCustomspecification?.Color != ''">
+												<div class="m-3">
+													<span class="badge badge-customorange mr-2 mb-2" *ngFor="let clr_slt of setCustomspecification?.Color_selected">{{clr_slt}}</span>
+													<span class="badge badge-customorange mr-2 mb-2" *ngFor="let clr of setCustomspecification?.Color">{{clr}}</span>
+												</div>
+												<a class="ml-3 text-primary set-fontSize" (click)="createCustomspecification('Color')">+ Create your own</a>
+											</div>
+											<div role="tabpanel" class="tab-pane fade" id="Size" *ngIf="setCustomspecification?.Size != ''">
+												<div class="m-3">
+													<span class="badge badge-customorange mr-2 mb-2" *ngFor="let siz_slt of setCustomspecification?.Size_selected">{{siz_slt}}</span>
+													<span class="badge badge-customorange mr-2 mb-2" *ngFor="let siz of setCustomspecification?.Size">{{siz}}</span>
+												</div>
+												<a class="ml-3 text-primary set-fontSize" (click)="createCustomspecification('Size')">+ Create your own</a>
+											</div>
+										</div>
+									</div>
+									
+									<div class="form-row" *ngIf="view_Product?.data.specification != false">
+										<div class="form-group col-md-12 pr-lg-2 set-fontSize">
+											<label>
+												<span class="text-danger font-weight-bold">*</span>Item Description
+											</label>
+											<textarea class="form-control d-none" rows="3" id="Item_Description" name="Item_Description" [value]="Item_Description"></textarea>
+											<ckeditor name="Item_Description" [(ngModel)]="Item_Description" [config]="config"> </ckeditor>
+										</div>
+									</div>
+									<div class="form-row" *ngIf="view_Product?.data.specification == false">
+										<div class="form-group col-md-12 pr-lg-2 set-fontSize">
+											<label>
+												<span class="text-danger font-weight-bold">*</span>Item Description
+											</label>
+											<textarea class="form-control d-none" rows="3" id="Item_Description" name="Item_Description" [value]="Item_Description"></textarea>
+											<ckeditor name="Item_Description" [(ngModel)]="Item_Description" [config]="config"> </ckeditor>
+										</div>
+									</div>
+								</form>
+
+								<div class="col-lg-12 col-md-12 col-xl-12 col-12 pl-3 pt-2 pb-2 mb-4 front-bg-secondary">
+									<h6 class="m-0 text-left">Selling details</h6>
+								</div>
+								
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label form-control-label set-fontSize"><span
+											class="text-danger font-weight-bold">*</span>Format
+									</label>
+									<div class="col-lg-3">
+										<select id="Format" class="form-control" name="selling_type" #selling_type="ngModel" required ngModel (change)="showData(selling_type.value)">
+											<option value="">-- Select Condition -- </option>
+											<option value="Auction style" [selected]="view_Product?.data.selling_type == 'Auction style'">Auction-style</option>
+											<option value="Fixed price" [selected]="view_Product?.data.selling_type == 'Fixed price'">Fixed price</option>
+										</select>
+										<div *ngIf="selling_type.invalid && (selling_type.dirty || selling_type.touched)" class="error-box">
+											<div *ngIf="selling_type.errors.required">
+												* Select Format.
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div *ngIf="view_Product?.data.selling_type == 'Auction style'" id="Auctionstyle">
+									<div class="form-group row auctionduration">
+										<label class="col-lg-3 col-form-label form-control-label set-fontSize"><span
+												class="text-danger font-weight-bold">*</span>Duration
+										</label>
+										<div class="col-lg-3">
+											<select id="Duration" class="form-control" name="duration" #duration="ngModel" required ngModel>
+												<option value="" selected>-- Select Duration -- </option>
+												<option value="3">3 days</option>
+												<option value="5">5 days</option>
+												<option value="7">7 days</option>
+												<option value="10">10 days</option>
+												<option value="30">30 days</option>
+											</select>
+											<div *ngIf="duration.invalid && (duration.dirty || duration.touched)" class="error-box">
+												<div *ngIf="duration.errors.required">
+													* Select duration.
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="offset-lg-3 col-lg-9">
+											<div class="row m-0">
+												<div class="col-lg-12 col-md-12 col-12 p-0 set-fontSize">
+													<input type="radio" id="schldLstng_0Auction" name="schldlisting" value="No" (click) = "checkschldlisting('no')">
+													<label for="schldLstng_0Auction">Start my listings when I submit them</label>
+												</div>
+												<div class="col-lg-12 col-md-12 col-12 p-0 set-fontSize">
+													<input type="radio" id="schldLstng_1Auction" name="schldlisting" value="Yes" (click) = "checkschldlisting('yes')">
+													<label for="schldLstng_1Auction">Schedule to start on</label>
+													<span>
+														<select name="startDate" id="startDate" title="Start Date" class="selectOptions" disabled="true">
+															<option value="{{dat | date : 'yyyy-MM-dd'}}" *ngFor="let dat of arr">{{dat | date}}</option>
+														</select>
+													</span>
+													<span>
+														<select name="startTime" id="startTime" title="Start Time" class="selectOptions" disabled="true">
+															<option value="00" selected="selected">00</option>
+															<option value="01">01</option>
+															<option value="02">02</option>
+															<option value="03">03</option>
+															<option value="04">04</option>
+															<option value="05">05</option>
+															<option value="06">06</option>
+															<option value="07">07</option>
+															<option value="08">08</option>
+															<option value="09">09</option>
+															<option value="10">10</option>
+															<option value="11">11</option>
+															<option value="12">12</option>
+															<option value="13">13</option>
+															<option value="14">14</option>
+															<option value="15">15</option>
+															<option value="16">16</option>
+															<option value="17">17</option>
+															<option value="18">18</option>
+															<option value="19">19</option>
+															<option value="20">20</option>
+															<option value="21">21</option>
+															<option value="22">22</option>
+															<option value="23">23</option>
+														</select>
+													</span>
+													<span>
+														<select name="stTimeMinute" id="stTimeMinute" title="Minutes" class="selectOptions" disabled="true">
+															<option value="00" selected="selected">00</option>
+															<option value="01">01</option>
+															<option value="02">02</option>
+															<option value="03">03</option>
+															<option value="04">04</option>
+															<option value="05">05</option>
+															<option value="06">06</option>
+															<option value="07">07</option>
+															<option value="08">08</option>
+															<option value="09">09</option>
+															<option value="10">10</option>
+															<option value="11">11</option>
+															<option value="12">12</option>
+															<option value="13">13</option>
+															<option value="14">14</option>
+															<option value="15">15</option>
+															<option value="16">16</option>
+															<option value="17">17</option>
+															<option value="18">18</option>
+															<option value="19">19</option>
+															<option value="20">20</option>
+															<option value="21">21</option>
+															<option value="22">22</option>
+															<option value="23">23</option>
+															<option value="24">24</option>
+															<option value="25">25</option>
+															<option value="26">26</option>
+															<option value="27">27</option>
+															<option value="28">28</option>
+															<option value="29">29</option>
+															<option value="30">30</option>
+															<option value="31">31</option>
+															<option value="32">32</option>
+															<option value="33">33</option>
+															<option value="34">34</option>
+															<option value="35">35</option>
+															<option value="36">36</option>
+															<option value="37">37</option>
+															<option value="38">38</option>
+															<option value="39">39</option>
+															<option value="40">40</option>
+															<option value="41">41</option>
+															<option value="42">42</option>
+															<option value="43">43</option>
+															<option value="44">44</option>
+															<option value="45">45</option>
+															<option value="46">46</option>
+															<option value="47">47</option>
+															<option value="48">48</option>
+															<option value="49">49</option>
+															<option value="50">50</option>
+															<option value="51">51</option>
+															<option value="52">52</option>
+															<option value="53">53</option>
+															<option value="54">54</option>
+															<option value="55">55</option>
+															<option value="56">56</option>
+															<option value="57">57</option>
+															<option value="58">58</option>
+															<option value="59">59</option>
+														</select>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group row auctionduration">
+										<label class="col-lg-3 col-form-label form-control-label set-fontSize"><span
+												class="text-danger font-weight-bold">*</span>Price</label>
+										<div class="col-lg-9">
+											<div class="form-row row">
+												<div class="form-group col-md-3 col-lg-2 pr-lg-2 set-fontSize">
+													<label class="col-lg-12 pl-0 col-form-label form-control-label"><span
+															class="text-danger font-weight-bold">*</span>Starting price
+													</label>
+													<input class="form-control" type="number" name="min_price" id="min_price" #min_price="ngModel" required [(ngModel)]="view_Product?.data.min_price <= 0?'':view_Product?.data.min_price" pattern="^([1-9][0-9]{0,6}?)$">
+													<div *ngIf="min_price.invalid && (min_price.dirty || min_price.touched)" class="error-box">
+														<div *ngIf="min_price.errors.required">
+															* Enter starting price.
+														</div>
+														<div *ngIf="min_price.errors.pattern">
+															* The starting price must be a valid number greater than 0 and maximum price length is 7.
+														</div>
+													</div>
+												</div>
+												<div class="form-group col-md-3 col-lg-2 pr-lg-2 set-fontSize">
+													<label class="col-lg-12 pl-0 col-form-label form-control-label">Buy It Now price</label>
+													<input class="form-control" type="number" name="price" id="format1_price" #price="ngModel" [(ngModel)]="view_Product?.data.price <= 0?'':view_Product?.data.price" (change)="showcategoryFees()" pattern="^([1-9][0-9]{0,6}?)$">
+													<div *ngIf="price.invalid && (price.dirty || price.touched)" class="error-box">
+														<div *ngIf="price.errors.pattern">
+															* The price must be a valid number greater than 0 and price length is 7.
+														</div>
+													</div>
+												</div>
+												<div class="form-group col-md-3 col-lg-2 pr-lg-2 set-fontSize">
+													<label class="col-lg-12 pl-0 col-form-label form-control-label">Reserve price
+													</label>
+													<input class="form-control" type="number" name="max_price" id="max_price" required #max_price="ngModel" [(ngModel)]="view_Product?.data.max_price <= 0?'':view_Product?.data.max_price" pattern="^([1-9][0-9]{0,6}?)$">
+													<div *ngIf="max_price.invalid && (max_price.dirty || max_price.touched)" class="error-box">
+														<div *ngIf="max_price.errors.pattern">
+															* The reserve price must be a valid number greater than 0 and reserve price length is 7.
+														</div>
+													</div>
+													<div class="error-box Maxprice" id="Maxprice">
+
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group row auctionduration">
+										<label class="col-lg-3 col-form-label form-control-label set-fontSize">Quantity</label>
+										<div class="col-lg-9">
+											<div class="form-row row">
+												<div class="form-group col-md-2 pr-lg-2">
+													<input class="form-control" type="number" value="1" disabled name="quantity" id="dis_id">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div *ngIf="view_Product?.data.selling_type == 'Fixed price'">
+									<div class="form-group row fixedrateduration">
+										<label class="col-lg-3 col-form-label form-control-label set-fontSize"><span
+												class="text-danger font-weight-bold">*</span>Buy It Now price</label>
+										<div class="col-lg-9">
+											<div class="form-row row">
+												<div class="form-group col-md-2 pr-lg-2 set-fontSize">
+													<input class="form-control" type="number" name="price" id="format2_price" #price="ngModel" required [(ngModel)]="view_Product?.data.price <= 0?'':view_Product?.data.price" (change)="showcategoryFees()" pattern="^([1-9][0-9]{0,6}?)$">
+													<div *ngIf="price.invalid && (price.dirty || price.touched)" class="error-box">
+														<div *ngIf="price.errors.required">
+															* Enter buy it now price.
+														</div>
+														<div *ngIf="price.errors.pattern">
+														* The price must be a valid number greater than 0 and maximum price length is 7.
+													</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group row fixedrateduration">
+										<label class="col-lg-3 col-form-label form-control-label set-fontSize">Auto Renew</label>
+										<div class="col-lg-3">
+											<select id="Duration_selection" class="form-control" name="Duration_selection" #Duration_selection="ngModel" ngModel>
+												<!--<option value="">&#45;&#45; Select Auto Renew &#45;&#45; </option>-->
+												<option value="Yes" [selected]="view_Product?.data.renew == 'Yes'">Yes</option>
+												<option value="No" [selected]="view_Product?.data.renew == 'No'">No</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group row fixedrateduration">
+										<label class="col-lg-3 col-form-label form-control-label set-fontSize">
+											<span class="text-danger font-weight-bold">*</span>Duration
+										</label>
+										<div class="col-lg-3">
+											<select id="Duration1" class="form-control" name="duration" #duration="ngModel" required ngModel>
+												<option value="">-- Select Duration -- </option>
+												<option value="3">3 days</option>
+												<option value="5">5 days</option>
+												<option value="7">7 days</option>
+												<option value="10">10 days</option>
+												<option value="30">30 days</option>
+											</select>
+											<div *ngIf="duration.invalid && (duration.dirty || duration.touched)" class="error-box">
+												<div *ngIf="duration.errors.required">
+													* Select duration.
+												</div>
+											</div>
+											<p class="mb-0 mt-2" *ngIf="Duration_selection?.value == 'Yes'">
+												Listings renew automatically every 30 days, based on the listing terms at that time,
+												until all quantities sell or the listing ends. Each time a listing renews and when
+												an item sells, you’ll be charged applicable fees.
+											</p>
+											<p class="mb-0 mt-2" *ngIf="Duration_selection?.value == 'No'">
+												Your listing will end at the end of the selected time if items are unsold.
+											</p>
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="offset-lg-3 col-lg-9">
+											<div class="row m-0">
+												<div class="col-lg-12 col-md-12 col-12 p-0 set-fontSize">
+													<input type="radio" id="schldLstng_0" name="schldlisting_fixed" value="No" (click) = "checkschldlisting('no')">
+													<label for="schldLstng_0">Start my listings when I submit them</label>
+												</div>
+												<div class="col-lg-12 col-md-12 col-12 p-0 set-fontSize">
+													<input type="radio" id="schldLstng_1" name="schldlisting_fixed" value="Yes" (click) = "checkschldlisting('yes')">
+													<label for="schldLstng_1">Schedule to start on</label>
+													<span>
+														<select name="startDate" id="startDate_fixed" title="Start Date" class="selectOptions" disabled="true">
+															<option value="{{dat | date : 'yyyy-MM-dd'}}" *ngFor="let dat of arr">{{dat | date}}</option>
+														</select>
+													</span>
+													<span>
+														<select name="startTime" id="startTime_fixed" title="Start Time" class="selectOptions" disabled="true">
+															<option value="00" selected="selected">00</option>
+															<option value="01">01</option>
+															<option value="02">02</option>
+															<option value="03">03</option>
+															<option value="04">04</option>
+															<option value="05">05</option>
+															<option value="06">06</option>
+															<option value="07">07</option>
+															<option value="08">08</option>
+															<option value="09">09</option>
+															<option value="10">10</option>
+															<option value="11">11</option>
+															<option value="12">12</option>
+															<option value="13">13</option>
+															<option value="14">14</option>
+															<option value="15">15</option>
+															<option value="16">16</option>
+															<option value="17">17</option>
+															<option value="18">18</option>
+															<option value="19">19</option>
+															<option value="20">20</option>
+															<option value="21">21</option>
+															<option value="22">22</option>
+															<option value="23">23</option>
+														</select>
+													</span>
+													<span>
+														<select name="stTimeMinute" id="stTimeMinute_fixed" title="Minutes" class="selectOptions" disabled="true">
+															<option value="00" selected="selected">00</option>
+															<option value="01">01</option>
+															<option value="02">02</option>
+															<option value="03">03</option>
+															<option value="04">04</option>
+															<option value="05">05</option>
+															<option value="06">06</option>
+															<option value="07">07</option>
+															<option value="08">08</option>
+															<option value="09">09</option>
+															<option value="10">10</option>
+															<option value="11">11</option>
+															<option value="12">12</option>
+															<option value="13">13</option>
+															<option value="14">14</option>
+															<option value="15">15</option>
+															<option value="16">16</option>
+															<option value="17">17</option>
+															<option value="18">18</option>
+															<option value="19">19</option>
+															<option value="20">20</option>
+															<option value="21">21</option>
+															<option value="22">22</option>
+															<option value="23">23</option>
+															<option value="24">24</option>
+															<option value="25">25</option>
+															<option value="26">26</option>
+															<option value="27">27</option>
+															<option value="28">28</option>
+															<option value="29">29</option>
+															<option value="30">30</option>
+															<option value="31">31</option>
+															<option value="32">32</option>
+															<option value="33">33</option>
+															<option value="34">34</option>
+															<option value="35">35</option>
+															<option value="36">36</option>
+															<option value="37">37</option>
+															<option value="38">38</option>
+															<option value="39">39</option>
+															<option value="40">40</option>
+															<option value="41">41</option>
+															<option value="42">42</option>
+															<option value="43">43</option>
+															<option value="44">44</option>
+															<option value="45">45</option>
+															<option value="46">46</option>
+															<option value="47">47</option>
+															<option value="48">48</option>
+															<option value="49">49</option>
+															<option value="50">50</option>
+															<option value="51">51</option>
+															<option value="52">52</option>
+															<option value="53">53</option>
+															<option value="54">54</option>
+															<option value="55">55</option>
+															<option value="56">56</option>
+															<option value="57">57</option>
+															<option value="58">58</option>
+															<option value="59">59</option>
+														</select>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group row auctionduration">
+										<label class="col-lg-3 col-form-label form-control-label set-fontSize"><span
+															class="text-danger font-weight-bold">*</span>Quantity</label>
+										<div class="col-lg-9">
+											<div class="form-row row">
+												<div class="form-group col-md-3 col-lg-2 pr-lg-2">
+													<input class="form-control" type="number" name="quantity" id="quantity" #quantity="ngModel" required [(ngModel)]="view_Product?.data.quantity <= 0?'':view_Product?.data.quantity" pattern="^([1-9][0-9]{0,3}?)$">
+													<div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)" class="error-box">
+														<div *ngIf="quantity.errors.required">
+															* Enter quantity.
+														</div>
+														<div *ngIf="quantity.errors.pattern">
+															* The quantity must be a valid number greater than 0 and maximum quantity length is 4.
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-lg-12 col-md-12 col-xl-12 col-12 pl-3 pt-2 pb-2 mb-4 front-bg-secondary" *ngIf="setCustomspecification?.Size != ''">
+										<h6 class="m-0 text-left">Custom Quantity</h6>
+									</div> 		
+									<div class="form-group row pl-3 pt-2 pb-2 mb-4" *ngIf="setCustomspecification?.Size != ''">
+										<ul class="nav nav-tabs w-100 Custom_Item_specifications" role="tablist">
+											<li class="nav-item" *ngIf="setCustomspecification?.Size != '' && view_Product?.data.selling_type == 'Fixed price'">
+												<a class="nav-link active" href="#custom_Quantity" role="tab" data-toggle="tab">Quantity</a>
+											</li>
+										</ul>
+										<!-- Tab panes -->
+										<div class="tab-content">
+											<div role="tabpanel" class="tab-pane fade in active show" id="custom_Quantity" *ngIf="setCustomspecification?.Size != '' && view_Product?.data.selling_type == 'Fixed price'">
+												<div *ngFor="let siz_qun of setCustomspecification?.Size_selected" class="m-2">
+													<input type="text" disabled value="{{siz_qun}}" class="custom_inputtext_size text-center">
+													<input type="number" placeholder="Enter Quantity" class="custom_inputtext_size w-50" name="custom_sizeQun" required id="{{siz_qun}}" (change)="setQuantityvalue()">
+												</div>
+												<div *ngFor="let siz_qun of size_customQuantity_first; let i=index;" class="m-2">
+													<input type="text" disabled value="{{siz_qun}}" class="custom_inputtext_size text-center">
+													<input type="number" placeholder="Enter Quantity" class="custom_inputtext_size w-50" name="custom_sizeQun" required id="{{siz_qun}}" (change)="setQuantityvalue()">
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="form-group row">
+										<div class="offset-lg-3 col-lg-9">
+											<div class="form-row row">
+												<div class="form-group col-md-12 col-lg-12 pr-lg-2 set-fontSize">
+													<label class="col-lg-12 pl-0 col-form-label form-control-label">Best Offer
+													</label>
+													<label class="custom-control custom-checkbox pl-4">
+														<input type="checkbox" class="custom-control-input" id="BestOffer" [checked]="view_Product?.data.make_offer == 1" (change)="other_Payment('BestOffer')">
+														<span class="custom-control-indicator"></span>
+														<span class="custom-control-description">Let buyers make offers. Being flexible with your price may help your item sell faster</span>
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group row" *ngIf="makeoffertextbox == true">
+										<div class="offset-lg-3 col-lg-9">
+											<div class="form-row row">
+												<div class="form-group col-md-6 col-lg-4 pr-lg-2 col-12 set-fontSize">
+													<label class="col-lg-12 pl-0 col-form-label form-control-label">Automatically decline offers lower than
+														</label>
+													<label class="custom-control custom-checkbox p-0 w-100">
+														<input class="form-control w-100" type="number" name="minprice" id="minprice" #minprice="ngModel" required [(ngModel)]="view_Product?.data.min_price <=0?'':view_Product?.data.min_price" pattern="^([1-9][0-9]{0,6}?)$">
+													</label>
+													<div *ngIf="minprice.invalid && (minprice.dirty || minprice.touched)" class="error-box">
+														<div *ngIf="minprice.errors.required">
+															* Enter Min Price.
+														</div>
+														<div *ngIf="minprice.errors.pattern">
+															* The min price must be a valid number greater than 0 and maximum min price length is 7.
+														</div>
+													</div>
+												</div>
+												<div class="form-group col-md-6 col-lg-4 pr-lg-2 col-12 set-fontSize">
+													<label class="col-lg-12 pl-0 col-form-label form-control-label">Automatically accept offers of at least
+														</label>
+													<label class="custom-control custom-checkbox p-0 w-100">
+														<input class="form-control w-100" type="number" name="maxprice" id="maxprice" #maxprice="ngModel" required [(ngModel)]="view_Product?.data.max_price <= 0?'':view_Product?.data.max_price" pattern="^([1-9][0-9]{0,6}?)$">
+													</label>
+													<div *ngIf="maxprice.invalid && (maxprice.dirty || maxprice.touched)" class="error-box">
+														<div *ngIf="maxprice.errors.required">
+															* Enter Max Price
+														</div>
+														<div *ngIf="maxprice.errors.pattern">
+															* The max price must be a valid number greater than 0 and maximum max price length is 7.
+														</div>
+													</div>
+													<div class="error-box Maxprice" id="Maxpriceoffer">
+
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label form-control-label set-fontSize"><span class="text-danger font-weight-bold ">*</span>Payment Options</label>
+									<div class="col-lg-9">
+										<div class="row m-0">
+											<div class="col-lg-12 col-md-12 col-12 p-0 set-fontSize">
+												<label class="custom-control custom-checkbox pl-4" for="paypal_check">
+													<input type="checkbox" class="custom-control-input paypal-checkbox" value="1" id="paypal_check" name="payment_opt" (change)="disableText()">
+													<span class="custom-control-indicator"></span>
+													<span class="custom-control-description">PayPal</span>
+												</label>
+											</div>
+											<div class="showPaypaldiv d-none w-100">
+												<div class="col-lg-4 col-md-6 col-12 p-0">
+													<p class="">Email address for receiving payment: </p>
+												</div>
+												<div class="col-lg-4 col-md-4 col-12 p-0">
+													<input type="email" class="form-control receiving-payment-email" name="paypal_email" id="paypal_text" placeholder="Enter PayPal Email" #paypal_email="ngModel" required [email]="true" [(ngModel)]="view_Product?.data.paypal_email == null || view_Product?.data.paypal_email == ''?localItem?.payment_email:view_Product?.data.paypal_email" (change)="checkPaypalEmail(paypal_email.value)"/>
+													<span><i class="fa fa-close" style="font-size: 24px;position: relative;color:red;top: -4px;" *ngIf="verificationResponsebusiness?.responseEnvelope.ack == 'Failure';else showrightSign"></i></span>
+													<ng-template #showrightSign>
+														<span class="hideRigthCircle" *ngIf="localItem?.payment_email != null || view_Product?.data.paypal_email != null"><i class="fa fa-check-circle" style="font-size: 24px;position: relative;color:green;top: -4px;"></i></span>
+													</ng-template>
+													<div *ngIf="paypal_email.invalid && (paypal_email.dirty || paypal_email.touched)" class="error-box">
+														<div *ngIf="paypal_email.errors.email || paypal_email.errors.required">
+															* Enter email.
+														</div>
+													</div>
+													<div class="error-box" *ngIf="verificationResponsebusiness?.responseEnvelope.ack == 'Failure'">Please enter valid Paypal email address</div>
+
+												</div>
+											</div>
+										</div>
+										<div class="row m-0">
+											<div class="col-lg-12 col-md-12 col-12 p-0 set-fontSize">
+												<label class="custom-control custom-checkbox pl-4">
+													<input type="checkbox" class="custom-control-input cash-checkbox" name="payment_opt" value="2" id="cash">
+													<span class="custom-control-indicator"></span>
+													<span class="custom-control-description">Cash on delivery</span>
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="mt-3 pl-0 pr-4">
+										<div class="form-group row">
+											<label class="col-lg-3 col-form-label form-control-label set-fontSize">Discount (%)</label>
+											<div class="col-lg-9">
+												<div class="col-lg-2 col-md-6 col-12 p-0 set-fontSize">
+													<input class="form-control" type="number" pattern="^$|^([1-9]|[1-9][0-9]|[1][0][0])?" name="discount" #discount="ngModel" [(ngModel)]="view_Product?.data.discount <=0?'':view_Product?.data.discount" placeholder="Min: 1, Max: 100" id="discountval">
+													<div *ngIf="discount.invalid && (discount.dirty || discount.touched)" class="error-box">
+														<div *ngIf="discount.errors.pattern">
+															Number should be between 1 and 100
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="form-group row">
+										<label class="col-lg-3 col-form-label form-control-label set-fontSize"><span
+												class="text-danger font-weight-bold">*</span>Return Options</label>
+										<div class="col-lg-9">
+											<div class="row m-0">
+												<div class="col-lg-12 col-md-12 col-12 p-0 set-fontSize">
+													<input type="radio" id="return-accepted" name="return_opt" value="true" (change)="change_date()">
+													<label for="return-accepted">Returns Accepted</label>
+												</div>
+												<div class="col-lg-4 col-md-12 col-12 p-0" id="recieving-days" *ngIf="return_opt == true">
+													<label class="col-lg-12 pl-0 col-form-label form-control-label set-fontSize"><span class="text-danger font-weight-bold">*</span>After receiving the item, your buyer should contact you within:</label>
+
+													<select id="itemReturnedWithin" class="form-control" name="returnopt">
+														<option *ngFor="let return_data of show_feesData?.return_days" value="Days_{{return_data}}" [selected]="view_Product.data.return_opt == 'Days_'+return_data">{{return_data}} <span *ngIf="return_data == 1">Day</span><span *ngIf="return_data != 1">Days</span></option>
+													</select>
+
+												</div>
+												<div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-3 p-0" *ngIf="return_opt == true">
+													<div class="form-row row">
+														<div class="form-group col-md-12 col-lg-4 pr-lg-2 set-fontSize">
+															<label class="col-lg-12 pl-0 col-form-label form-control-label">
+																<span class="text-danger font-weight-bold">*</span>Return shipping will be paid by:</label>
+															<select id="returnby" class="form-control" name="returnbyselect" > <!-- #returnbyselect="ngModel" required ngModel -->
+																<option value="buyer" [selected]="view_Product?.data.ship_to == 'buyer'">Buyer</option>
+																<option value="seller" [selected]="view_Product?.data.ship_to == 'seller'">Seller</option> <!-- (Free Returns) -->
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-3 p-0" *ngIf="return_opt == true">
+													<div class="form-row row">
+														<div class="form-group col-md-12 col-lg-4 pr-lg-2 set-fontSize">
+															<label class="col-lg-12 pl-0 col-form-label form-control-label">
+																<span class="text-danger font-weight-bold">*</span>Return Policy
+															</label>
+															<textarea class="form-control" rows="3" id="returnpolicy" name="returnpolicy" #returnpolicy="ngModel" required [(ngModel)]="view_Product?.data.return_policy"></textarea>
+															<div *ngIf="returnpolicy.invalid && (returnpolicy.dirty || returnpolicy.touched)" class="error-box">
+																<div *ngIf="returnpolicy.errors.required">
+																	* Enter Return Policy.
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-lg-12 col-md-12 col-12 pt-4 pl-0 pb-0 pr-0 set-fontSize">
+													<input type="radio" id="no-return" name="return_opt" value="false" (change)="change_date()"> <!-- [(ngModel)]="return_opt" type="radio" [value]="false" [checked]="!return_opt" -->
+													<label for="no-return">No Returns Accepted</label>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-lg-12 col-md-12 col-xl-12 col-12 pl-3 pt-2 pb-2 mb-4 front-bg-secondary">
+										<h6 class="m-0 text-left">Shipping details</h6>
+									</div>
+									<div class="form-group row">
+										<label class="col-lg-3 col-form-label form-control-label set-fontSize"><span
+												class="text-danger font-weight-bold">*</span>Shipment Type</label>
+										<div class="col-lg-9">
+											<div class="row m-0">
+												<div class="col-lg-12 col-md-12 col-12 p-0 set-fontSize">
+													<label class="custom-control custom-checkbox pl-4">
+														<input type="checkbox" class="custom-control-input" name="shipment_type" value="By Courier" id="CourierService">
+														<span class="custom-control-indicator"></span>
+														<span class="custom-control-description">Courier Service</span>
+													</label>
+												</div>
+												<div class="col-lg-12 col-md-12 col-12 p-0 set-fontSize">
+													<label class="custom-control custom-checkbox pl-4">
+														<input type="checkbox" class="custom-control-input" name="shipment_type" value="By Seller">
+														<span class="custom-control-indicator"></span>
+														<span class="custom-control-description">Collect From Seller</span>
+													</label>
+												</div>
+												<div class="col-lg-12 col-md-12 col-12 p-0 set-fontSize">
+													<label class="custom-control custom-checkbox pl-4">
+														<input type="checkbox" class="custom-control-input" name="shipment_type" value="Other" id="Other" (change)="other_Payment('shipment_type')">
+														<span class="custom-control-indicator"></span>
+														<span class="custom-control-description">Other</span>
+													</label>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group row contactmessage" *ngIf="otherPayment == true">
+										<label class="col-lg-3 col-form-label form-control-label set-fontSize"><span class="text-danger font-weight-bold">*</span>Other Shipment</label>
+										<div class="col-lg-3 pl-2">
+											<input type="text" class="form-control" name="otherPaymentOpt" id="OtherShipment" value="{{otherPayment_text}}">
+										</div>
+									</div>
+									
+									<div class="form-group row">
+										<label class="col-lg-3 col-form-label form-control-label set-fontSize"><span
+												class="text-danger font-weight-bold">*</span>Product Address</label>
+										<div class="col-lg-4 pl-2 mb-3 mb-lg-0">
+											<input type="text" class="form-control setAreaCommunity" placeholder="Area,Community" id="area_community" name="area_community" #area_community="ngModel" ngModel />
+										</div>
+										<div class="col-lg-5 pl-2">
+											<ng4geo-autocomplete [userSettings]="userSettings" (componentCallback)="autoCompleteCallback1($event)"></ng4geo-autocomplete>
+										</div>
+									</div>
+									<div class="form-group row" class="d-none">
+										<div class="offset-lg-3 col-lg-9">
+											<iframe id="mapiframe" class="d-none" src="" width="100%" height="500px" frameborder="0" style="border:0"></iframe>
+										</div>
+									</div>
+									
+									<div class="form-group row"> 
+										<label class="col-lg-3 col-form-label form-control-label set-fontSize"><span
+												class="text-danger font-weight-bold">*</span>Days to disptach from seller<span
+												class="font-weight-normal"> </span></label>
+										<div class="col-lg-2 pl-2">
+											<input class="form-control" type="number" name="delivery_days" id="delivery_days" #delivery_days="ngModel" required [(ngModel)]="view_Product?.data.delivery_days <=0?'':view_Product?.data.delivery_days" pattern="^$|^([1-9]|[1-9][0-9]|[1][0][0])?">
+											<div *ngIf="delivery_days.invalid && (delivery_days.dirty || delivery_days.touched)" class="error-box">
+												<div *ngIf="delivery_days.errors.required">
+													* Enter delivery days.
+												</div>
+												<div *ngIf="delivery_days.errors.pattern">
+													* Enter a number between 1 to 100.
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-12 col-md-12 col-xl-12 col-12 pt-2 pl-0 pr-0 set-fontSize" *ngIf="editproductResponse?.status == 'fail'">
+										<div class="alert alert-danger alert-dismissible" id="dangeralert" role="alert">
+											<a class="close" (click)="closeDiv_Delete()">&times;</a>
+											<span id="dangerspan">{{editproductResponse?.msg}}</span>
+										</div>
+									</div>
+									<div class="col-lg-12 col-md-12 col-xl-12 col-12 p-2 set-fontSize background_fees">
+										<div class="row m-0">
+											<div class="col-lg-2 col-md-3 col-xl-2 col-4 pt-1 pl-0 pr-0 set-fontSize">
+												<h6 class="mb-0">Fees:</h6>
+											</div>
+											<div class="col-lg-10 col-md-8 col-xl-10 col-8 pt-2 pl-0 pr-0">
+												<h6 class="mb-0">{{ view_Product?.data.seller_fee | number:'1.2-2' }} AED</h6>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-12 col-md-12 col-xl-12 col-12 pt-2 pl-0 pr-0 set-fontSize hide text-center" id="photosSelectedit">
+										<span class="text-danger"><b>Please Select Product Images.</b></span>
+									</div>
+									<div class="text-center col-lg-12 col-md-12 col-xl-12 col-12 pt-2 pl-0 pr-0 set-fontSize">
+										<span class="d-none text-danger Item_specificationError"><b>Please select required Item Specifications</b></span>
+										<span class="d-none text-danger Payment_Opt"><b>Please select Payment Option</b></span>
+										<span class="d-none text-danger addProduct-errorMessage"></span>
+										<span class="d-none text-danger ShipmentSelectalert"><b>Please Select Shipment Type.</b></span>
+										<span class="d-none text-danger Scheduleonstart"><b>The scheduled date occurs in the past. Please select a new date.</b></span>
+										<span class="d-none text-danger duration_future"><b>The featured deals day must be less than the duration.</b></span>
+										<span class="d-none text-danger product_address"><b>Please enter product address.</b></span>
+										<span class="d-none text-danger productMSG_title"><b>Please enter product title.</b></span>
+										<span class="d-none text-danger productMSG_description"><b>Please enter product description.</b></span>
+										<span class="d-none text-danger productMSG_format"><b>Please select format.</b></span>
+										<span class="d-none text-danger productMSG_duration"><b>Please select duration.</b></span>
+										<span class="d-none text-danger productMSG_schldlisting"><b>Please checked scheduling.</b></span>
+										<span class="d-none text-danger productMSG_minprice"><b>The starting price must be a valid number greater than 0 and maximum price length is 7.</b></span>
+										<span class="d-none text-danger productMSG_maxprice"><b>The reserve price must be a valid number greater than 0 and reserve price length is 7.</b></span>
+										<span class="d-none text-danger productMSG_format1price"><b>The price must be a valid number greater than 0 and price length is 7.</b></span>
+										<span class="d-none text-danger productMSG_durationselection"><b>Please select auto renew.</b></span>
+										<span class="d-none text-danger productMSG_quantity"><b>The quantity must be a valid number greater than 0 and maximum quantity length is 4.</b></span>
+										<span class="d-none text-danger productMSG_minpriceoffer"><b>The min price must be a valid number greater than 0 and maximum min price length is 7.</b></span>
+										<span class="d-none text-danger productMSG_maxpriceoffer"><b>The max price must be a valid number greater than 0 and maximum max price length is 7.</b></span>
+										<span class="d-none text-danger productMSG_disptach"><b>Days to disptach from seller number between 1 to 100.</b></span>
+										<span class="d-none text-danger productMSG_discount"><b>Discount Number should be between 1 and 100 or blank.</b></span>
+										<span class="d-none text-danger productMSG_offeraccept"><b>Offer accept price must be greater than Offer decline price.</b></span>
+										<span class="d-none text-danger productMSG_buyitprice"><b> Buy It Now price should be greater than your starting price.</b></span>
+										<span class="d-none text-danger productMSG_reservedPrice"><b> Reserve price must be greater than Starting price.</b></span>
+										<span class="d-none text-danger productMSG_areaCommunity"><b> Enter Area,Community.</b></span>
+										<span class="text-danger productMSG_quantitygreater"></span>
+										<span class="d-none text-danger productMSG_quantysize"><b>Please enter quantity by specific size.</b></span>
+									</div>
+									<div class="form-group row mt-3 mb-4 add-product-form">
+										<!--<div class="offset-lg-4 offset-md-3 col-lg-4 col-md-6 col-12 mt-1 mb-1">-->
+										<div class="offset-md-3 col-lg-3 col-md-12 col-12 mt-1 mb-1">
+											<button type="submit" class="btn theme-light-btn" (click)="editProduct()">Relist now</button>
+										</div>
+                                                                            <div class="offset-lg-1 col-lg-3 col-md-12 col-12 mt-1 mb-1">
+											<button type="submit" class="btn theme-light-btn" (click)="previewData()" >Preview Your Product</button>
+										</div>
+									</div>
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+								</div>
+							</form>
+						</div>
+						<!-- /form user info -->
+					</div>
+				</div>
+				<ng-template #showImageedit>
+					<div clas="row">
+						<div class="col-lg-12 col-md-12 col-12 text-center mt-3 p-0">
+							<img src="assets/images/tick-512.png" width="80px" height="80px">
+						</div>
+						<div class="col-lg-12 col-md-12 col-12 text-center mt-3 p-0 text-center">
+							<h6>Your product is edited successfully and will send for administrator review. It will published soon.</h6>
+						</div>
+                                            <div class="col-lg-12 col-md-12 col-12 text-center mt-3 p-0">
+                                                <h5 class="m-1">Don't stop add another</h5>
+						<a href="#/draft-listing" class="btn theme-light-btn">Click Here</a>
+                                            </div>
+					</div>
+				</ng-template>
+			</div>
+		</div>
+		<footer-page></footer-page>
+	</div>
+</ion-content>
+

@@ -1,0 +1,36 @@
+page-site-map {
+	.set_fontSize{
+		font-size:13px;
+	}
+	.wrapper{
+		margin-top: 100px;
+	}
+	.sitemap {
+	  @extend .my-account;
+	  .sitemap-main {
+		letter-spacing: 0.5px;
+		.categoryname {
+		  a{
+			color: $frontColor !important;
+			}
+		}
+		.sitemap-main-link {
+		  a {
+			color: $color_semiblack;
+			font-weight: $font-weightbold;
+		  }
+		}
+		.sitemap-ul {
+		  li {
+			padding: 5px 0 5px 9px;
+			a {
+				color: $color_black;
+			}
+			a:hover{
+				color: $frontColor !important;
+			}
+		  }
+		}
+	  }
+	}
+}

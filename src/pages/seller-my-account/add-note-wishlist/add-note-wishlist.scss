@@ -1,0 +1,35 @@
+page-add-note-wishlist {
+	//top: 100px !important;
+	.wrapper{
+		margin-top: 65px;
+	}
+	@media (max-width: 768px) and (min-width: 320px){
+		.wrapper{
+			margin-top: 100px;
+		}
+	}
+	.add-note {
+		.setFontSize{
+			font-size:13px;
+		}
+		.navbar-nav{
+			margin: 0 auto;
+		}
+		.add-note-main {
+			letter-spacing: 0.5px;
+			.add-note-image{
+				border: 1px solid $color_grey;
+				border-radius: 10px;
+				display: block;
+				margin: 0 auto;
+				  &:hover{
+					border: 1px solid $color_Silver;
+				  }
+				width : 150px;
+			}
+			.border-bottom-add-note {
+				border-bottom: 1px solid $color_Silver;
+			}
+		}
+	}
+}

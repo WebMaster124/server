@@ -1,0 +1,86 @@
+<ion-content padding class="report-item">
+	<div class="wrapper">
+		<div class="container report-item-main mb-3">
+			<div class="row m-0">
+				<div class="p-0 col-lg-12 col-md-12 col-xl-12 col-12 breadcrumblink_div">
+					<p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+					<p class="set_fontSize">
+						<a href="#/home" class="breadcrumblink">Dibdaa</a> &nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+						<a href="#/viewItem/{{data_item?.ProId}}" class="breadcrumblink">Product Details</a> &nbsp;&nbsp;
+						<i class="fa fa-angle-right"></i> &nbsp;&nbsp;
+						<a class="breadcrumblink" disabled>Report Item</a>
+					</p>
+				</div>
+			</div> 
+			<div class="row m-0">
+				<div class="col-lg-12 col-md-12 col-12 mt-2 mb-2 p-0">
+					<h5 class="mb-2">File a Report</h5>
+				</div>
+				<div class="col-lg-12 col-md-12 col-12 bg-light rounded border mb-3" *ngIf="show_successMsg == false;else successReport;">
+					<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom">
+						<div class="col-lg-2 col-md-3 col-12 p-0 productlistingimgdiv">
+							<a><img src="{{trandingImgUrl}}{{data_item?.ProId}}/L/{{data_item?.ProImage}}" class="img-fluid productlistingimg border rounded"></a>
+						</div>
+						<div class="col-lg-10 col-md-9 col-12 p-0 pl-lg-2 pr-lg-2 pt-2 pt-lg-0">
+							<h6 class="mb-3">{{data_item?.ProTitle}}</h6>
+							<p class="set_fontSize">Item no: <span>{{data_item?.PROSKU}}</span></p>
+							<p class="set_fontSize">Seller: <span>{{data_item?.SellerName}}</span></p>
+						</div>
+					</div>
+					<div class="row ml-0 mt-3 mr-0 pb-3">
+						<div class="col-lg-4 col-md-6 col-12 p-0 productlistingimgdiv">
+							<form class="set_fontSize">
+								<div class="form-group">
+									<label for="reportcategory">Report Category</label>
+									<select class="form-control select-report-item" id="reportcategory">
+										<option value="Copyright and trademark">Copyright and trademark</option>
+										<option value="Listing practices">Listing practices</option>
+										<option value="Prohibited and restricted items">Prohibited and restricted items</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="reportreason">Reason for Report</label>
+									<select class="form-control select-report-item" id="reportreason">
+										<option value="Bootleg records or unauthorized media">Bootleg records or unauthorized media</option>
+										<option value="Counterfeit item or authenticity disclaimer">Counterfeit item or authenticity disclaimer</option>
+										<option value="Descriptions that encourage infringement">Descriptions that encourage infringement</option>
+										<option value="Other copyright and trademark concerns">Other copyright and trademark concerns</option>
+										<option value="Dibdaa item infringes your intellectual property rights">Dibdaa item infringes your intellectual property rights</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="detailedreason">Detailed Reason</label>
+									<select class="form-control select-report-item" id="detailedreason">
+										<option value="Counterfeit, fake, or replica items">Counterfeit, fake, or replica items</option>
+										<option value="Disclaimers about the authenticity or legality of an Item">Disclaimers about the authenticity or legality of an Item</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="OtherReason"><span class="text-danger font-weight-bold">*</span>Other Reason</label>
+									<textarea class="form-control" rows="3" id="OtherReason" name="OtherReason" #OtherReason="ngModel" required ngModel></textarea>
+									<div *ngIf="OtherReason.invalid && (OtherReason.dirty || OtherReason.touched)" class="error-box">
+										<div *ngIf="OtherReason.errors.required">
+											* Enter Reason.
+										</div>
+									</div>
+								</div>
+								<p>The listing has wording that questions the authenticity or legality of an item.</p>
+								<p>Before reporting an item, please review the <a>Dibdaa Listings Policies</a>.</p>
+								<button class="btn theme-light-btn" role="submit" (click)="ReportItem()" [disabled]="!OtherReason.valid">Submit</button>
+								<button class="btn theme-dark-btn ml-lg-4 ml-md-4 ml-2" (click)="goToback()">Cancel</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				<ng-template #successReport>
+					<div class="col-lg-12 col-md-12 col-12 bg-light rounded border mb-3 p-3 text-center">
+						<span class="report-suscess" *ngIf="response_report?.product_report.status == 'success'"> You have Successful reported to admin.</span>
+						<span class="report-error" *ngIf="response_report?.product_report.status == 'fail'"> You have Already reported for this product.</span>
+					</div>
+				</ng-template>
+			</div>
+		</div>
+	</div>
+	<!--================Footer Area =================-->
+<footer-page></footer-page>
+</ion-content>

@@ -1,0 +1,37 @@
+<ion-content padding>
+<div class="wrapper">
+	<div class="container saved-main mb-3">
+        <div class="row setFontSize">
+            <div class="col-lg-12 col-md-12 col-xl-12 col-12">
+                <p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+				<p class="mb-2 setFontSize">
+					<a href="#/home" class="breadcrumblink">Home</a>&nbsp;
+						<i class="fa fa-angle-right"></i>&nbsp;
+                    <a href="#" class="breadcrumblink">Shop By Departments</a>
+				</p>
+            </div>
+        </div>
+		
+        <div class="row m-0">
+            <div class="col-lg-12 col-md-12 col-12 p-0">
+                <h5 class="mb-2">Shop By Departments</h5>
+            </div>
+        </div>
+
+        <div class="row saved-product-list mt-2 pt-3 pb-3 border bg-light rounded m-0">
+            <div class="col-lg-3 col-md-4 col-6 mb-3 setFontSize" *ngFor="let catdata of subCategotyData?.data">
+                <a (click)="gotoCategoryPage(catdata?.id)">
+                    <div class="img__wrap" *ngIf="catdata?.category_image != ''">
+                        <img src="{{cat_image}}{{catdata?.category_image}}" class="img-fluid menclothesimages" />
+                    </div>
+					<div class="img__wrap" *ngIf="catdata?.category_image == ''">
+                        <img src="assets/images/category.png" class="img-fluid menclothesimages" />
+                    </div>
+                    <p class="pt-2 saved-price">{{catdata?.category_name}}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+	<footer-page></footer-page>
+</div>
+</ion-content>

@@ -1,0 +1,181 @@
+page-security-measure {
+	.error-box{
+		font-size: 13px;
+		color: red;
+		font-weight: 500;
+		letter-spacing: 1px;
+	}
+	.setFont-size{
+		font-size: 13px;
+	}
+	
+	.login {
+		.login-container{
+			min-height: calc(100vh - 207px);
+		}
+		background-color: $color_grey;
+		.margin_top{
+			margin-top: 10px;
+		}
+		.warning{
+			color:$color_red;
+			font-size: 14px;
+		}
+		.business-title{
+			text-align: center;
+			border-bottom: 2px solid $color_grey;
+			padding: 0;
+			margin-left: -20px;
+			margin-right: -20px;
+		}
+		.border-bottom{
+			border-bottom: 2px solid $color_grey;
+		}
+		.register_info{
+			font-size: 16px;
+			font-weight: 400;
+		}
+		.backbutton{
+			background-color: #f47321;
+			color: $color_white;
+			border-radius: 5px;
+			padding: 5px 10px;
+			font-size: 14px;
+		}
+		.txtCaptcha{
+			background-image:url(../assets/images/1.jpg);
+			text-align:center;
+			border:none;
+			font-weight:bold;
+			font-family:Modern;
+			width:150px;
+		}
+		.color_green{
+			color: #209900;
+		}
+		.success_msg{
+			font-size: 14px;
+			color: #209900;
+			font-weight: 400;
+		}
+		.changeCaptchlink{
+			font-size:13px;
+		}
+		.changeCaptchlink:hover{
+			text-decoration: underline;
+			opacity:1;
+		}
+		.row.loginregister {
+			display: flex;
+			display: -webkit-flex;
+			flex-wrap: wrap;
+			-webkit-flex-wrap: wrap;
+			-webkit-justify-content: center;
+			justify-content: center;
+			img.dibdaalogo {
+				display: block;
+				margin: 0 auto;
+			}
+			.panel.panel-login {
+				background-color: $color_white;
+				padding: 20px 20px 0 20px;
+				border: 1px solid #D7D7D7;
+				.panel-heading{
+					font-size: $fontsizeone;
+					font-weight: $font-weight600;
+					color: $color_black;
+					a{
+						color: $color_black;
+						i{
+							font-size: $fontsizeh2;
+							position: relative;
+							top:4px;
+						}
+					}
+					a.active {
+						color: $frontColor;
+						i{
+							color: $frontColor;
+						}
+					}
+				}
+				.panel-body{
+					.custom-control-description{
+						font-size: 14px;
+						font-weight: 300;
+						margin: auto;
+					}
+					.label_personal{
+						font-size: 13px;
+						font-weight: 400;
+					}
+					.btnsignin{
+						background-color: $frontColor;
+						width:100%;
+						color: $color_white;
+						font-weight: $font-weightbold;
+						letter-spacing: 0.5px;
+					}
+					.custom-control-indicator{
+						background-color: $frontColor!important;
+						outline: none;
+					}
+					a.temporary-password{
+						color: $frontColor;
+						font-size: 0.9rem;
+						letter-spacing: 0.5px;
+					}
+					p{
+						font-size: 0.9rem;
+						width: 100%;
+						letter-spacing: 0.5px;
+					}
+					label{
+						color: $color_semiblack;
+						font-weight: $font-weight600;
+						letter-spacing: 0.5px;
+					}
+					.form-control{
+						width: auto;
+					}
+					img.registercaptchaimg{
+						display: block;
+						margin: 0 auto;
+					}
+					.showpassworddiv{
+						border: 1px solid #ced4da;
+						border-radius: .25rem;
+						border-top-left-radius: 0;
+						border-bottom-left-radius: 0;
+						flex: 0 0 13.666667%;
+						max-width: 13.666667%;
+					}
+					.passwordregister{
+						border-top-right-radius: 0;
+						border-bottom-right-radius: 0;
+					}
+					.withpassword{
+						position: relative;
+						top: 7px;
+					}
+					.qualityforbusiness {
+						border-top: 3px solid $frontColor;
+						border-left: 1px solid #ced4da;
+						border-right: 1px solid #ced4da;
+						border-bottom: 1px solid #ced4da;
+						border-radius: 5px;
+						i.infocircleicon {
+							font-size: $fontsizeh2;
+							position: relative;
+							top: 10px;
+							color: $frontColor;
+						}
+					}
+				}
+			}
+		}
+		.footer_area{
+			background-color: $color_white;
+		}
+	}
+}

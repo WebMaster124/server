@@ -1,0 +1,38 @@
+page-personalizedfeedback {
+	//top: 100px !important;
+	.wrapper{
+		margin-top: 110px;
+	}
+	@media (max-width: 768px) and (min-width: 320px){
+		.wrapper{
+			margin-top: 100px;
+		}
+	}
+	.personalized-feedback{
+		/*@media (max-width: 768px) and (min-width: 320px){
+			top: 185px !important;
+			position: relative;
+		}*/
+		
+		.set_fontSize{
+			font-size:13px;
+		}
+		.navbar-nav{
+			margin:0 auto !important;
+		}
+		.paginationlist {
+			background-color: #e9ecef;
+		}
+		.feedback_th{
+			max-width: 300px;
+			min-width: 300px;
+		}
+		.frm-whn_th{
+			max-width: 150px;
+			min-width: 150px;
+		}
+		.color-a{
+			color:#488aff !important;
+		}
+	}
+}

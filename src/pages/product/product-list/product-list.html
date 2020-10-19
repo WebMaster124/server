@@ -1,0 +1,252 @@
+<ion-content padding class="product-listing">
+<div class="wrapper">
+	<div class="container mb-3">
+        <div class="row">
+            <p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+			<div class="col-lg-12 col-md-12 col-12">
+                <h4 class="productcategoryname">{{catData?.category.category_name}}</h4>
+            </div>
+        </div>
+        <!--Varticle menu start-->
+        <div class="row">
+			<div class="col-md-3 col-lg-2">
+				<div id="MainMenu" class="categoryvarticlemenu">
+					<div class="list-group panel">
+						<a href="#multiitem4" class="list-group-item font-weight-bold" data-toggle="collapse" data-parent="#MainMenu">Shop by Category <i class="fa fa-caret-down"></i></a>
+						<div class="collapse pb-3 collapseborder show" id="multiitem4">
+							<a *ngFor="let subCat of catData?.sub_category" class="list-group-item" id="cat-{{subCat?.id}}" (click)="GoToSubCat(subCat?.id)">{{subCat?.category_name}}</a>
+						</div>
+					</div>
+				</div>
+				<div id="MainMenu1" class="categoryvarticlemenu" *ngIf="catData?.brand.length > 0">
+					<div class="list-group panel">
+						<a href="#multiitem5" class="list-group-item font-weight-bold" data-toggle="collapse" data-parent="#MainMenu">Shop by Brand <i class="fa fa-caret-down"></i></a>
+						<div class="collapse pb-3 collapseborder show" id="multiitem5">
+							<a *ngFor="let shopBrand of catData?.brand" id="brand-{{shopBrand?.id}}" class="list-group-item" (click)="showCatData_proList(shopBrand?.id,catData?.category.id,'brand')">{{shopBrand?.brand_title}}</a>
+						</div>
+					</div>
+				</div>
+				<div id="MainMenu2" class="categoryvarticlemenu" *ngIf="catData?.set_type.length > 0">
+					<div class="list-group panel">
+						<a href="#multiitem6" class="list-group-item font-weight-bold" data-toggle="collapse" data-parent="#MainMenu">Shop by Type <i class="fa fa-caret-down"></i></a>
+						<div class="collapse pb-3 collapseborder show" id="multiitem6">
+							<a id="type-{{shopType?.id}}" *ngFor="let shopType of catData?.set_type" class="list-group-item" (click)="showCatData_proList(shopType?.id,catData?.category.id,'type')">{{shopType?.settype}}</a>
+						</div>
+					</div>
+				</div>
+            </div> 
+            <div class="col-lg-10 col-md-9" *ngIf="catData?.data.data.length >0;else nodatafound">
+                <div class="gridviewlistview ml-0 mr-0 p-3 mt-3">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-12 pt-3 pb-3 pl-3 pl-lg-4">
+                            <!-- Nav tabs -->
+                            <div class="row">
+                                <div class="col-lg-6 col-12 col-md-12">
+                                    <ul class="nav" role="tablist">
+                                        <li role="presentation" class="active">
+											<a href="#alllisting1" role="tab" class="btn tablistinbtn active show" data-toggle="tab">All Listings</a>
+                                        </li>
+                                        <li role="presentation">
+											<a href="#auction1" class="btn tablistinbtn" role="tab" data-toggle="tab">Auction</a>
+										</li>
+                                        <li role="presentation">
+											<a href="#buyitnow1" class="btn tablistinbtn" role="tab" data-toggle="tab">Buy It Now</a>
+										</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="alllisting1">
+                                    <div class="resultcount mt-3 mb-3 ml-1">
+										<p> {{catData?.data.from}}-{{catData?.data.to}} of {{catData?.data.total}} Results</p>
+									</div>
+									<div *ngIf="catData?.data.data.length <= 0;else showAllItem">
+										<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom">
+											Item not available!
+										</div>
+									</div>
+									<ng-template #showAllItem>
+										<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom" *ngFor="let dta of catData?.data.data">
+											<div class="col-lg-3 p-0 productlistingimgdiv">
+												<a (click)="GoToProDetail(dta?.id)">
+													<img src="{{pro_image}}{{dta?.id}}/M/{{dta?.photos[0]}}" class="productlistingimg img-fluid">
+												</a>
+											</div>
+											<div class="col-lg-9 col-12 p-0 pl-lg-2 pr-lg-2 pt-2 pt-lg-0">
+												<a (click)="GoToProDetail(dta?.id)">
+													<h6 class="producttitle font-weight-bold">{{dta?.title}}</h6>
+												</a>
+												<p class="productdescription"> {{dta?.description}}</p>
+												<table class="table set_fontSize">
+													<tbody>
+														<tr>
+															<td class="price" *ngIf="dta?.max_price == 0 && dta?.min_price == 0;else toPrice">{{ dta?.price - (dta?.price*dta?.discount) / 100 }} AED</td>
+															<ng-template #toPrice>
+																<td class="price">{{dta?.min_price}} AED to {{dta?.max_price}} AED</td>
+															</ng-template>
+														</tr>
+														<tr>
+															<td>Was: <span class="dollarcancle">{{dta?.price}} AED</span></td>
+															<td>From {{dta?.product_address}}</td>
+														</tr>
+														<tr>
+															<td>Free shipping</td>
+															<td class="" *ngIf="dta?.quantity > 10">{{dta?.quantity}} left!</td>
+															<td class="sold-item" *ngIf="dta?.quantity <= 10 && dta?.quantity >= 1">Only {{dta?.quantity}} left!</td>
+															<td class="sold-item" *ngIf="dta?.quantity <= 0">Not available!</td>
+														</tr>
+														<tr>
+															<td>or Best Offer</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+                                    </ng-template>
+								</div>
+                                <div role="tabpanel" class="tab-pane" id="auction1">
+                                    <div class="resultcount mt-3 mb-3 ml-1">
+										<p> {{catData?.data.from}}-{{catData?.data.to}} of {{catData?.data.total}} Results</p>
+									</div>
+									<div *ngIf="catData?.data.data.length <= 0;else showauction">
+										<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom">
+											Item not available!
+										</div>
+									</div>
+									<ng-template #showauction>
+										<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom" *ngFor="let dta of catData?.data.data;">
+											<div class="col-lg-3 p-0 productlistingimgdiv" *ngIf="dta?.selling_type == 'Auction style'">
+												<a (click)="GoToProDetail(dta?.id)">
+													<img src="{{pro_image}}{{dta?.id}}/M/{{dta?.photos[0]}}" class="img-fluid productlistingimg">
+												</a>
+											</div>
+											<div class="col-lg-9 col-12 p-0 pl-lg-2 pr-lg-2 pt-2 pt-lg-0" *ngIf="dta?.selling_type == 'Auction style'">
+												<a (click)="GoToProDetail(dta?.id)">
+													<h6 class="producttitle font-weight-bold">{{dta?.title}}</h6>
+												</a>
+												<p class="productdescription"> {{dta?.description}}</p>
+												<table class="table breadcrumblink_div">
+													<tbody>
+														<tr>
+															<td class="price" *ngIf="dta?.max_price == 0 && dta?.min_price == 0;else toPriceAuc">{{ dta?.price - (dta?.price*dta?.discount) / 100 }} AED</td>
+															<ng-template #toPriceAuc>
+																<td class="price">{{dta?.min_price}} AED to {{dta?.max_price}} AED</td>
+															</ng-template>
+														</tr>
+														<tr>
+															<td>Was: <span class="dollarcancle">{{dta?.price}} AED</span></td>
+															<td>From {{dta?.product_address}}</td>
+														</tr>
+														<tr>
+															<td>Free shipping</td>
+															<td class="" *ngIf="dta?.quantity > 10">{{dta?.quantity}} left!</td>
+															<td class="sold-item" *ngIf="dta?.quantity <= 10 && dta?.quantity >= 1">Only {{dta?.quantity}} left!</td>
+															<td class="sold-item" *ngIf="dta?.quantity <= 0">Not available!</td>
+														</tr>
+														<tr>
+															<td>or Best Offer</td>
+														</tr>
+														
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<!--<ng-template #noAuction>
+											<span>Item not available! </span>
+										</ng-template> -->
+									</ng-template>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="buyitnow1">
+                                    <div class="resultcount mt-3 mb-3 ml-1">
+										<p> {{catData?.data.from}}-{{catData?.data.to}} of {{catData?.data.total}} Results</p>
+									</div>
+									<div *ngIf="catData?.data.data.length <= 0;else showbuynow">
+										<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom">
+											Item not available!
+										</div>
+									</div>
+									<ng-template #showbuynow>
+										<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom" *ngFor="let dta of catData?.data.data">
+											<!--;else nobuynow -->
+											<div class="col-lg-3 p-0 productlistingimgdiv" *ngIf="dta?.selling_type == 'Fixed price'">
+												<a (click)="GoToProDetail(dta?.id)">
+													<img src="{{pro_image}}{{dta?.id}}/M/{{dta?.photos[0]}}" class="img-fluid productlistingimg">
+												</a>
+											</div>
+											<div class="col-lg-9 col-12 p-0 pl-lg-2 pr-lg-2 pt-2 pt-lg-0" *ngIf="dta?.selling_type == 'Fixed price'">
+												<a (click)="GoToProDetail(dta?.id)">
+													<h6 class="producttitle font-weight-bold">{{dta?.title}}</h6>
+												</a>
+												<p class="productdescription"> {{dta?.description}}</p>
+												<table class="table breadcrumblink_div">
+													<tbody>
+														<tr>
+															<td class="price" *ngIf="dta?.max_price == 0 && dta?.min_price == 0;else toPriceAuc">{{ dta?.price - (dta?.price*dta?.discount) / 100 }} AED</td>
+															<ng-template #toPriceAuc>
+																<td class="price">{{dta?.min_price}} AED to {{dta?.max_price}} AED</td>
+															</ng-template>
+														</tr>
+														<tr>
+															<td>Was: <span class="dollarcancle">{{dta?.price}} AED</span></td>
+															<td>From {{dta?.product_address}}</td>
+														</tr>
+														<tr>
+															<td>Free shipping</td>
+															<td class="" *ngIf="dta?.quantity > 10">{{dta?.quantity}} left!</td>
+															<td class="sold-item" *ngIf="dta?.quantity <= 10 && dta?.quantity >= 1">Only {{dta?.quantity}} left!</td>
+															<td class="sold-item" *ngIf="dta?.quantity <= 0">Not available!</td>
+														</tr>
+														<tr>
+															<td>or Best Offer</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<!--<ng-template #nobuynow>
+											<span>Item not available! </span>
+										</ng-template>-->
+									</ng-template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 paginationlist">
+                            <nav aria-label="Pagination alignment">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item ">
+										<a class="page-link" href="#">
+											<i class="fa fa-angle-left arrowprevnext"></i>
+										</a>
+									</li>
+                                    <li class="page-item"><a class="page-link active" href="#">1</a></li>
+                                    
+                                    <li class="page-item">
+										<a class="page-link" href="#">
+											<i class="fa fa-angle-right arrowprevnext"></i>
+										</a>
+									</li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<ng-template #nodatafound>
+				<div class="col-lg-10 col-md-9">
+					<div class="gridviewlistview ml-0 mr-0 p-3 mt-3">
+						<div class="row">
+							<span class="error_span">No Data Found</span>
+						</div>
+					</div>
+				</div>
+			</ng-template>
+		</div>
+    </div>
+	<!--================Footer Area =================-->
+<footer-page></footer-page>
+</div>
+		
+</ion-content>

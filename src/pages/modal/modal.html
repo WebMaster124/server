@@ -1,0 +1,36 @@
+<ion-header>
+
+<ion-navbar>
+	<ion-title><h6>Start Bids</h6></ion-title>
+    <ion-buttons end>
+		<button ion-button (click)="closeModal()">X</button>
+    </ion-buttons>
+</ion-navbar>
+
+</ion-header>
+
+<ion-content padding class="modalPopup">
+	<div *ngIf="bids_response == null">
+		<div>
+			<span class="fisrt-span"> {{price}} AED + See item description for shipping. </span>
+		</div>
+		<div class="row div_bidcontent pl-3 pr-3 ml-0 mr-0">
+			<div class="col-lg-8 col-md-8 col-12 text-center">
+				<span>Your bid amount:</span> {{bid_price}} AED
+			</div>
+			<div class="col-lg-4 col-md-4 col-12 text-center mt-lg-0 mt-3 mt-md-0">
+				<button class="btn theme-light-btn" (click)="placeBids()">Confirm</button>
+			</div>
+		</div>
+	</div>
+	
+	<div class="bid_sucess" *ngIf="bids_response != null">
+		<span>Bid Placed Successfully.</span> 
+	</div>
+	<div>
+		<span class="text-left modalbottom">By placing a bid, you're committing to buy this item if you win.</span>
+	</div>
+</ion-content>
+
+
+   

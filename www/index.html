@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+	<meta charset="UTF-8">
+	<title id="title">Dibdaa</title>
+	<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="msapplication-tap-highlight" content="no"> 
+	<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+	<meta http-equiv="Access-Control-Allow-Origin" content="*://*/*" />
+	<meta name="theme-color" content="#4e8ef7">
+	<link rel="icon" href="assets/images/favicon.png" type="image/x-icon"/>
+	<link rel="manifest" href="manifest.json">
+	
+	<!-- add to homescreen for ios -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">-->
+    <link href="assets/css/responsive.css" rel="stylesheet">
+	<link href="assets/css/toggle.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/megamenu/css/webslidemenu.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/owl.carousel.min.css">
+	
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+	
+	<!-- cordova.js required for cordova apps (remove if not needed) -->
+	<script src="cordova.js"></script>
+
+	<link href="build/main.css" rel="stylesheet">
+	<script>
+		UPLOADCARE_PUBLIC_KEY = 'demopublickey';
+		UPLOADCARE_CROP = 'free,1:1';
+		UPLOADCARE_EFFECTS = 'crop,rotate,flip';//'crop,rotate,mirror,flip,enhance,sharp,blur,grayscale,invert';
+		UPLOADCARE_TABS = 'file';
+		UPLOADCARE_IMAGES_ONLY = true;
+		UPLOADCARE_PREVIEW_STEP = true;
+		UPLOADCARE_LOCALE_TRANSLATIONS = {
+			  // messages for widget
+			  errors: {
+				'fileMinimalSize': 'File is too small',
+				'fileMaximumSize': 'File is too large,upload maximum 3mb.',
+				'fileType': 'This type of files is not allowed.'
+			  },
+			  // messages for dialog’s error page
+			  dialog: { 
+				tabs: { 
+					preview: { 
+						error: {
+							'fileMinimalSize': {
+								title: 'Title.',
+								text: 'Text.',
+								back: 'Back'
+							},
+							'fileMaximumSize': {
+								title: 'Title.',
+								text: 'Text.',
+								back: 'Back'
+							},
+							'fileType': {
+								title: 'Title.',
+								text: 'Text.',
+								back: 'Back'
+							}
+						}
+					},
+					names: {
+						 file: 'Browse Files'
+					}
+				}
+			}
+		};
+
+	</script>
+	<script src="https://ucarecdn.com/libs/widget/3.6.0/uploadcare.full.min.js"></script>
+	<script src="https://ucarecdn.com/libs/widget-tab-effects/1.x/uploadcare.tab-effects.js"></script>
+	<script>
+	  uploadcare.registerTab('preview', uploadcareTabEffects)
+	</script>
+	<!-- Facebook Pixel Code -->
+	<script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '300841167133185');
+        fbq('track', 'PageView');
+	</script>
+	<noscript>
+	<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=300841167133185&ev=PageView&noscript=1"
+	/></noscript>
+	<!-- End Facebook Pixel Code -->
+        
+        
+</head>
+<body class="body">
+	<!-- Ionic's root component and where the app will load -->
+	<ion-app></ion-app>
+	
+	<script src="assets/jquery/jquery-3.2.1.min.js"></script>
+	<script src="assets/jquery/bootstrap.min.js"></script>
+	<script src="assets/jquery/jquery-1.12.4.js"></script>
+	<script src="assets/jquery/jquery-ui.js"></script>
+	<script type="text/javascript" src="assets/jquery/webslidemenu.js"></script>
+	<script src="assets/jquery/style.js"></script>
+	<script type="text/javascript" src="assets/jquery/owl.carousel.min.js" defer></script>
+	<script src="assets/jquery/jquery-editable-select.min.js"></script>
+	<link href="assets/css/jquery-editable-select.min.css" rel="stylesheet">
+	<script src="https://cdn.ckeditor.com/4.5.11/full/ckeditor.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?libraries=places&language=en&key=AIzaSyCDsC6mCJ1FW-5HouK1S46PHswfYBghvYc"></script>
+        
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-127414417-1"></script>
+	<script>
+		$("div.dropdown-content-my-account").hover(function () {
+			$('body').toggleClass("ZoomLensHide");
+		});
+		 window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-127414417-1');
+	</script>
+	<!-- Google Analytics End-->
+	<script src="build/polyfills.js"></script>
+
+	<!-- The vendor js is generated during the build process It contains all of the dependencies in node_modules -->
+	<script src="build/vendor.js"></script>
+
+	<!-- The main bundle js is generated during the build process -->
+	<script src="build/main.js"></script>
+</body>
+</html>

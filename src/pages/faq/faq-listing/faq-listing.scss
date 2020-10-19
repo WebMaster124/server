@@ -1,0 +1,64 @@
+page-faq-listing {
+	.wrapper{
+		margin-top: 100px;
+	}
+	.faq-listing {
+
+		/*top: 100px !important;
+		@media (max-width: 768px) and (min-width: 320px){
+			top: 190px !important;
+			position: relative;
+		}*/
+		h4{
+		    font-size: 1.5rem !important;
+		}
+		.setFont{
+			font-size:13px;
+		}
+	
+		.card{
+		    padding: 5px;
+		}
+		.navbar-nav{
+			margin:0 auto;
+		}
+	  .faq-listing-main{
+		letter-spacing: 0.5px;
+		.accordion .card-header:after {
+				font-family: 'FontAwesome';
+				content: "\f068";
+				float: right;
+				position: absolute;
+				right: 15px;
+				padding-top: 15px;
+		}
+		.accordion .card-header.collapsed:after {
+		  /* symbol for "collapsed" panels */
+		  content: "\f067";
+		}
+	  }
+		.frontbg{
+			background-color: #F47321;
+			box-shadow: 0 6px 10px -2px #808080;
+		}
+		.card-height {
+		.a-question{
+			color:$color_black;
+			display: grid;
+			}
+		}
+		.card-title{
+		    width: auto;
+			background-color: rgba(0,0,0,.03)!important;
+			border: 1px solid rgba(0,0,0,.125)!important;
+			padding: 10px;
+			margin-bottom: 5px;
+		}
+		.card-header {
+			padding: 0!important;
+			margin-bottom: 0;
+			background-color: transparent!important;
+			border-bottom: none!important;
+		}
+	}
+}

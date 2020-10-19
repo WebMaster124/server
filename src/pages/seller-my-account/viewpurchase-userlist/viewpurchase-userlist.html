@@ -1,0 +1,82 @@
+<ion-content padding class="purchase-user-list">
+<div class="wrapper">
+	<div class="container all-category-main mb-3">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-xl-12 col-12">
+                <p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+				<p class="mb-2 setFont-size">
+                    <a href="#/home" class="breadcrumblink">Dibdaa</a> &nbsp;&nbsp;
+                    <i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+                    <a href="#/seller-my-account/Sold" class="breadcrumblink">Sold</a> &nbsp;&nbsp;
+                    <i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+                    <a href="#" class="breadcrumblink font-weight-bold" disabled="true">Purchase User List</a>
+                </p>
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="col-lg-12 col-md-12 col-xl-12 col-12 pt-1 pb-1 text-left frontbg">
+                <h6 class="mt-1">Purchase User List</h6>
+            </div>
+            <div class="col-lg-12 col-md-12 col-12 mt-2 mb-3">
+                <div class="table-responsive">
+                    <table class="table table-striped border setFont-size">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="page-listing-first-td">Order Id</th>
+                            <th scope="col" class="page-listing-first-td">Ship Name</th>
+                            <th scope="col" class="page-listing-first-td">Order Date</th>
+                            <th scope="col" class="page-listing-first-td">Order Price</th>
+                            <th scope="col" class="page-listing-first-td">Quantity</th>
+                            <th scope="col" class="page-listing-first-td">Change Order Status</th>
+                            <th scope="col" class="page-listing-first-td">Payment</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngIf="showpurchaseData?.data.length <= 0;else showData;">
+							<tr>
+								<td colspan="7" class="text-center">
+									No item found
+								</td>
+							</tr>
+						</tbody>
+						<ng-template #showData>
+							<tbody>
+								<tr *ngFor="let purchasedata of showpurchaseData?.data | paginate: {itemsPerPage: 10, currentPage:page, id: 'showpurchaseDataId', totalItems: showpurchaseData?.data.length}; let i = index">
+									<td>#{{purchasedata?.order_id}}</td>
+									<td>{{purchasedata?.ship_name}}</td>
+									<td>{{purchasedata?.order_date}}</td>
+									<td>{{purchasedata?.order_price}} AED</td>
+									<td>{{purchasedata?.quantity}} </td>
+									<td *ngIf="purchasedata?.order_status == 'Processing'">
+										<button type="button" class="changeorderStatusbutton" (click)="changeOrderStatus('Ready For Dispatch',purchasedata?.buyer_id,purchasedata?.product_id,purchasedata?.order_id)">Ready For Dispatch</button>
+									</td>
+									<td *ngIf="purchasedata?.order_status == 'Ready For Dispatch'">
+										<button type="button" class="changeorderStatusbutton" (click)="changeOrderStatus('Collected by buyer',purchasedata?.buyer_id,purchasedata?.product_id,purchasedata?.order_id)">Collected by buyer</button>
+									</td>
+									<td *ngIf="purchasedata?.order_status == 'Collected by buyer'">
+										<button type="button" class="changeorderStatusbutton" (click)="changeOrderStatus('Delivered',purchasedata?.buyer_id,purchasedata?.product_id,purchasedata?.order_id)">Delivered</button>
+									</td>
+									<td *ngIf="purchasedata?.order_status == 'Delivered'">
+										<span class="text-success"><b>Completed</b></span>
+									</td>
+									<td *ngIf="purchasedata?.order_status == ''">
+										-
+									</td>
+									<td>
+										<button type="button" class="changeorderStatusbutton" *ngIf="purchasedata?.status == 'unpaid' || purchasedata?.status == 'Unpaid'" (click)="changeStatusToPaid(purchasedata?.buyer_id,purchasedata?.product_id,purchasedata?.order_id)">Click to mark as PAID</button>
+										<span *ngIf="purchasedata?.status != 'unpaid' && purchasedata?.status != 'Unpaid'" class="text-success"><b>Completed</b></span>
+									</td>
+								</tr>
+							</tbody>
+						</ng-template>
+                    </table>
+                </div>
+            </div>
+			<div class="col-lg-12 col-md-12 col-xl-12 col-12 pt-3 text-left paginate_background">
+				<pagination-controls (pageChange)="page = $event" id="showpurchaseDataId" maxSize="25" directionLinks="true" autoHide="false" class="text-center setFont-size"></pagination-controls>
+			</div>
+        </div>
+    </div>
+</div> 
+		<!--================Footer Area =================-->
+		<footer-page></footer-page>
+</ion-content>

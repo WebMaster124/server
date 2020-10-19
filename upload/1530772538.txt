@@ -1,0 +1,11 @@
+1)They required to change almost page layout which we created for add product
+    - Chategory listing 
+    - upload photos 
+    - return products ( pop up note returns are paid by the buyer unless the item is different to what was advertised.)
+    -ISBC input ( you select enter ISBC there is no field to input)
+    -Item description (item description we have 6 standard drop menu responses and then other which they can add a narative for other. Do this will be a drop menu and a text field. te drop menu can be updated from the back end.)
+
+
+2)they required to add item address by google map (This changes is from second phase but they requred in this phase)
+
+3)They required to add product main photo share with Instagram and facebook but this changes for second phase 

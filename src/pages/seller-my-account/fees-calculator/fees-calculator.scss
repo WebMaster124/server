@@ -1,0 +1,125 @@
+page-fees-calculator {
+	//top: 100px !important;
+	.wrapper{
+		margin-top: 105px;
+	}
+	.fee-calculator {
+		.set-fontSize{
+			font-size:13px;
+			font-weight:400;
+		}
+		.navbar-nav{
+			margin: 0 auto;
+		}
+	  @extend .my-account;
+	  .fee-calculator-main {
+		letter-spacing: 0.5px;
+		.badge-calculator {
+		  vertical-align: middle !important;
+		  color: #ffffff !important;
+		  background-color: $frontColor !important;
+		  display: inline-block;
+		  font-size: 100%;
+		  font-weight: 700;
+		  line-height: 1;
+		  text-align: center;
+		  white-space: nowrap;
+		  border-radius: 100%;
+		  padding-top: 6px;
+		  width: 25px;
+		  height: 25px;
+		  margin-right: 7px;
+		}
+		.select-text {
+		  color: $frontColor;
+		  font-weight: $font-weight600;
+		}
+		.calculator-controal {
+		  width: 100% !important;
+		  height: calc(1.90rem + 2px) !important;
+		  font-size: 0.8rem;
+		  -webkit-box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2) !important;
+		  -moz-box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2) !important;
+		  box-shadow: 0 3px 0 #dddddd !important;
+		}
+		.startingprice-buyitnow {
+		  width: 100%;
+		  -webkit-box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2) !important;
+		  -moz-box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2) !important;
+		  box-shadow: 0 3px 0 #dddddd !important;
+		  padding: 0.30rem .5rem !important;
+		}
+		.custom-control-indicator {
+		  background-color: $frontColor !important;
+		  outline: none;
+		  width: 0.9rem !important;
+		  height: 0.9rem !important;
+		}
+		.custom-control-description {
+		  font-weight: normal;
+		}
+		[type="radio"]:checked,
+		[type="radio"]:not(:checked) {
+		  position: absolute;
+		  left: -9999px;
+		}
+		[type="radio"]:checked + label,
+		[type="radio"]:not(:checked) + label {
+		  position: relative;
+		  padding-left: 28px;
+		  cursor: pointer;
+		  line-height: 20px;
+		  display: inline-block;
+		  color: #666;
+		}
+		[type="radio"]:checked + label:before,
+		[type="radio"]:not(:checked) + label:before {
+		  content: '';
+		  position: absolute;
+		  left: 0;
+		  top: 0;
+		  width: 18px;
+		  height: 18px;
+		  border: 1px solid $secondary_color;
+		  border-radius: 100%;
+		  background: $color_white;
+		}
+		[type="radio"]:checked + label:after,
+		[type="radio"]:not(:checked) + label:after {
+		  content: '';
+		  width: 8px;
+		  height: 8px;
+		  background: $frontColor;
+		  position: absolute;
+		  top: 5px;
+		  left: 5px;
+		  border-radius: 100%;
+		  -webkit-transition: all 0.2s ease;
+		  transition: all 0.2s ease;
+		}
+		[type="radio"]:not(:checked) + label:after {
+		  opacity: 0;
+		  -webkit-transform: scale(0);
+		  transform: scale(0);
+		}
+		[type="radio"]:checked + label:after {
+		  opacity: 1;
+		  -webkit-transform: scale(1);
+		  transform: scale(1);
+		}
+		.theme-light-btn , .theme-dark-btn{
+			width:100% !important; 
+		}
+		.estimated-fees-section {
+		  height: max-content;
+		  .linearBg3 {
+			background: -moz-radial-gradient(50% 375%, closest-corner, #000, #f8f9fa) repeat scroll 0 0 transparent;
+			background: -webkit-radial-gradient(50% 375%, closest-corner, black, #f8f9fa) repeat scroll 0 0 transparent;
+			height: 5px;
+			width: 100%;
+			margin: 0 auto;
+		  }
+		}
+	  }
+	}
+}

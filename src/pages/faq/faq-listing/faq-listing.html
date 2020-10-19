@@ -1,0 +1,60 @@
+<ion-content padding class="faq-listing">
+	<div class="wrapper">
+		<div class="container faq-listing-main mb-3">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-xl-12 col-12 setFontSize">
+					<p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+					<p class="mb-2 setFont">
+						<a href="#/home" class="breadcrumblink">Dibdaa</a> &nbsp;
+							<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+						<a class="breadcrumblink font-weight-bold" href="#/faq">FAQ</a>&nbsp;
+							<i class="fa fa-angle-right"></i>&nbsp;
+						<a class="breadcrumblink font-weight-bold" disabled *ngIf="navParams?.data.id == 1">Listing</a>
+						<a class="breadcrumblink font-weight-bold" disabled *ngIf="navParams?.data.id == 2">Shipping</a>
+						<a class="breadcrumblink font-weight-bold" disabled *ngIf="navParams?.data.id == 3">Stores</a>
+						<a class="breadcrumblink font-weight-bold" disabled *ngIf="navParams?.data.id == 4">Returns</a>
+						<a class="breadcrumblink font-weight-bold" disabled *ngIf="navParams?.data.id == 5">Seller Protection</a>
+						<a class="breadcrumblink font-weight-bold" disabled *ngIf="navParams?.data.id == 6">Buyer</a>
+						<a class="breadcrumblink font-weight-bold" disabled *ngIf="navParams?.data.id == 7">Seller</a>
+					</p>
+				</div>
+			</div>
+			<div class="row m-0">
+				<div class="col-lg-12 col-md-12 col-xl-12 col-12 pl-3 pt-2 pb-2 frontbg">
+					<h6 class="m-0 text-left" *ngIf="navParams?.data.id == 1">Listing</h6>
+					<h6 class="m-0 text-left" *ngIf="navParams?.data.id == 2">Shipping</h6>
+					<h6 class="m-0 text-left" *ngIf="navParams?.data.id == 3">Stores</h6>
+					<h6 class="m-0 text-left" *ngIf="navParams?.data.id == 4">Returns</h6>
+					<h6 class="m-0 text-left" *ngIf="navParams?.data.id == 5">Seller Protection</h6>
+					<h6 class="m-0 text-left" *ngIf="navParams?.data.id == 6">Buyer</h6>
+					<h6 class="m-0 text-left" *ngIf="navParams?.data.id == 7">Seller</h6>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-12 mt-3 mb-3">
+					<div id="accordion" class="accordion">
+						<div class="card setFont" *ngIf="faqlistin_data?.data.length > 0">
+							<div *ngFor="let faqdata of faqlistin_data?.data;let i=index;" class="card-height">
+								<a class="card-header collapsed a-question" data-toggle="collapse" href="#collapse{{i}}">
+									<div class="card-title">
+										{{faqdata?.question}}
+									</div>
+								</a>
+								<div id="collapse{{i}}" class="card-body collapse" data-parent="#accordion">
+									<p>
+										{{faqdata?.answer}}
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="card setFont text-center" *ngIf="faqlistin_data?.data.length <= 0">
+							<span>No data found</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+			<!--================Footer Area =================-->
+	<footer-page></footer-page>
+	</div>
+</ion-content>

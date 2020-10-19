@@ -1,0 +1,232 @@
+page-contact-seller {
+	.contact-seller {
+		.wrapper{
+			margin-top: 110px;
+		}
+		@media (max-width: 768px) and (min-width: 320px){
+			.wrapper{
+				margin-top: 100px;
+			}
+			.helpfull-hints {
+				margin-top: 25px!important;
+			}
+
+		}
+		
+		/*top: 100px !important;
+		@media (max-width: 768px) and (min-width: 320px){
+			top: 190px !important;
+			position: relative;
+		}*/
+
+		.setFont-size{
+			font-size:13px;
+		}
+		.navbar-nav{
+			margin:0 auto;
+		}
+		.error-box{
+			font-size: 13px;
+			color: red;
+			font-weight: 500;
+			letter-spacing: 1px;
+		}
+		  @extend .checkout;
+		  .contact-seller-main {
+			letter-spacing: 0.5px;
+			.tell-us-think {
+			  position: relative;
+			  top: 8px;
+			}
+			.helpfull-hints {
+				height: -webkit-max-content;
+				height: -moz-max-content;
+				height: max-content;
+				margin-top: 95px;
+
+				ul {
+				list-style: square !important;
+				padding-left: 30px;
+				li {
+				  line-height: 25px;
+				}
+			  }
+			}
+			.bid-history-th {
+			  width: 33.33%;
+			}
+			.txtCaptcha{
+				background-image:url(../assets/images/1.jpg); 
+				text-align:center; 
+				border:none;
+				font-weight:bold; 
+				font-family:Modern;
+				width:150px;
+				font-size: 26px !important;
+			}
+			.warning{
+				margin-bottom: 10px;
+				margin-top: 10px;
+				border: 1px solid $color_red;
+				max-width: 90%;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				border-radius: 10px;
+			}
+			.warning_msg{
+				font-size:14px;
+				color:$color_red;
+				font-weight: 600;
+			}
+			.border-top-enter-your-maximum-bid {
+			  border-top: 1px solid $secondary_color;
+			}
+			.seller-contact-textarea{
+			  font-size: $pfontsize!important;
+			}
+			.captcha-seller-contact{
+			  position: relative;
+			  top:20px;
+			}
+			.temporary-password {
+			  color: $frontColor;
+			  font-size: $pfontsize;
+			  font-family: $OpenSans-SemiBold;
+			  letter-spacing: 0.5px;
+			}
+		  }
+		  .checkout {
+				.checkout-main {
+				letter-spacing: 0.5px;
+				.order-total {
+				  background-color: #F0EEEC;
+				  height: max-content;
+				  .border-bottom-order-total {
+					border-bottom: 1px solid $secondary_color;
+				  }
+				}
+				.checkout-detail {
+				  [type="radio"]:checked,
+				  [type="radio"]:not(:checked) {
+					position: absolute;
+					left: -9999px;
+				  }
+				  [type="radio"]:checked + label,
+				  [type="radio"]:not(:checked) + label {
+					position: relative;
+					padding-left: 28px;
+					cursor: pointer;
+					line-height: 20px;
+					display: inline-block;
+					color: #666;
+				  }
+				  [type="radio"]:checked + label:before,
+				  [type="radio"]:not(:checked) + label:before {
+					content: '';
+					position: absolute;
+					left: 0;
+					top: 0;
+					width: 18px;
+					height: 18px;
+					border: 1px solid $secondary_color;
+					border-radius: 100%;
+					background: $color_white;
+				  }
+				  [type="radio"]:checked + label:after,
+				  [type="radio"]:not(:checked) + label:after {
+					content: '';
+					width: 8px;
+					height: 8px;
+					background: $frontColor;
+					position: absolute;
+					top: 5px;
+					left: 5px;
+					border-radius: 100%;
+					-webkit-transition: all 0.2s ease;
+					transition: all 0.2s ease;
+				  }
+				  [type="radio"]:not(:checked) + label:after {
+					opacity: 0;
+					-webkit-transform: scale(0);
+					transform: scale(0);
+				  }
+				  [type="radio"]:checked + label:after {
+					opacity: 1;
+					-webkit-transform: scale(1);
+					transform: scale(1);
+				  }
+				  border-bottom: 1px solid $color_Silver;
+				}
+				#editinfo {
+				  display: none;
+				  border: 1px solid $secondary_color;
+				}
+				#addressinfo {
+				  display: block;
+				  border: 1px solid $color_Silver;
+				}
+				.quantity-select {
+				  width: 80px !important;
+				}
+				.border-bottom-quantity {
+				  border-bottom: 1px solid $color_Silver;
+				}
+				.review-item-and-shipping {
+				  border: 1px solid $color_Silver;
+				}
+				.coupons-bucks {
+				  border: 1px solid $color_Silver;
+				}
+				.frontbg {
+				  background-color: $frontColor;
+				  box-shadow: 0 6px 10px -2px #808080;
+				  h6 {
+					color: $color_white;
+					font-size: $fontsizeone;
+					font-weight: $font-weightbold;
+					letter-spacing: 0.5px;
+					text-transform: capitalize;
+				  }
+				  a {
+					color: $color_white;
+					font-size: $pfontsize;
+					font-weight: $font-weight600;
+					letter-spacing: 0.5px;
+					text-transform: capitalize;
+				  }
+				}
+				.edit-user-info {
+				  .form-control {
+					font-size: 0.9rem !important;
+					border: 0 !important;
+					border-bottom: 1px solid $frontColor !important;
+				  }
+				  .custom-control-indicator {
+					background-color: $frontColor !important;
+					outline: none;
+				  }
+				  a.temporary-password {
+					color: $frontColor;
+					font-size: 0.9rem;
+					font-family: $OpenSans-SemiBold;
+					letter-spacing: 0.5px;
+				  }
+				  p {
+					font-size: 0.9rem;
+					width: 100%;
+					letter-spacing: 0.5px;
+				  }
+				  label {
+					color: $color_semiblack;
+					font-weight: normal;
+					letter-spacing: 0.5px;
+				  }
+				  .custom-control-description {
+					position: relative;
+					top: 2px;
+				  }
+				}
+				}
+				}
+		}
+}

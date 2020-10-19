@@ -1,0 +1,68 @@
+
+<ion-content padding class="purchase-user-list">
+<div class="wrapper">
+	<div class="container all-category-main mb-3">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-xl-12 col-12">
+				<p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>	
+				<p class="mb-2 setFont-size">
+                    <a href="#/home" class="breadcrumblink">Dibdaa</a> &nbsp;&nbsp;
+                    <i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+                    <a href="#/seller-my-account/Active" class="breadcrumblink">Active</a> &nbsp;&nbsp;
+                    <i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+                    <a href="#" class="breadcrumblink font-weight-bold" disabled="true">Offer User List</a></p>
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="col-lg-12 col-md-12 col-xl-12 col-12 pt-1 pb-1 text-left frontbg">
+                <h6 class="mt-1">Offer User List</h6>
+            </div>
+            <div class="col-lg-12 col-md-12 col-12 mt-2 mb-3">
+                <div class="table-responsive">
+                    <table class="table table-striped border setFont-size">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="page-listing-first-td">#</th>
+                            <th scope="col" class="page-listing-first-td">User Name</th>
+                            <th scope="col" class="page-listing-first-td">Offer price</th>
+                            <th scope="col" class="page-listing-first-td">Quantity</th>
+                            <th scope="col" class="page-listing-first-td">Status</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngIf="showOfferData?.data.length <= 0;else showData;">
+							<tr>
+								<td colspan="5" class="text-center">
+									No item found
+								</td>
+							</tr>
+						</tbody>
+						<ng-template #showData>
+							<tbody>
+								<tr *ngFor="let ofrdata of showOfferData?.data">
+									<td>
+                                        <a *ngIf="ofrdata?.profile_pic != '' ">
+                                            <img src="{{userImg}}{{ofrdata?.buyer_id}}/{{ofrdata?.profile_pic}}" width="60px" height="60px"/>
+                                        </a>
+                                        <a *ngIf="ofrdata?.profile_pic == '' ">
+                                            <img src="assets/images/men-placeholder.png" width="60px" height="60px"/>
+                                        </a>
+                                    </td>
+									<td>{{ofrdata?.first_name}}  {{ofrdata?.last_name}}</td>
+									<td>{{ofrdata?.offer_price}} AED</td>
+									<td>{{ofrdata?.quantity}}</td>
+									<td *ngIf="ofrdata?.offer_status =='Accept'"> {{ofrdata?.offer_status}} </td>
+									<td *ngIf="ofrdata?.offer_status =='Decline'"> {{ofrdata?.offer_status}} </td>
+									<td *ngIf="ofrdata?.offer_status =='Pending'"> <a class="text-success" (click)="changeStatus('Accept',ofrdata?.offer_id)"> ACCEPT</a> &nbsp; &nbsp; <a class="text-danger" (click)="changeStatus('Decline',ofrdata?.offer_id)"> DECLINE </a></td>
+								</tr>
+							</tbody>
+						</ng-template>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+		<!--================Footer Area =================-->
+<footer-page></footer-page>
+</div>
+    
+</ion-content>

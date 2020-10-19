@@ -1,0 +1,417 @@
+<ion-content padding>
+<div class="wrapper">
+
+	<div class="banner" *ngIf="viewbanner?.length > 0 && blockStatus?.banner == 1">
+        <div class="container pr-lg-0">
+            <ul class="owl-slider owl-carousel mt-3" id="banner">
+                <li *ngFor="let banner of viewbanner">
+                    <div class="col-lg-12 col-md-12 col-12 p-0">
+                        <div class="dynamic-bg-bnr1 slider-content-center d-lg-block d-md-none d-none">
+                            <h4 class="mb-lg-3">{{banner?.title}}</h4>
+                            <p class="bnr-description mb-lg-3">{{banner?.description}}</p>
+                            <a class="btn shopnowbtndetail">Shop Now <i class="fa fa-arrow-right fontrightarrow pl-2"></i></a>
+                        </div>
+                        <a>
+                            <img src="{{ bannerImgUrl }}{{banner.banner_image}}" class="productlistingimg">
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="DailyDeals Recently_view" *ngIf="feature_dealData?.num_of_categories > 0 && feature_dealData?.status == 1">
+        <div class="container mb-4 pr-lg-0">
+            <div class="s_m_title mb-1">
+                <h2>Featured Deals 
+                    <span class="float-right seeall">
+						<a (click)="gotoallListingPage('FeaturedDeals')">See All
+							<i class="fa fa-arrow-right"></i>
+						</a>
+					</span>
+                </h2>
+            </div>
+            <ul class="owl-sliderdailydeals owl-carousel">
+                <li *ngFor="let ddl of dailydeals; let i=index;">
+                    <a (click)="gotoProductdetailpage(ddl?.id)" title="{{ddl?.title}}">
+                        <img *ngIf="ddl?.photos.length <= 0;else showdailyImg;" src="assets/images/category.png" alt="category">
+                        <ng-template #showdailyImg>
+                            <img src="{{trandingImgUrl}}/{{ddl?.id}}/L/{{ddl?.photos[0]}}" alt="{{ddl?.title}}">
+                        </ng-template>
+
+						<div class="row mx-1 mt-1 mb-1 setResponsive_div_dly">
+                            <div class="col-lg-8 col-md-8 col-12 pl-1 pr-2 d-md-block d-none">
+                                <span class="tredingname dollaroff">{{ (ddl?.title.length > 14)? (ddl?.title | slice:0:15)+'...':(ddl?.title) }}</span>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-12 pl-1 pr-1">
+                                <span class="float-md-right views dollaroff">{{ ddl?.price - (ddl?.price*ddl?.discount) / 100 }} AED</span>
+                            </div>
+						</div>
+					</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    
+    <div class="feature_perfect_area" *ngIf="feature_dealData?.feature_cat.length > 0">
+        <div class="container mb-4 pr-lg-0">
+            <div class="s_m_title mb-2">
+                <h2 class="m-0">{{feature_dealData?.feature_deal}}</h2>
+            </div>
+            <ul class="owl-sliderseason owl-carousel">
+                <li *ngFor="let featuredata of feature_dealData?.category_ids">
+                    <a (click)="showfeatureDeals(featuredata?.parent_cat)">
+                        <div class="perfectpics mb-2">
+                            <img src="images/feature/{{featuredata?.image}}" class="img-fluid perfectpicsimg" *ngIf="featuredata?.season_thumbnail == '' || featuredata?.season_thumbnail == null">
+                                 <img src="{{categoryImgRul}}{{featuredata?.season_thumbnail}}" class="img-fluid perfectpicsimg" *ngIf="featuredata?.season_thumbnail != '' && featuredata?.season_thumbnail != null">
+<!--                            <img src="assets/images/category.png" class="img-fluid perfectpicsimg" *ngIf="featuredata?.season_thumbnail == '' || featuredata?.season_thumbnail == null">
+                                 <img src="{{categoryImgRul}}{{featuredata?.season_thumbnail}}" class="img-fluid perfectpicsimg" *ngIf="featuredata?.season_thumbnail != '' && featuredata?.season_thumbnail != null">-->
+                        </div>
+                        <div class="perfectpicstitle mb-3">
+                            <h6 class="text-center">{{featuredata?.name}}</h6>
+                        </div>
+                    </a>
+            </li>
+        </ul>
+        </div>
+    </div>
+
+    <div class="feature_perfect_area" *ngIf="season_dealData?.season_cat.length > 0 && blockStatus?.season_deal == 1">
+        <div class="container mb-4 pr-lg-0">
+            <div class="s_m_title mb-2">
+                <h2 class="m-0">{{season_dealData?.season_name}}</h2>
+            </div>
+			<ul class="owl-sliderseason owl-carousel">
+                <li *ngFor="let seasondata of season_dealData?.season_cat">
+                    <a (click)="showseasonDeals(seasondata?.id)">
+                        <div class="perfectpics mb-2">
+                            <img src="assets/images/category.png" class="img-fluid perfectpicsimg" *ngIf="seasondata?.season_thumbnail == '' || seasondata?.season_thumbnail == null">
+                            <img src="{{categoryImgRul}}{{seasondata?.season_thumbnail}}" class="img-fluid perfectpicsimg" *ngIf="seasondata?.season_thumbnail != '' && seasondata?.season_thumbnail != null">
+                        </div>
+                        <div class="perfectpicstitle mb-3">
+                            <h6 class="text-center">{{seasondata?.category_name}}</h6>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    
+    
+    
+
+    <div class="DailyDeals Recently_view" *ngIf="recentlyViewedData?.length > 0 && blockStatus?.recentlyviewed == 1">
+        <div class="container mb-4 pr-lg-0">
+            <div class="s_m_title mb-5 mb-lg-0 mb-md-0">
+                <h2 class="m-lg-0 m-md-0">Your Recently Viewed Items
+                    <span class="float-right seeall">
+						<a (click)="gotoallListingPage('RecentlyViewed')">
+							See All
+							<i class="fa fa-arrow-right"></i>
+						</a>
+					</span>
+                </h2>
+            </div>
+            <ul class="owl-sliderYourRecently owl-carousel">
+                <li *ngFor="let rvd of recentlyViewedData">
+                    <a (click)="gotoProductdetailpage(rvd?.id)" title="{{rvd?.title}}">
+                        <img *ngIf="rvd?.photos.length <= 0;else showrecentImg;" src="assets/images/category.png" alt="category">
+                        <ng-template #showrecentImg>
+                            <img src="{{ trandingImgUrl }}/{{rvd?.id}}/L/{{rvd?.photos[0]}}" alt="{{rvd?.title}}">
+                        </ng-template>
+                        <h6 class="pl-1 pb-3 mt-0 mb-2 ml-2">{{ rvd?.price}} AED</h6>
+                    </a>
+                </li>
+                <!-- {{(87.99-13.79)/87.99 * 100 | currency:'USD':true:'2.0-0'}}% OFF -->
+            </ul>
+        </div>
+    </div>
+
+    <div class="DailyDeals Recently_view" *ngIf="viewishData?.data.length > 0 && blockStatus?.currently_view == 1">
+        <div class="container mb-4 pr-lg-0">
+            <div class="s_m_title mb-2">
+                <h2 class="m-0">Currently Watched Items
+                    <span class="float-right seeall">
+						<a (click)="gotoallListingPage('CurrentlyWatched')">
+							See All
+							<i class="fa fa-arrow-right"></i>
+						</a>
+					</span>
+                </h2>
+            </div>
+            <ul class="owl-slidereishlist owl-carousel">
+                <li *ngFor="let wishlist of viewishData?.data">
+                    <a (click)="gotoProductdetailpage(wishlist?.product_id)" title="{{wishlist?.title}}">
+                        <img *ngIf="wishlist?.photos.length <= 0;else showeishImg;" src="assets/images/category.png" alt="category">
+                        <ng-template #showeishImg>
+                            <img src="{{ trandingImgUrl }}/{{wishlist?.product_id}}/L/{{wishlist?.photos[0]}}" alt="{{wishlist?.title}}">
+                        </ng-template>
+                        <h6 class="pl-1 pb-3 mt-0 mb-2 ml-2">{{ wishlist?.price}} AED</h6>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="Tredingondibdaa" *ngIf="latestranding?.length > 0 && blockStatus?.trending == 1">
+        <div class="container mb-4 pr-lg-0">
+            <div class="s_m_title mb-0">
+                <h2 class="m-0">Trending on Dibdaa
+                    <span class="float-right seeall">
+						<a (click)="gotoallListingPage('TrendingDibdaa')">See All
+							<i class="fa fa-arrow-right"></i>
+						</a>
+					</span>
+                </h2>
+            </div>
+            <ul class="owl-slidertreding owl-carousel">
+                <li *ngFor="let lst of latestranding; let i=index;">
+                    <a (click)="gotoProductdetailpage(lst?.product_id)" title="{{lst?.title}}">
+                        <img *ngIf="lst?.photos.length <= 0;else showtrendImg;" src="assets/images/category.png">
+                        <ng-template #showtrendImg>
+                            <img src="{{trandingImgUrl}}/{{lst?.product_id}}/L/{{lst?.photos[0]}}">
+                        </ng-template>
+                        <div class="row m-0 pl-md-2 pr-md-2 pl-0 pr-0 setResponsive_div_trd">
+                            <div class="col-lg-8 col-md-8 col-12 pl-1 pr-2 d-md-block d-lg-block d-none">
+                                <span class="tredingname">{{ (lst?.title.length > 14)? (lst?.title | slice:0:15)+'...':(lst?.title) }}</span>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-12 pl-1 pr-1">
+                                <span class="float-md-right views">{{ lst?.count}} Views</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+	<div class="editorpicks" *ngIf="recommendeddata?.length > 0 && blockStatus?.recommended == 1">
+        <div class="container mb-4 pr-lg-0">
+            <div class="s_m_title mb-1">
+                <h2>Recommended For You <span class="float-right seeall">
+					<a (click)="gotoallListingPage('Recommended')">See All <i class="fa fa-arrow-right"></i></a></span></h2>
+            </div>
+            <ul class="owl-editorpicks owl-carousel">
+                <li *ngFor="let rcd of recommendeddata; let i=index;">
+                    <a (click)="gotoProductdetailpage(rcd?.id)"> <!-- href="#/GetAll/Recommended" -->
+                        <img *ngIf="rcd?.photos.length <= 0;else showdailyImg;" src="assets/images/category.png">
+						<ng-template #showdailyImg>
+							<img src="{{trandingImgUrl}}/{{rcd?.id}}/L/{{rcd?.photos[0]}}">
+						</ng-template>
+                        <h6 class="homesecurity mt-2 mb-0 ml-0 ml-md-2">{{ (rcd?.title.length > 20)? (rcd?.title | slice:0:20)+'...':(rcd?.title) }}</h6>
+                        <p class="homesecurityp ml-2 d-md-flex d-none setResponsive_p_edtr" *ngIf="rcd?.discount > 0 ">Up to {{rcd?.discount}}% off.</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+	<div class="editorpicks mb-3 Recently_view_new" *ngIf="newData?.length > 0 && blockStatus?.new_items == 1">
+        <div class="container mb-1 pr-lg-0">
+            <div class="s_m_title mb-2">
+                <h2 class="m-0">All New Items <span class="float-right seeall">
+					<a (click)="gotoallListingPage('newItems')">See All <i class="fa fa-arrow-right"></i></a></span></h2>
+            </div>
+            <ul class="owl-newData owl-carousel">
+                <li *ngFor="let ndt of newData; let i=index;">
+                    <a (click)="gotoProductdetailpage(ndt?.id)">
+                        <img *ngIf="ndt?.photos.length <= 0;else shownewImg;" src="assets/images/category.png">
+						<ng-template #shownewImg>
+							<img src="{{trandingImgUrl}}/{{ndt?.id}}/L/{{ndt?.photos[0]}}">
+						</ng-template>
+                        <h6 class="h6_Recently_view_new mt-2 mb-0 ml-0 ml-md-2">{{ (ndt?.title.length > 20)? (ndt?.title | slice:0:20)+'...':(ndt?.title) }}</h6>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+	<!-- ================Footer Area ================= -->
+    <footer class="footer_area">
+        <div class="container">
+            <div class="footer_widgets d-lg-block d-md-none d-none">
+                <div class="row">
+                    <div class="col-lg-2 col-md-4 col-12">
+                        <aside class="f_widget link_widget f_info_widget">
+                            <div class="f_w_title">
+                                <h6>Buy</h6>
+                            </div>
+                            <ul class="footer_ul">
+                                <li><a class="alinkFooter" (click)="callCMSPage('registration','')">Registration</a></li>
+                                <li><a class="alinkFooter" (click)="callCMSPage('faq-listing','6')">Offers & buying help</a></li>
+                                <li><a class="alinkFooter" (click)="callCMSPage('comingsoon','')">More Coming Soonâ€¦</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-12">
+                        <aside class="f_widget link_widget f_info_widget">
+                            <div class="f_w_title">
+                                <h6>Sell</h6>
+                            </div>
+                            <ul class="footer_ul">
+                                <li>
+                                    <a class="alinkFooter" *ngIf="localItem != null" (click)="callCMSPage('add-product')">Start selling</a>
+                                    <a class="alinkFooter" *ngIf="localItem == null" (click)="callCMSPage('login','DraftListingPage')">Start selling</a>
+                                </li>
+                                <li><a class="alinkFooter" (click)="callCMSPage('selling-tools')">How To Selling Tools</a></li>
+                                <li>
+                                    <a class="alinkFooter" *ngIf="localItem == null" (click)="callCMSPage('register_business','')">Business Accounts</a>
+                                    <a class="alinkFooter" *ngIf="localItem != null && localItem.role == 'buyer'" href="#/seller-business-info">Business Accounts</a>
+                                </li>
+                                <li><a class="alinkFooter" (click)="callCMSPage('dibdaaPremium','')">Dibdaa Premium</a></li>
+                            </ul>
+                        </aside>
+                        <aside class="f_widget link_widget f_info_widget">
+                            <div class="f_w_title">
+                                <h6>Tools & apps</h6>
+                            </div>
+                            <ul class="footer_ul">
+                                <li><a class="alinkFooter" (click)="callCMSPage('mobile-apps','')">Mobile apps</a></li>
+                                <li><a class="alinkFooter" (click)="callCMSPage('security','')">Security Awareness</a></li>
+								<li><a class="alinkFooter" (click)="callCMSPage('site-map','')">Site Map</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-12 pl-lg-5 Dibdaacompaniesinfo">
+                        <aside class="f_widget link_widget f_service_widget">
+                            <div class="f_w_title">
+                                <h6>Stay connected</h6>
+                            </div>
+                            <ul class="footer_ul">
+                                <li><a class="alinkFooter" href="https://www.facebook.com/dibdaa/" target="_blank"><i class="fa fa-facebook-square"></i> Facebook</a></li>
+                                <li><a class="alinkFooter" href="https://twitter.com/dibdaa" target="_blank"><i class="fa fa-twitter-square"></i> Twitter</a></li>
+                                <li><a class="alinkFooter" href="https://www.instagram.com/dibdaa/" target="_blank"><i class="fa fa-instagram"></i> Instagram</a></li>
+                                <li><a class="alinkFooter" href="https://www.linkedin.com/company/dibdaa/" target="_blank"><i class="fa fa-linkedin-square"></i> LinkedIN</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-12">
+                        <aside class="f_widget link_widget f_account_widget">
+                            <div class="f_w_title">
+                                <h6>About Dibdaa</h6>
+                            </div>
+                            <ul class="footer_ul">
+                                <li><a class="alinkFooter" (click)="callCMSPage('company-info','')">Company info</a></li>
+                                <li><a class="alinkFooter" (click)="callCMSPage('news','')">News</a></li>
+                                <li><a class="alinkFooter"(click)="callCMSPage('investord','')">Investors</a></li>
+                                <li><a class="alinkFooter" (click)="callCMSPage('careers','')">Careers</a></li>
+                                <li><a class="alinkFooter"(click)="callCMSPage('advertise','')">Advertise with us</a></li>
+                                <li><a class="alinkFooter" (click)="callCMSPage('policies','')">Policies</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-12">
+                        <aside class="f_widget link_widget f_account_widget">
+                            <div class="f_w_title">
+                                <h6>Help & Contact</h6>
+                            </div>
+                            <ul class="footer_ul">
+                                <li>
+                                    <a class="alinkFooter" (click)="callCMSPage('resolutioncenter','')">Resolution Center</a>
+                                </li>
+                                <li><a class="alinkFooter" (click)="callCMSPage('faq-listing','7')">Seller Center</a></li>
+                                <li><a class="alinkFooter" (click)="callCMSPage('contactUs','')">Contact us</a></li>
+								<li>
+									<a class="alinkFooter" (click)="callCMSPage('Fees-CalculatorPage','')">Fees Calculator</a>
+								</li>
+								<li><a class="alinkFooter" (click)="callCMSPage('return','')">Dibdaa Returns</a></li>
+                            </ul>
+                        </aside>
+                        <aside class="f_widget link_widget f_account_widget">
+                            <div class="f_w_title">
+                                <h6>Community</h6>
+                            </div>
+                            <ul class="footer_ul">
+                                <li><a (click)="callCMSPage('announcements','')" class="alinkFooter">Announcements</a></li>
+                                <li><a (click)="callCMSPage('knowledge','')" class="alinkFooter">Knowledge Base</a></li>
+                                <li><a (click)="callCMSPage('charity','')" class="alinkFooter">Dibdaa for Charity</a></li>
+                                <li><a (click)="callCMSPage('stuff','')" class="alinkFooter">Free Stuff</a></li>
+                                <li><a (click)="callCMSPage('community','')" class="alinkFooter">Dibdaa Community</a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+            <div class="footer_copyright mt-lg-0 mt-md-3 mt-0 pt-lg-0">
+				<div class="row">
+					<div class="col-lg-8 mt-lg-2 text-lg-right">
+						<h5 class="m-0 p-0">Â© {{showYear}} Copyright, All rights reserved |  <a class="alinkFootercopy" (click)="callCMSPage('useragreement','')">User Agreement,</a> <a class="alinkFootercopy" (click)="callCMSPage('userprivacy','')">Privacy,</a><a (click)="callCMSPage('cookies','')"> Cookies</a></h5>
+					</div>
+					<div class="col-lg-4 text-lg-left">
+						<img src="assets/images/homepage_footerimg.png" />
+					</div>
+				</div>
+            </div>
+        </div>
+    </footer>
+
+</div>
+</ion-content>
+<!--<div id="myModal" class="modal" style="display:block;position: relative;overflow: initial;left: 0;top: 0;height: 100%;">\n<div class="modal-content" style="border: unset;bottom: 0;left: 350px;">\n<div id="aalert_popover">\n<div class="awrapper">\n<div class="content">\n<div class="alert aalert_default" *ngFor="let notData of shownotificationData?.data;let i = index">\n<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>\n<p>\n<a href="#/notification/{{notData?.id}}" target=_blank>\n<small><em>{{ (notData?.message.length > 50)? (notData?.message | slice:0:50)+\'...\':(notData?.message) }}</em></small>\n</a>\n</p>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n-->
+<div id="myModal" class="modal" style="display:block;position: relative;overflow: initial;">
+    <div class="modal-content" style="border: unset;">
+        <div id="aalert_popover">
+            <div class="awrapper">
+                <div class="content">
+                    <div class="alert aalert_default" *ngFor="let notData of shownotificationData?.data;let i = index">
+                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <p>
+                            <a href="#/notification/{{notData?.id}}" target=_blank>
+                                <small><em>{{ (notData?.message.length > 50)? (notData?.message | slice:0:50)+\'...\':(notData?.message) }}</em></small>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myModal" class="modal" *ngIf="shownotificationData?.count == 2;else shownewImg1;" style="display:block;overflow: initial;left: 0;top: 440px;height: 100%;">
+     <div class="modal-content" style="border: unset;bottom: 0;">
+        <div id="aalert_popover">
+            <div class="awrapper">
+                <div class="content">
+                    <div class="alert aalert_default" *ngFor="let notData of shownotificationData?.data;let i = index">
+                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <p>
+                            <a href="#/notification/{{notData?.id}}" target=_blank>
+                                <small><em>{{ (notData?.message.length > 50)? (notData?.message | slice:0:50)+\'...\':(notData?.message) }}</em></small>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div id="myModal" class="modal" *ngIf="shownotificationData?.count < 3;else shownewImg1;" style="display:block;overflow: initial;left: 0;top: 440px;height: 100%;">\n<div class="modal-content" style="border: unset;bottom: 0;">\n<div id="aalert_popover">\n<div class="awrapper">\n<div class="content">\n<div class="alert aalert_default" *ngFor="let notData of shownotificationData?.data;let i = index">\n<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>\n<p>\n<a href="#/notification/{{notData?.id}}" target=_blank>\n<small><em>{{ (notData?.message.length > 50)? (notData?.message | slice:0:50)+\'...\':(notData?.message) }}</em></small>\n</a>\n</p>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<ng-template #shownewImg1>\n<div id="myModal" class="modal" style="display:block;overflow: initial;left: 0;top: 300px;height: 100%;">\n<div class="modal-content" style="border: unset;bottom: 0;">\n<div id="aalert_popover">\n<div class="awrapper">\n<div class="content">\n<div class="alert aalert_default" *ngFor="let notData of shownotificationData?.data;let i = index">\n<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>\n<p>\n<a href="#/notification/{{notData?.id}}" target=_blank>\n<small><em>{{ (notData?.message.length > 50)? (notData?.message | slice:0:50)+\'...\':(notData?.message) }}</em></small>\n</a>\n</p>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</ng-template>-->
+<!--<div id="myModal" class="modal" *ngIf="shownotificationData?.count == 3;" style="display:block;overflow: initial;left: 0;top: 300px;height: 100%;">\n<div class="modal-content" style="border: unset;bottom: 0;">\n<div id="aalert_popover">\n<div class="awrapper">\n<div class="content">\n<div class="alert aalert_default" *ngFor="let notData of shownotificationData?.data;let i = index">\n<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>\n<p>\n<a href="#/notification/{{notData?.id}}" target=_blank>\n<small><em>{{ (notData?.message.length > 50)? (notData?.message | slice:0:50)+\'...\':(notData?.message) }}</em></small>\n</a>\n</p>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<div id="myModal" class="modal" *ngIf="shownotificationData?.count == 2;" style="display:block;overflow: initial;left: 0;top: 440px;height: 100%;">\n<div class="modal-content" style="border: unset;bottom: 0;">\n<div id="aalert_popover">\n<div class="awrapper">\n<div class="content">\n<div class="alert aalert_default" *ngFor="let notData of shownotificationData?.data;let i = index">\n<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>\n<p>\n<a href="#/notification/{{notData?.id}}" target=_blank>\n<small><em>{{ (notData?.message.length > 50)? (notData?.message | slice:0:50)+\'...\':(notData?.message) }}</em></small>\n</a>\n</p>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n<div id="myModal" class="modal" *ngIf="shownotificationData?.count == 1;" style="display:block;overflow: initial;left: 0;top: 640px;height: 100%;">\n<div class="modal-content" style="border: unset;bottom: 0;">\n<div id="aalert_popover">\n<div class="awrapper">\n<div class="content">\n<div class="alert aalert_default" *ngFor="let notData of shownotificationData?.data;let i = index">\n<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>\n<p>\n<a href="#/notification/{{notData?.id}}" target=_blank>\n<small><em>{{ (notData?.message.length > 50)? (notData?.message | slice:0:50)+\'...\':(notData?.message) }}</em></small>\n</a>\n</p>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>
+
+
+
+
+<ng-template #shownewImg1>\n<div id="myModal" class="modal" style="display:block;overflow: initial;left: 0;top: 300px;height: 100%;">\n<div class="modal-content" style="border: unset;bottom: 0;">\n<div id="aalert_popover">\n<div class="awrapper">\n<div class="content">\n<div class="alert aalert_default" *ngFor="let notData of shownotificationData?.data;let i = index">\n<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>\n<p>\n<a href="#/notification/{{notData?.id}}" target=_blank>\n<small><em>{{ (notData?.message.length > 50)? (notData?.message | slice:0:50)+\'...\':(notData?.message) }}</em></small>\n</a>\n</p>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</ng-template>
+<div id="aalert_popover">
+    <div class="awrapper">
+     <div class="content">
+         <div class="alert aalert_default">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <p><strong>subject</strong>
+                <a href="#/notification/{{notData?.id}}"><small><em>{{ (notData?.message.length > 50)? (notData?.message | slice:0:50)+\'...\':(notData?.message) }}</em></small></a>
+            </p>
+           </div>
+     </div>
+    </div>
+   </div>-->
+<div class="alert alert-dismissible text-center cookiealert show" role="alert" *ngIf="this.checkcookie == null || this.checkcookie == undefined">
+	<div class="cookiealert-container">
+		<!--<b>Do you like cookies?</b> ðŸ�ª We use cookies to ensure you get the best experience on our website. <a class="text-primary" (click)="callCMSPage('cookies','')">Learn more</a>-->
+                <b>Do you like cookies?</b> <img src="images/biscuit.png" width="15"/> We use cookies to ensure you get the best experience on our website. <a class="text-primary" (click)="callCMSPage('cookies','')">Learn more</a>
+
+		<button type="button" class="btn theme-light-btn sell-btn ml-3" aria-label="Close" (click)="hideCookiebutton()">
+			I agree
+		</button>
+	</div>
+</div>

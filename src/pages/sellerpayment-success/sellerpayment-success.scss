@@ -1,0 +1,35 @@
+page-sellerpayment-success {
+//top: 100px !important;
+	.wrapper{
+		margin-top: 100px;
+	}
+	@media (max-width: 768px) and (min-width: 320px){
+		.wrapper{
+			margin-top: 100px;
+		}
+	}
+	.thankyou {
+		/*@media (max-width: 768px) and (min-width: 320px){
+			top: 190px !important;
+			position: relative;
+		}*/
+		.set_fontSize{
+			font-size: 13px;
+		}
+		
+	  @extend .my-account;
+	  .thankyou-page-main {
+		letter-spacing: 0.5px;
+		max-width: 800px !important;
+		.right-icon {
+		  font-size: 5rem;
+		  color: $frontColor;
+		}
+		.receipt-info-txt {
+		  font-size: $fontsizeone;
+		  font-weight: $font-weight600;
+		  font-family: $OpenSans-SemiBold !important;
+		}
+	  }
+	 }
+}

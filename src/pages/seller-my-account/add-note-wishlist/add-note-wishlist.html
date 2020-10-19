@@ -1,0 +1,42 @@
+<ion-content padding>
+<div class="add-note">
+	<div class="wrapper">
+		<div class="container add-note-main mb-3">
+			<div class="row m-0">
+				<div class="col-lg-12 col-md-12 col-xl-12 col-12 mt-lg-4 mt-xl-4">
+					<p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+					<p class="mb-2 setFontSize">
+						<a class="breadcrumblink" href="#/home">Dibdaa</a> &nbsp;<i class="fa fa-angle-right"></i>&nbsp;
+						<a class="breadcrumblink" href="#/seller-my-account/WishList">My Dibdaa</a> &nbsp;<i class="fa fa-angle-right"></i>&nbsp;
+						<a class="breadcrumblink" disabled="" href="#">Add Notes</a>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="container add-note-main mb-3" *ngFor="let wishlst of viewishData?.data">
+			<div class="row border-bottom-add-note pb-4 m-0">
+				<div class="col-lg-2 col-md-3 col-12">
+					<img src="{{trandingImgUrl}}{{wishlst.product_id}}/L/{{wishlst.photos[0]}}" class="img-fluid add-note-image">
+				</div>
+				<div class="col-lg-6 col-md-9 col-12 mt-3 mt-lg-0 mt-md-0">
+					<p class="m-0 setFontSize"><a (click)="goToProductdetail(wishlst?.product_id)" class="text-primary">{{wishlst.title}}</a> ({{wishlst.product_sku}})</p>
+					<div class="form-group mt-3">
+						<textarea class="form-control" id="addnotetxt" rows="2" name="note_add">{{wishlst.notes}}</textarea>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="container">
+			<div class="row border-bottom-add-note pb-4 pt-4 m-0">
+				<div class="col-lg-12 col-md-12 col-12">
+					<button class="btn theme-light-btn ml-1 mr-1" (click)="updatewishList()">Save</button>
+					<button class="btn theme-dark-btn ml-1 mr-1" (click)="cancelClick()">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--================Footer Area =================-->
+	<footer-page></footer-page>
+</div>
+</ion-content>

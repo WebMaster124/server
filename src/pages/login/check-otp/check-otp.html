@@ -1,0 +1,54 @@
+<ion-content padding>
+<div class="login"> 
+	<div class="container login-container">
+		<div class="row loginregister pt-lg-5 pt-md-5 mb-5">
+			<div class="col-lg-12 col-md-12 col-12 pb-4 margin_top">
+				<a href="#/home"><img src="assets/images/Dibdaa.png" class="dibdaalogo" alt="Dibdaa Logo"></a>
+			</div>
+			<div class="col-lg-5 col-md-10 col-12">
+				<div class="panel panel-login">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-12 col-12 col-md-12">
+								
+								<div class="form-group">
+									<h6>To Complete your registration, please verify your email addresss.</h6>
+									<span class="setFont"><b>{{passData?.email}}</b></span>
+									<br /><br />
+									<span class="register_info">Enter OTP below</span>
+ 								</div>
+								<form id="reset-password" [formGroup]="newPassword" role="form" style="display: block;" class="form" novalidate>
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-12 form-group">
+											<div class="form-group">
+												<div class="row">
+													<div class="col-lg-12 col-md-10 col-12">
+														<input type="number" id="password-reg" name="otp" tabindex="1" class="form-control passwordregister" [formControl]="newPassword.controls['otp']" [ngClass]="{'error-border':!newPassword.controls['otp'].valid}">
+													</div>
+													<div class="error-box text-left pl-3" *ngIf="newPassword.controls['otp'].hasError('required') && newPassword.controls['otp'].touched">* OTP is required!</div>
+													<div class="error-box text-left pl-3" *ngIf="newPassword.controls['otp'].hasError('maxlength') && newPassword.controls['otp'].touched">* Maximum length is 4!</div>
+													<div class="error-box text-left pl-3" *ngIf="newPassword.controls['otp'].hasError('minlength') && newPassword.controls['otp'].touched">* Minimum length is 4!</div>
+													<div class="error-box pl-3 d-none" id="showError"></div>
+												</div>
+											</div>
+											<div class="form-group">
+												<p class="error-box">{{showReset?.user.msg}}</p>
+											</div>
+											<div class="form-group">
+												<button type="submit" class="btn btn-warning btnsignin" (click)="setNewPassword(newPassword)">Continue</button>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+<!--================Footer Area =================-->
+<footer-page></footer-page>
+</div>
+</ion-content>

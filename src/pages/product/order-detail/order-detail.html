@@ -1,0 +1,321 @@
+<ion-content padding class="order-detail">
+	<div class="wrapper">
+		<div class="container order-detail-main mb-3">
+			<div class="row m-0">
+				<div class="col-lg-9 col-md-12 col-12">
+					<div class="row">
+						<p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+					</div>
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-12 mt-2 mb-2 p-0">
+							<h5 class="m-0">Order Details ( #{{orderDetailData?.order_Id}} )</h5> <a href="invoice/buyer/{{orderDetailData?.order_Id}}.pdf"  target="_blank">View Invoice</a>
+						</div>
+						<div class="set-Fonts col-lg-6 col-md-6 col-12 mt-2 mb-2 pr-4 pt-2 pt-md-0 text-center text-lg-right text-md-right">
+							<span class="mr-2">Order on {{orderDetailData?.created_Date}}</span>
+						</div>
+					</div>
+					<div class="row bg-light mt-1 mr-lg-1 p-1 mb-3 border rounded" *ngFor="let pdata of purchase_data?.order_info.businessName;let i=index;">
+						<div class="col-lg-12 col-md-12 col-12 order-total p-0 mt-1">
+							<div class="row m-0 set-Fonts">
+								<div class="col-lg-6 col-md-6 col-12 text-md-left text-center pl-2 pr-2 pt-2 pb-2 pb-lg-4 pb-md-4">
+									<span ><b>Seller</b> </span><span><a class="text-primary" (click)="getTouserProfile(purchaseData_arr[i][1][0].seller_id)">{{pdata}}</a> (Payment status : {{ (purchaseData_arr[i][1][0].status == null?'Unpaid':purchaseData_arr[i][1][0].status)}})</span>
+								</div>
+								<div class="col-lg-6 col-md-6 col-12 mt-2 pl-2 pr-2 pt-0 text-lg-right text-md-right text-center pb-lg-0 pb-md-0 pb-3" *ngIf="purchaseData_arr[i][1][0].status == 'Completed' || purchaseData_arr[i][1][0].status == 'complete'">
+									<span class="mr-2" *ngIf="transationData_arr.length != 0"><b>Transaction Id :</b> {{transationData_arr[i][1]?.transaction_id}}</span>
+								</div>
+							</div>
+							<div class="table-responsive">
+								<table class="table table-sm order-detail-table set-Fonts mb-0">
+									<thead class="thead-light">
+										<tr>
+											<th scope="col" class="order-table-th">Item(SKU)</th>
+											<th scope="col" class="order-table-th-image">Image</th>
+											<th scope="col" class="order-table-th-title">Title</th>
+											<th scope="col" class="order-table-th text-center">Quantity</th>
+											<th scope="col" class="order-table-th-itemprice text-center">Item Price</th>
+										</tr>
+									</thead>
+									<tbody *ngFor="let psubdata of purchaseData_arr[i][1];">
+										<tr>
+											<td class="border-bottom-td">{{psubdata?.product_sku}}</td>
+											<td class="border-bottom-td">
+												<img src="{{trandingImgUrl}}{{psubdata?.product_id}}/L/{{psubdata.photos[0]}}" class="img-fluid border order-detail-image">
+											</td>
+											<td class="border-bottom-td"><a title="{{psubdata?.title}}">{{ (psubdata?.title.length > 25)? (psubdata?.title | slice:0:25)+'...':(psubdata?.title) }}</a></td>
+											<td class="border-bottom-td text-center">{{psubdata?.order_quantity}}</td>
+											<td class="border-bottom-td text-center">
+												<div *ngIf="psubdata?.discount > 0">
+													Price :{{psubdata?.price * psubdata?.order_quantity}}
+													<div>
+														You save: {{(psubdata?.price * psubdata?.order_quantity) - (psubdata?.price * psubdata?.order_quantity | discount:psubdata?.discount)}} AED ({{psubdata?.discount}}% OFF)
+													</div>
+												</div>
+												{{psubdata?.price * psubdata?.order_quantity | discount:psubdata?.discount}} AED</td>
+										</tr>
+										<tr *ngIf="psubdata?.feedback_status == false && psubdata?.order_status == 'Delivered'">
+											<a class="text-primary" (click)="leaveFeedback(psubdata?.product_id,psubdata?.title,psubdata?.photos[0],psubdata?.seller_id,orderDetailData?.order_Id)">Leave Feedback to Seller</a>
+										</tr>
+										<tr *ngIf="purchaseData_arr[i][1][0].status == 'Completed'">
+											<span><b>Order Status :- </b></span>
+											<a title="Item Paid" class="mr-2"><i class="fa fa-dollar"></i></a>
+											<a title="Left Feedback" class="mr-2"><img src="assets/images/leave_feedback.png" *ngIf="psubdata?.feedback_status == false" width="20px" /></a>
+											<a title="Feedback Received" class="mr-2"><img src="assets/images/receive_feedback.png" *ngIf="psubdata?.feedback_receive_status == true" width="20px" /></a>
+											<a title="Item Shipped" class="mr-2"><img src="assets/images/item_shipped.png" *ngIf="psubdata?.order_status == 'Shipped'" width="20px" /></a>
+										</tr>
+										<tr>
+											<td colspan="5">
+												<div class="container mobile_width" *ngIf="psubdata?.order_status == 'Processing'">
+													<div class="row bs-wizard" style="border-bottom:0;">
+														<div class="col-md-2 col-2 bs-wizard-step complete">
+														  <div class="text-center bs-wizard-stepnum">Processing</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step disabled">
+														  <div class="text-center bs-wizard-stepnum">Dispatch</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step disabled">
+														  <div class="text-center bs-wizard-stepnum">Item collected by buyer</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step disabled">
+														  <div class="text-center bs-wizard-stepnum">Delivered</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step disabled">
+														  <div class="text-center bs-wizard-stepnum">Feedback Sent</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step disabled">
+														  <div class="text-center bs-wizard-stepnum">Feedback Received</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+													</div>
+												</div>
+											
+												<div class="container mobile_width" *ngIf="psubdata?.order_status == 'Ready For Dispatch'">
+													<div class="row bs-wizard" style="border-bottom:0;">
+														<div class="col-md-2 col-2 bs-wizard-step complete">
+														  <div class="text-center bs-wizard-stepnum">Processing</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step complete">
+														  <div class="text-center bs-wizard-stepnum">Dispatch</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step disabled">
+														  <div class="text-center bs-wizard-stepnum">Item collected by buyer</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step disabled">
+														  <div class="text-center bs-wizard-stepnum">Delivered</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step disabled">
+														  <div class="text-center bs-wizard-stepnum">Feedback Sent</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step disabled">
+														  <div class="text-center bs-wizard-stepnum">Feedback Received</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+													</div>
+												</div>
+												
+												<div class="container mobile_width" *ngIf="psubdata?.order_status == 'Collected by buyer'">
+													<div class="row bs-wizard" style="border-bottom:0;">
+														<div class="col-md-2 col-2 bs-wizard-step complete">
+														  <div class="text-center bs-wizard-stepnum">Processing</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step complete">
+														  <div class="text-center bs-wizard-stepnum">Dispatch</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step complete">
+														  <div class="text-center bs-wizard-stepnum">Item collected by buyer</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step disabled">
+														  <div class="text-center bs-wizard-stepnum">Delivered</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step disabled">
+														  <div class="text-center bs-wizard-stepnum">Feedback Sent</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step disabled">
+														  <div class="text-center bs-wizard-stepnum">Feedback Received</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+													</div>
+												</div>
+												
+												<div class="container mobile_width" *ngIf="psubdata?.order_status == 'Delivered'">
+													<div class="row bs-wizard" style="border-bottom:0;">
+														<div class="col-md-2 col-2 bs-wizard-step complete">
+														  <div class="text-center bs-wizard-stepnum">Processing</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step complete">
+														  <div class="text-center bs-wizard-stepnum">Dispatch</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step complete">
+														  <div class="text-center bs-wizard-stepnum">Item collected by buyer</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step complete">
+														  <div class="text-center bs-wizard-stepnum">Delivered</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step disabled" *ngIf="psubdata?.feedback_status == false && psubdata?.order_status == 'Delivered'">
+														  <div class="text-center bs-wizard-stepnum">Feedback Sent</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step complete" *ngIf="psubdata?.feedback_status == true && psubdata?.order_status == 'Delivered'">
+														  <div class="text-center bs-wizard-stepnum">Feedback Sent</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step disabled" *ngIf="psubdata?.feedback_receive_status == false && psubdata?.order_status == 'Delivered'">
+														  <div class="text-center bs-wizard-stepnum">Feedback Received</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+														
+														<div class="col-md-2 col-2 bs-wizard-step complete" *ngIf="psubdata?.feedback_receive_status == true && psubdata?.order_status == 'Delivered'">
+														  <div class="text-center bs-wizard-stepnum">Feedback Received</div>
+														  <div class="progress"><div class="progress-bar"></div></div>
+														  <a class="bs-wizard-dot"></a>
+														</div>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+	<!--                <div class="row ml-0 mt-3 mr-0 mr-lg-1 mr-md-0">-->
+					<div class="row bg-light mt-1 mr-lg-1 p-3 border rounded mt-3">
+						<div class="offset-lg-5 col-lg-7 col-md-12 col-12 p-1">
+							<form class="form-horizontal">
+								<div class="row m-0">
+									<div class="col-lg-12 col-md-12 col-12 p-0 pl-lg-2 pr-lg-2 pt-2 pt-lg-0">
+										<table class="table continue-order-tbl mb-2 set-Fonts">
+											<tbody>
+												<tr>
+													<td class="pl-lg-5 pl-md-1 pl-0"><strong>Subtotal:</strong></td>
+													<td class="text-right pr-lg-4 pr-md-3 pr-0">{{total}} AED</td>
+												</tr>
+												<tr>
+													<td class="pl-lg-5 pl-md-1 pl-0">
+														<strong>Coupon code
+															<span *ngIf="orderDetailData?.couponcode_discount != null && orderDetailData?.couponcode_type == 'Percentage Discount'">({{orderDetailData?.coupon_code}})({{orderDetailData?.couponcode_discount}} %)</span>
+															<span *ngIf="orderDetailData?.couponcode_discount != null && orderDetailData?.couponcode_type == 'Flat Discount'">({{orderDetailData?.coupon_code}})</span>
+														:
+														</strong>
+													</td>
+
+													<td class="text-right pr-lg-4 pr-md-3 pr-0" *ngIf="orderDetailData?.couponcode_discount != null && orderDetailData?.couponcode_type == 'Percentage Discount'">- {{total * orderDetailData?.couponcode_discount / 100}} AED</td>
+													<td class="text-right pr-lg-4 pr-md-3 pr-0" *ngIf="orderDetailData?.couponcode_discount != null && orderDetailData?.couponcode_type == 'Flat Discount'">- {{ orderDetailData?.couponcode_discount }} AED</td>
+													<td class="text-right pr-lg-4 pr-md-3 pr-0" *ngIf="orderDetailData?.couponcode_discount == null">-</td>
+
+												</tr>
+												<tr class="border-tr">
+													<td class="pl-lg-5 pl-md-1 pl-0"><h6 class="m-0 pt-1 pb-1">Grand Total:</h6>
+													</td>
+													<td class="text-right pr-lg-4 pr-md-3 pr-0"><h6 class="m-0 pt-1 pb-1">{{purchase_data?.order_price}} AED</h6></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-12 col-12 mt-lg-5 mt-md-3 p-0 mt-3 mt-lg-0 mt-md-0">
+					<div class="row m-0 bg-light border rounded">
+						<div class="col-lg-12 col-md-12 col-12 p-3">
+							<h6 class="m-0 text-left">Shipping Address</h6>
+							<div class="row m-0">
+								<div class="col-lg-12 col-md-12 col-12 order-total p-0 mt-2">
+									<address class="m-0 set-Fonts">
+										{{purchase_data?.shipping_info.ship_address}} ,<br>
+										{{purchase_data?.shipping_info.ship_city}} {{purchase_data?.shipping_info.ship_pincode}}<br>
+										{{purchase_data?.shipping_info.ship_state}} , {{purchase_data?.shipping_info.ship_country}}<br>
+										{{purchase_data?.shipping_info.mobile}}
+									</address>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row bg-light border rounded mt-3 ml-0 mr-0 mb-0">
+						<div class="col-lg-12 col-md-12 col-12 p-3">
+							<h6 class="m-0 text-left">Billing Address</h6>
+							<div class="row m-0">
+								<div class="col-lg-12 col-md-12 col-12 order-total p-0 mt-2">
+									<address class="m-0 set-Fonts">
+										{{purchase_data?.shipping_info.ship_address}} ,<br>
+										{{purchase_data?.shipping_info.ship_city}} {{purchase_data?.shipping_info.ship_pincode}}<br>
+										{{purchase_data?.shipping_info.ship_state}} , {{purchase_data?.shipping_info.ship_country}}<br>
+										{{purchase_data?.shipping_info.mobile}}
+									</address>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--================Footer Area =================-->
+<footer-page></footer-page>
+	</div>
+</ion-content>

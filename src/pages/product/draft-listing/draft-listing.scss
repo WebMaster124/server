@@ -1,0 +1,29 @@
+page-draft-listing {
+  .latest-draft {
+    .wrapper{
+      margin-top: 100px;
+    }
+    .set-fontsize{
+      font-size: 0.9rem;
+    }
+    .latest-draft-div {
+      border: 2px solid #eee;
+      background: #f9f9f9;
+      box-sizing: border-box;
+      .draft-image {
+        width: 70px;
+      }
+      .draft-title{
+        font-size: 0.9rem;
+      }
+      .complete-delete{
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+      .actionLink{
+        color:$frontColor;
+        font-size: 0.8rem;
+      }
+    }
+  }
+}

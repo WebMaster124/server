@@ -1,0 +1,19 @@
+<!-- Generated template for the NotificationConponentComponent component -->
+<div class="notifi_title" *ngIf="shownotificationData?.count > 0">
+	<p class="mb-0">You have {{shownotificationData?.count}} Notifications</p>
+</div>
+
+<div [ngClass]="{'notifi_item': i < 5}" *ngFor="let notData of shownotificationData?.data;let i = index">
+	<div class="content" *ngIf="i < 5">
+		<a (click)="readNotification(notData?.id)"><i class="fa fa-times-circle close-read-notification"></i></a>
+		<p><a href="#/notification/{{notData?.id}}">{{ (notData?.message.length > 50)? (notData?.message | slice:0:50)+'...':(notData?.message) }}</a></p>
+		<span class="date">{{notData?.created_date}}</span>
+	</div>
+</div>
+
+<div class="pt-4" *ngIf="shownotificationData?.count > 0">
+	<a href="#/notification/all"><h6 class="m-0 p-0">View all</h6></a>
+</div>
+<div class="row p-0 m-0" *ngIf="shownotificationData?.count <= 0">
+	<p class="nodata">You're all caught up!!!</p>
+</div>

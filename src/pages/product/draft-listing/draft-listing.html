@@ -1,0 +1,53 @@
+<ion-content padding class="latest-draft">
+    <div class="wrapper">
+        <section class="draft_area pt-2 pb-2">
+            <div class="container">
+                <div class="row text-left">
+                    <div class="col-lg-12 col-md-12 col-xl-12 col-12 breadcrumblink_div">
+                        <p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+						<p class="set-fontsize p-0 m-0">
+                            <a href="#/home" class="breadcrumblink">Dibdaa</a> &nbsp;<i class="fa fa-angle-right"></i>&nbsp;
+                            <a class="breadcrumblink" disabled>draft-listing</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row mt-4" *ngIf="dreftdata?.data.length > 0">
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <div class="latest-draft-div p-lg-4 p-md-4 p-3">
+                            <h5>
+                                Latest drafts
+                            </h5>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 col-12 mb-lg-0 mb-md-4 mb-4" *ngFor="let drftdata of dreftdata?.data">
+                                    <div class="row ml-0 mr-0 mt-2">
+                                        <div class="col-lg-3 col-md-4 col-4 p-0 text-center">
+                                            <img src="assets/images/draft-placeholder.png" class="img-fluid draft-image" *ngIf="drftdata?.photos == false || drftdata?.photos.length == 0">
+                                            <img *ngIf="drftdata?.photos != false && drftdata?.photos.length > 0" src="{{trandingImgUrl}}{{drftdata?.id}}/S/{{drftdata?.photos[0]}}" class="img-fluid draft-image">
+                                        </div>
+                                        <div class="col-lg-9 col-md-8 col-8 p-0" [ngClass]="{'pt-4' : drftdata?.title == null}">
+                                            <p class="draft-title mb-2 mt-2" *ngIf="drftdata?.title != null">{{drftdata?.title}}</p>
+                                            <span><a (click)="gotoPage(drftdata?.id,'completelist')" class="complete-delete" class="actionLink">Complete</a> |
+                                                <a class="complete-delete" (click)="deleteProduct(drftdata?.id)" class="actionLink">Delete</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <div class="latest-draft-div p-lg-4 p-md-4 p-3">
+                            <h5 class="mb-4">
+                                Listing templates
+                            </h5>
+                            <p class="draft-title mb-4 mt-2">Create reusable listing templates to help you list items faster.</p>
+                            <a (click)="gotoPage('','addProduct')" class="btn theme-light-btn">Create a template</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer-page></footer-page>
+    </div>
+</ion-content>

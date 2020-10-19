@@ -1,0 +1,58 @@
+
+<ion-content padding class="personalized-feedback">
+<div class="container mb-3 wrapper">
+	<div class="row m-0">
+		<div class="col-lg-12 col-md-12 col-12 feedback-tab-panel p-0">
+			<div role="tabpanel" class="tab-pane fade in active show" id="allfeedback">
+				<div class="row m-0">
+					<div class="col-lg-12 col-md-12 col-12 p-0">
+						<p class="mt-2 set_fontSize" *ngIf="replyFeedbackData?.total > 0">{{replyFeedbackData?.total}} Feedback received (viewing {{replyFeedbackData?.from}}-{{replyFeedbackData?.to}})</p>
+						<div class="table-responsive">
+							<table class="table table-sm feedback-listing-table set_fontSize">
+								<thead class="thead-light">
+								<tr>
+									<th scope="col" colspan="2" class="feedback_th">Feedback</th>
+									<th scope="col" class="frm-whn_th">From</th>
+									<th scope="col" class="frm-whn_th">When</th>
+								</tr>
+								</thead>
+								<tbody *ngIf="replyFeedbackData?.total == 0;else showData">
+									<tr class="darkfont" >
+										<td colspan="4" class="text-center">No Data Found</td>
+									</tr>
+								</tbody>
+								<ng-template #showData>
+									<tbody *ngFor="let replydata of replyFeedbackData?.data | paginate: {itemsPerPage: replyFeedbackData?.per_page, currentPage:replyFeedbackData?.current_page, id: '1', totalItems: replyFeedbackData?.total}; let i = index">
+										<tr class="darkfont">
+											<td rowspan="2">
+												<i class="fa fa-minus-circle text-danger feedback-range" *ngIf="replydata?.feedback_type == 'Negative'"></i>
+												<i class="fa fa-dot-circle-o text-secondary feedback-range" *ngIf="replydata?.feedback_type == 'Neutral'"></i>
+												<i class="fa fa-plus-circle text-success feedback-range" *ngIf="replydata?.feedback_type == 'Positive'"></i>
+											</td>
+											<td><b>{{replydata?.description}}</b></td>
+											<td>Buyer: {{replydata?.buyer_name}}</td>
+											<td>{{replydata?.created_date}}</td>
+										</tr>
+										<tr>
+											<td class="border-0">{{replydata?.product_title}}(#{{replydata?.product_sku}})</td>
+											<td class="border-0">{{replydata?.price}} AED</td>
+											<td class="border-0"><a class="color-a" (click)="goToLeavefeedback(replydata?.seller_id,replydata?.product_id,replydata?.buyer_id,replydata?.product_title,replydata?.buyer_name,replydata?.photos[0],replydata?.order_id)">Leave Feedback</a></td>
+										</tr>
+									</tbody>
+								</ng-template>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="row m-0" *ngIf="replyFeedbackData?.total > 0">
+					<div class="col-lg-12 paginationlist m-0 pt-3 pb-0">
+						<pagination-controls (pageChange)="page = getServerData($event)" id="1" maxSize="{{replyFeedbackData?.last_page}}" directionLinks="true" autoHide="true" class="text-center set_fontSize"></pagination-controls>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<!--================Footer Area =================-->
+<footer-page></footer-page>
+</ion-content>

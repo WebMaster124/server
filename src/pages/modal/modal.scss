@@ -1,0 +1,52 @@
+@media only screen and (min-height: 768px) and (min-width: 768px) {
+	.ProductDetail{
+		.modal-wrapper {
+			left: calc(50% - (449px / 2)) !important;
+			top: calc(50% - (350px / 2)) !important;
+			position: absolute !important;
+			width: 450px !important;
+			height: 350px !important;
+		}
+	}
+}
+page-modal {
+	.modalPopup{
+		.fisrt-span{
+			font-size:13px;
+			margin-left: 20px;
+		}
+		.div_bidcontent{
+			padding: 35px 0;
+			background-color: rgb(238, 238, 238);
+			margin-top: 10px;
+			span{
+				font-size: 14px;
+			}
+		}
+		.toolbar-title-md{
+			padding: 12px 12px;
+			font-size: 1.5rem;
+			font-weight: 500;
+			color: #424242;
+		}
+		.scroll-content{
+			overflow:auto;
+		}
+		.modalbottom{
+			border-top: 1px solid #cccc;
+			padding: 15px;
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			font-size: 13px;
+		}
+		.bid_sucess{
+			padding: 35px;
+			background-color: green;
+			margin-top: 10px;
+			color:#fff;
+			text-align:center;
+		}
+	}
+}

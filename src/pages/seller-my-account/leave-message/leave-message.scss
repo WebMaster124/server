@@ -1,0 +1,434 @@
+page-leave-message {
+	//top: 100px !important;
+  .wrapper{
+    margin-top: 110px;
+  }
+  @media (max-width: 768px) and (min-width: 320px){
+    .wrapper{
+      margin-top: 100px;
+    }
+  }
+  
+	@extend .my-account;
+	.setFont-size{
+		font-size:0.8rem !important;
+	}
+	.navbar-nav{
+		margin:0 auto;
+	}
+	.leave-message-main {
+		/*@media (max-width: 768px) and (min-width: 320px){
+			top: 190px !important;
+			position: relative;
+		}*/
+    .message_section {
+      border: 1px solid $color_Silver;
+    }
+
+    .chat_area {
+      .product-detail-area {
+        background-color: $frontColor;
+        height: 110px;
+        .product-name {
+          position: absolute;
+          top: 35%;
+          color: $color_white;
+        }
+        .productimages {
+          border: 1px solid $color_white;
+          height: 80px;
+		  width: 80px;
+        }
+      }
+      float: left;
+      height: 535px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      width: 100%;
+      li {
+        padding: 14px 14px 0;
+        .chat-img1 img {
+          height: 40px;
+          width: 40px;
+          display: block;
+          margin: 0 auto;
+        }
+        &:last-child {
+          padding-bottom: 10px;
+        }
+      }
+      .chat-body1 {
+        /*        margin-left: 50px;
+                border-bottom: 1px solid $color_Silver;*/
+        margin-left: 0;
+        border-bottom: 1px solid #cccccc;
+        width: 94%;
+        float: right;
+        p {
+          background: #e8e6e7 none repeat scroll 0 0;
+          padding: 10px;
+          letter-spacing: 0.5px;
+          margin-bottom: 5px;
+        }
+      }
+      .admin_chat {
+        .chat-body1 {
+          margin-left: 0;
+          margin-right: 0;
+          width: 94%;
+          float: left;
+        }
+      }
+    }
+    .message_write {
+      background: #f5f3f3 none repeat scroll 0 0;
+      float: left;
+      padding: 15px;
+      width: 100%;
+      textarea.form-control {
+        height: 70px;
+        padding: 10px;
+      }
+    }
+    .chat_bottom {
+      float: left;
+      margin-top: 13px;
+      width: 100%;
+    }
+    .sub_menu_ > li a, .sub_menu_ > li {
+      float: left;
+      width: 100%;
+    }
+    .member_list li:hover {
+      background: $frontColor none repeat scroll 0 0;
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+  .time-date-leave-message {
+    color: $frontColor;
+    font-weight: $font-weightbold;
+    font-size: 15px;
+  }
+  .chat-img1 {
+    width: 6%;
+  }
+  .username-chat {
+    color: $frontColor;
+    font-family: $OpenSans-SemiBold !important;
+  }
+	/*.my-account {
+  .my-account-dropdown {
+    cursor: pointer;
+  }
+  .front-bg-secondary {
+    background-color: #FBFAB5;
+    border: 1px solid $secondary_color;
+    box-shadow: 0 1px 2px 0 rgba(221, 221, 221, 0.5);
+    color: $color_black;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .frontbg {
+    background-color: $frontColor;
+    box-shadow: 0 6px 10px -2px #808080;
+    h6 {
+      color: $color_semiblack;
+      font-size: $fontsizeone;
+      font-weight: $font-weightbold;
+      letter-spacing: 0.5px;
+      text-transform: capitalize;
+    }
+    a {
+      color: $color_black;
+      font-size: $pfontsize;
+      font-weight: $font-weight600;
+      letter-spacing: 0.5px;
+      text-transform: capitalize;
+    }
+  }
+  .dropdown-content-my-account {
+    display: none;
+    position: absolute;
+    background-color: $color_white;
+    min-width: 250px;
+    min-height: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 99999;
+    left: 0;
+    border-radius: 3px;
+    cursor: default;
+  }
+
+  .dropdown-content-my-account a {
+    color: $color_semiblack;
+    text-decoration: none;
+  }
+  .dropdown-content-my-account a span {
+    color: $frontColor;
+    text-decoration: underline;
+  }
+
+  .dropdown-content-my-account a:hover {
+    color: $frontColor;
+  }
+
+  .dropdown:hover .dropdown-content-my-account {
+    display: block;
+  }
+  .profilename {
+    font-size: $fontsizeone;
+    color: $color_semiblack;
+    font-weight: normal;
+    a {
+      color: $color_semiblack;
+      text-decoration: none;
+      font-size: $fontsizeone;
+      font-weight: normal;
+      font-family: $OpenSans-SemiBold;
+      span {
+        color: $frontColor;
+        text-decoration: none;
+        font-size: $fontsizeone;
+        font-weight: normal;
+      }
+    }
+  }
+  .my-account-tab-panel {
+    .my-account-tab-ul {
+      li {
+        a {
+          color: $color_black;
+          font-weight: $font-weight600;
+          letter-spacing: 0.5px;
+          font-size: 0.9rem;
+          font-family: $OpenSans-SemiBold;
+        }
+      }
+    }
+    .my-account-tab-content {
+      !*      border-left: 1px solid $color_Silver;
+            border-right: 1px solid $color_Silver;
+            border-bottom: 1px solid $color_Silver;*!
+      .my-dibdaa-views {
+        ul {
+          list-style: square;
+          padding-left: 17px;
+          letter-spacing: 0.5px;
+          font-family: $OpenSans-Regular;
+        }
+        .custom-counter {
+          margin-left: 0;
+          padding-right: 0;
+          list-style-type: none;
+          padding-left: 0;
+          li {
+            counter-increment: step-counter;
+            &:before {
+              content: counter(step-counter);
+              margin-right: 5px;
+              font-size: 0.9rem;
+              background-color: $frontColor;
+              color: $color_black;
+              font-weight: bold;
+              padding: 0 6px;
+              border-radius: 3px;
+              margin-left: -30px;
+            }
+            span {
+              color: $color_semiblack;
+              letter-spacing: 0.5px;
+              font-size: $pfontsize;
+              font-family: $OpenSans-Regular !important;
+            }
+          }
+        }
+        .how-to-sell {
+          background-color: #FBFAB5;
+          border: 1px solid $secondary_color;
+          box-shadow: 0 1px 2px 0 rgba(221, 221, 221, 0.5);
+          color: $color_black;
+          font-weight: 600;
+          letter-spacing: 0.5px;
+        }
+      }
+      .recent-feedback {
+        .view-all-feedback {
+          background-color: #FBFAB5;
+          border: 1px solid $secondary_color;
+          box-shadow: 0 1px 2px 0 rgba(221, 221, 221, 0.5);
+          color: $color_black;
+          font-weight: 600;
+          letter-spacing: 0.5px;
+        }
+        .no-feedback-message {
+          p {
+            color: $color_semiblack;
+            letter-spacing: 0.5px;
+            font-size: $pfontsize;
+          }
+        }
+      }
+      .paypal-account-info {
+        ul {
+          list-style: square;
+          padding-left: 20px;
+          letter-spacing: 0.5px;
+        }
+        .paypal-icon {
+          color: #012675;
+        }
+        .view-all-feedback {
+          background-color: #FBFAB5;
+          border: 1px solid $secondary_color;
+          box-shadow: 0 1px 2px 0 rgba(221, 221, 221, 0.5);
+          color: $color_black;
+          font-weight: 600;
+          letter-spacing: 0.5px;
+        }
+        .no-feedback-message {
+          p {
+            color: $color_semiblack;
+            letter-spacing: 0.5px;
+            font-size: $pfontsize;
+          }
+        }
+        .paypal-heading {
+          font-size: 0.9rem;
+          font-family: $OpenSans-SemiBold !important;
+        }
+        .new-to-paypal {
+          letter-spacing: 0.5px;
+          font-size: $pfontsize;
+          color: $color_semiblack;
+        }
+        .signup-btn {
+          background: -webkit-gradient(linear, left top, left bottom, from(#0079bc), to(#00509d));
+          background: -moz-linear-gradient(top, #0079bc, #00509d);
+          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0079bc', endColorstr='#00509d');
+          color: $color_white;
+          font-weight: $font-weightbold;
+          padding: .275rem 1rem;
+          font-size: 1rem;
+          line-height: 1.5;
+          border-radius: .20rem;
+          border: 1px solid #00509d;
+          transition: unset;
+          width: auto;
+          -webkit-box-shadow: 0 5px 0 rgba(0, 0, 0, .2);
+          -moz-box-shadow: 0 5px 0 rgba(0, 0, 0, .2);
+          box-shadow: 0 5px 0 $secondary_color;
+          letter-spacing: 0.5px;
+        }
+        .signup-btn:hover {
+          background: #00509d;
+          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00509d', endColorstr='#00509d');
+          -webkit-box-shadow: none;
+          -moz-box-shadow: none;
+          box-shadow: none;
+        }
+        .signup-btn:focus {
+          background: #00509d;
+          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00509d', endColorstr='#00509d');
+        }
+        .signup-btn:active {
+          background: #00509d;
+          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00509d', endColorstr='#00509d');
+        }
+
+        .btn-primary:not([disabled]):not(.disabled).active, .btn-primary:not([disabled]):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+          box-shadow: none !important;
+        }
+        .btn-primary.focus, .btn-primary:focus {
+          box-shadow: none !important;
+        }
+        .icon-info-img {
+          position: relative;
+          top: 12px;
+        }
+        .questionmark {
+          color: #ADADFF;
+          font-size: $fontsizeone;
+        }
+      }
+      .targetDiv {
+        table {
+          color: $color_semiblack;
+          font-size: $pfontsize;
+          letter-spacing: 0.5px;
+          .info-first-td {
+            width: 45%;
+          }
+          .info-second-td {
+            width: 45%;
+          }
+          .info-third-td {
+            width: 10%;
+          }
+          .questionmark {
+            color: #ADADFF;
+            font-size: $fontsizeone;
+          }
+        }
+        .payment-method {
+          border-bottom: 1px solid $color_Silver;
+        }
+      }
+    }
+  }
+  .feedback-tab-panel {
+    letter-spacing: 0.5px;
+    .feedback-tab-ul {
+      li {
+        a {
+          color: $color_black;
+          font-weight: $font-weight600;
+          letter-spacing: 0.5px;
+          font-size: 0.9rem;
+          font-family: $OpenSans-SemiBold;
+        }
+      }
+    }
+    .darkfont {
+      color: $color_black;
+      font-family: $OpenSans-SemiBold;
+    }
+    .leave-feedback {
+      background-color: #e9ecef;
+      .leave-feedback-text {
+        position: relative;
+        top: 7px;
+      }
+    }
+    .paginationlist {
+      background-color: #e9ecef;
+      .page-link {
+        border: none;
+        font-size: 0.9rem;
+        padding: .3rem .85rem;
+        background-color: #e9ecef;
+      }
+      .page-link.active {
+        color: $color_semiblack;
+      }
+      .page-link.active:focus, .page-link.active:hover {
+        color: $color_semiblack;
+        text-decoration: none;
+      }
+      .page-link:focus, .page-link:hover {
+        background-color: transparent;
+        text-decoration: underline;
+      }
+      .arrowprevnext {
+        font-size: 1.3rem;
+        position: relative;
+        bottom: 1px;
+      }
+    }
+  }
+  .last-12-months {
+    color: $frontColor;
+    font-size: 0.8rem;
+  }
+}*/
+}

@@ -1,0 +1,229 @@
+page-added-seller-info {
+	.wrapper{
+		margin-top: 100px;
+	}
+  .error-box{
+    font-size: 13px;
+    color: red;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+  .setFont{
+      font-size: 13px;
+  }
+  .login {
+    background-color: $color_white;
+    .margin_top{
+      margin-top: 10px;
+    }
+	.custom-autocomplete__input{
+		input{
+			width: 100% !important;
+			padding: .375rem .75rem !important;
+			font-size: 1rem !important;
+			line-height: 1.5 !important;
+			color: #495057 !important;
+			background-color: #fff !important;
+			background-image: none !important;
+			background-clip: padding-box !important;
+			border: 1px solid #ced4da !important;
+			border-radius: .25rem !important;
+			transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s !important;
+			margin-bottom: 10px !important;
+			height: auto !important;
+		}
+	}
+    .account_switch{
+      font-size:14px;
+    }
+    .account_switch:hover{
+      color : $frontColor;
+      font-size:14px;
+    }
+    .business-title{
+      text-align: center;
+      border-bottom: 2px solid $color_grey;
+      padding: 0;
+      margin-left: -20px;
+      margin-right: -20px;
+    }
+    .border-bottom{
+      border-bottom: 2px solid $color_grey;
+    }
+    .register_info{
+      font-size: 16px;
+      font-weight: 400;
+    }
+    .row.loginregister {
+      display: flex;
+      display: -webkit-flex;
+      flex-wrap: wrap;
+      -webkit-flex-wrap: wrap;
+      -webkit-justify-content: center;
+      justify-content: center;
+      img.dibdaalogo {
+        display: block;
+        margin: 0 auto;
+      }
+      .panel.panel-login {
+        background-color: $color_white;
+        padding: 20px 20px 0 20px;
+        border: 1px solid #D7D7D7;
+        .panel-heading{
+          font-size: $fontsizeone;
+          font-weight: $font-weight600;
+          color: $color_black;
+          a{
+            color: $color_black;
+            i{
+              font-size: $fontsizeh2;
+              position: relative;
+              top:4px;
+            }
+          }
+          a.active {
+            color: $frontColor;
+            i{
+              color: $frontColor;
+            }
+          }
+        }
+        .panel-body{
+          .custom-control-description{
+            font-size: 14px;
+            font-weight: 300;
+            margin: auto;
+          }
+          .label_personal{
+            font-size: 13px;
+            font-weight: 400;
+          }
+          .btnsignin{
+            background-color: $frontColor;
+            width:100%;
+            color: $color_white;
+            font-weight: $font-weightbold;
+            letter-spacing: 0.5px;
+          }
+          .switchAccount{
+            width: auto !important;
+          }
+          .custom-control-indicator{
+            background-color: $frontColor!important;
+            outline: none;
+          }
+          a.temporary-password{
+            color: $frontColor;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+          }
+          p{
+            font-size: 0.9rem;
+            width: 100%;
+            letter-spacing: 0.5px;
+          }
+          label{
+            color: $color_semiblack;
+            font-weight: $font-weight600;
+            letter-spacing: 0.5px;
+          }
+          [type="radio"]:checked,
+          [type="radio"]:not(:checked) {
+            position: absolute;
+            left: -9999px;
+          }
+          [type="radio"]:checked + label,
+          [type="radio"]:not(:checked) + label
+          {
+            position: relative;
+            padding-left: 28px;
+            cursor: pointer;
+            line-height: 20px;
+            display: inline-block;
+            color: #666;
+          }
+          #showpaypalbtn{
+            width: 90%;
+            display: inline-block;
+          }
+          [type="radio"]:checked + label:before,
+          [type="radio"]:not(:checked) + label:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 18px;
+            height: 18px;
+            border: 1px solid $secondary_color;
+            border-radius: 100%;
+            background: #fff;
+          }
+          [type="radio"]:checked + label:after,
+          [type="radio"]:not(:checked) + label:after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: $frontColor;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            border-radius: 100%;
+            -webkit-transition: all 0.2s ease;
+            transition: all 0.2s ease;
+          }
+          [type="radio"]:not(:checked) + label:after {
+            opacity: 0;
+            -webkit-transform: scale(0);
+            transform: scale(0);
+          }
+          [type="radio"]:checked + label:after {
+            opacity: 1;
+            -webkit-transform: scale(1);
+            transform: scale(1);
+          }
+          input[type=number]::-webkit-inner-spin-button,
+          input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
+          img.registercaptchaimg{
+            display: block;
+            margin: 0 auto;
+          }
+          .showpassworddiv{
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            flex: 0 0 13.666667%;
+            max-width: 13.666667%;
+          }
+          .passwordregister{
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+          .withpassword{
+            position: relative;
+            top: 7px;
+          }
+          .qualityforbusiness {
+            border-top: 3px solid $frontColor;
+            border-left: 1px solid #ced4da;
+            border-right: 1px solid #ced4da;
+            border-bottom: 1px solid #ced4da;
+            border-radius: 5px;
+            i.infocircleicon {
+              font-size: $fontsizeh2;
+              position: relative;
+              top: 10px;
+              color: $frontColor;
+            }
+          }
+        }
+      }
+    }
+    .footer_area{
+      background-color: $color_white;
+    }
+  }
+}

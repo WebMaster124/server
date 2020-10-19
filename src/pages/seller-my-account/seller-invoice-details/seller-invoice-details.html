@@ -1,0 +1,308 @@
+
+<ion-content padding class="order-detail">
+    <div class="wrapper">
+      <div class="container order-detail-main mb-3">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-xl-12 col-12">
+            <p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+			<p class="mb-2 set-Fonts">
+              <a href="#/home" class="breadcrumblink">Dibdaa</a>
+              <i class="fa fa-angle-right"></i>
+              <a href="#/seller-my-account/SellerInvoice" class="breadcrumblink">Seller Invoice</a>
+              <i class="fa fa-angle-right"></i>
+              <a href="#" class="breadcrumblink font-weight-bold" disabled="true">Seller Invoice Detail</a></p>
+          </div>
+        </div>
+        <div class="row m-0">
+          <div class="col-lg-9 col-md-12 col-12">
+            <div class="row">
+				<div class="col-lg-6 col-md-6 col-9 mt-1 mb-2 p-0">
+					<h5 class="m-0">Seller Invoice Detail</h5>
+				</div>
+				<div class="col-lg-6 col-md-6 col-3 mt-3 mb-2 p-0 pr-lg-4 text-right" *ngIf="showInvoicedata?.product.length > 0 && showInvoicedata?.payment_status == false">
+					<button class="theme-light-btn" (click)="paytoAdmin()">Pay</button>
+					<button class="theme-light-btn" (click)="invoiceQuery()">Query Invoice</button>
+				</div> 
+            </div>
+            <div class="row bg-light mt-1 mr-lg-1 p-3 border rounded">
+              <div class="col-lg-12 col-md-12 col-12 order-total p-0 mt-1">
+                <div class="table-responsive">
+                  <table class="table table-sm order-detail-table set-Fonts">
+                    <thead class="thead-light">
+                    <tr>
+                      <th scope="col" class="seller-invoice-table-th-amount">
+                        Date
+                      </th>
+                      <th scope="col" class="seller-invoice-table-th-amount">
+                        Title
+                      </th>
+                      <th scope="col" class="seller-invoice-table-th-amount">
+                        Item
+                      </th>
+                      <th scope="col" class="seller-invoice-table-th-amount">
+                        FEES TYPE
+                      </th>
+                      <th scope="col" class="seller-invoice-table-th-amount text-right pr-2">
+                        AMOUNT (AED)
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody *ngIf="showInvoicedata?.product.length <= 0;else showinvoiceData">
+                        <tr>
+                          <td class="border-bottom-td text-center" colspan="5"> Item not fount</td>
+                        </tr>
+                    </tbody>
+                    <ng-template #showinvoiceData>
+                      <tbody>
+                        <tr *ngFor="let invoicedata of showInvoicedata?.product">
+                          <td class="border-bottom-td">
+                            {{invoicedata?.created_date}}
+                          </td>
+                          <td class="border-bottom-td">
+                            <a title="{{invoicedata?.title}}">{{(invoicedata?.title.length > 34)? (invoicedata?.title | slice:0:34)+'...':(invoicedata?.title)}}</a>
+                          </td>
+                          <td class="border-bottom-td">
+                            {{invoicedata?.id}}
+                          </td>
+                          <td class="border-bottom-td">
+                            <!--Final Value Fee-->
+                            <tr>
+                              <td class="p-0">Categories fees:</td>
+                              <td>{{invoicedata?.fees_details.categories_fees[0]}} AED</td>
+                            </tr>
+                            <tr>
+                              <td class="p-0">Featured Fees:</td>
+                              <td>({{invoicedata?.fees_details.featured_fees[0]}}){{invoicedata?.fees_details.featured_fees[1]}} AED</td>
+                            </tr>
+                            <tr>
+                              <td class="p-0">Insertion fees:</td>
+                              <td>{{invoicedata?.fees_details.insertion_fees[0]}} AED</td>
+                            </tr>
+                          </td>
+                          <td class="border-bottom-td text-right pr-2">
+                            {{invoicedata?.seller_fee}} AED
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="border-bottom-td">
+                          </td>
+                          <td class="border-bottom-td">
+                          </td>
+                          <td class="border-bottom-td">
+                          </td>
+                          <td class="border-bottom-td">
+                            <strong>Grand Total :</strong>
+                          </td>
+                          <td class="border-bottom-td pr-2 text-right">
+                            {{showInvoicedata?.total}} AED
+                          </td>
+                        </tr>
+                      </tbody>
+                    </ng-template>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-12 mt-4 mb-3 p-0 text-left">
+                <h6 class="m-0">Transaction Fees Detail</h6>
+              </div>
+            </div>
+            <div class="row bg-light mt-1 mr-lg-1 p-3 border rounded">
+              <div class="col-lg-12 col-md-12 col-12 order-total p-0 mt-1">
+                <div class="table-responsive">
+                  <table class="table table-sm order-detail-table set-Fonts">
+                    <thead class="thead-light">
+                    <tr>
+                      <th scope="col" class="seller-invoice-table-th-amount">
+                        Date
+                      </th>
+                      <th scope="col" class="seller-invoice-table-th-amount">
+                        Title
+                      </th>
+                      <th scope="col" class="seller-invoice-table-th-amount">
+                        Item
+                      </th>
+                      <th scope="col" class="seller-invoice-table-th-amount">
+                        FEES TYPE
+                      </th>
+                      <th scope="col" class="seller-invoice-table-th-amount text-right pr-2">
+                        AMOUNT (AED)
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody *ngIf="showInvoicedata?.transaction_details.length <= 0;else showinvoiceTransation">
+                    <tr>
+                      <td class="border-bottom-td text-center" colspan="5"> Item not fount</td>
+                    </tr>
+                    </tbody>
+                    <ng-template #showinvoiceTransation>
+                      <tbody>
+                        <tr *ngFor="let invoicetransation of showInvoicedata?.transaction_details">
+                    <div>
+                          <td class="border-bottom-td">
+                            {{invoicetransation?.created_date}}
+                          </td>
+                          <td class="border-bottom-td">
+                            <a title="{{invoicetransation?.title}}">{{(invoicetransation?.title.length > 34)? (invoicetransation?.title | slice:0:34)+'...':(invoicetransation?.title)}}</a>
+                          </td>
+                          <td class="border-bottom-td">
+                            {{invoicetransation?.product_sku }}
+                          </td>
+                          <!--<td class="border-bottom-td">\n                           Featured Fees: ({{invoicetransation?.changes.featured_fees[0]}})\n                          </td>\n-->
+<!--                          <td class="border-bottom-td" *ngIf="invoicetransation?.changes.featured_fees[0];else test">\nFeatured Fees: ({{invoicetransation?.changes.featured_fees[0]}})\n</td>\n<td class="border-bottom-td" #test>\nFeatured Fees: (0)\n</td>\n-->
+                          <td class="border-bottom-td" *ngIf="invoicetransation?.changes.featured_fees[0];else test">
+                            Featured Fees: ({{invoicetransation?.changes.featured_fees[0]}})
+                          </td>
+                          <td class="border-bottom-td" #test>
+                            Featured Fees: (0)
+                          </td>
+                          <td class="border-bottom-td text-right pr-2">
+                            {{invoicetransation?.changes.featured_fees[1]}} AED
+                          </td>
+                    </div>
+                        </tr>
+
+                        <tr>
+                          <td class="border-bottom-td">
+                          </td>
+                          <td class="border-bottom-td">
+                          </td>
+                          <td class="border-bottom-td">
+                          </td>
+                          <td class="border-bottom-td">
+                            <strong>Transaction Fees Total :</strong>
+                          </td>
+                          <td class="border-bottom-td pr-2 text-right">
+                            {{showInvoicedata?.transaction_total}} AED
+                          </td>
+                        </tr>
+                      </tbody>
+                    </ng-template>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="row justify-content-end ml-lg-0 pl-0 mr-0">
+              <div class="col-lg-4 col-md-12 col-12 mt-4 mb-3 p-0 text-left">
+                <h6 class="m-0">Billing Detail Summary</h6>
+              </div>
+            </div>
+            <div class="row mt-1 mr-lg-1 justify-content-end">
+              <div class="bg-light p-3 border rounded col-lg-4 col-md-12 col-12 p-1">
+                <form class="form-horizontal">
+                  <div class="row m-0">
+                    <div class="col-lg-12 col-md-12 col-12 p-0 pl-lg-2 pr-lg-2 pt-2 pt-lg-0">
+                      <table class="table continue-order-tbl mb-2 set-Fonts">
+                        <tbody>
+                          <tr>
+                            <td class="pl-lg-1 pl-md-1 pl-0"><strong>Total Transaction Fees:</strong>
+                            </td>
+                            <td class="text-right pr-lg-1 pr-md-3 pr-0">{{showInvoicedata?.transaction_total}} AED</td>
+                          </tr>
+                          <tr>
+                            <td class="pl-lg-1 pl-md-1 pl-0"><strong>Grand Total:</strong>
+                            </td>
+                            <td class="text-right pr-lg-1 pr-md-3 pr-0">{{showInvoicedata?.total}} AED</td>
+                          </tr>
+                          <tr class="border-tr">
+                            <td class="pl-lg-1 pl-md-1 pl-0">
+                                <h6 class="m-0 pt-1 pb-1">Total Amount due:</h6>
+                            </td>
+                            <td class="text-right pr-lg-1 pr-md-3 pr-0">
+                              <h6 class="m-0 pt-1 pb-1">
+                                {{showInvoicedata?.grand_total}} AED
+                              </h6>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-12 col-12 mt-lg-5 mt-md-0 p-0 mt-3 mt-lg-0 mt-md-0">
+            <div class="row m-0 bg-light border rounded mt-md-3 mt-lg-0 mt-0" *ngIf="showInvoicedata?.payment_status == true">
+              <div class="col-lg-12 col-md-12 col-12 p-3">
+                <table class="table table-sm table-noborder set-Fonts m-0">
+					<tbody>
+						<tr>
+						  <th scope="row" class="border-0">Payment Date:</th>
+						  <td class="border-0">{{showInvoicedata?.paymentDate}}</td>
+						</tr>
+						<tr>
+						  <th scope="row" class="border-0">Transaction ID:</th>
+						  <td class="border-0">{{showInvoicedata?.payment_detail.transaction_id}}</td>
+						</tr>
+						<tr>
+						  <th scope="row" class="border-0">Transaction Status:</th>
+						  <td class="border-0 text-success"><b>{{showInvoicedata?.payment_detail.transaction_status}}</b></td>
+						</tr>
+					</tbody>
+                </table>
+              </div>
+            </div>
+			<div class="row m-0 bg-light border rounded mt-3">
+              <div class="col-lg-12 col-md-12 col-12 p-3">
+                <table class="table table-sm table-noborder set-Fonts m-0">
+                  <tbody>
+                    <tr>
+                      <th scope="row" class="border-0">Invoice ID:</th>
+                      <td class="border-0">{{showInvoicedata?.date.invoice_id}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="border-0">Issue Date:</th>
+                      <td class="border-0">{{showInvoicedata?.date.issue_date}}</td>
+                    </tr>
+                    
+                    <tr>
+                      <th scope="row" class="border-0">Start Date:</th>
+                      <td class="border-0">{{showInvoicedata?.date.start_date}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="border-0">End Date:</th>
+                      <td class="border-0">{{showInvoicedata?.date.end_date}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+			<div class="row m-0 bg-light border rounded mt-3 ml-0 mr-0 mb-0">
+              <div class="col-lg-12 col-md-12 col-12 p-3">
+                <h6 class="m-0 text-left">From:</h6>
+                <div class="row m-0">
+                  <div class="col-lg-12 col-md-12 col-12 order-total p-0 mt-2 set-Fonts">
+                    <address class="mb-0">
+                      {{showInvoicedata?.user.first_name}} {{showInvoicedata?.user.last_name}}<br/>
+                      {{showInvoicedata?.user.address[0]}} {{showInvoicedata?.user.address[1]}}<br/>
+                      PO Box {{showInvoicedata?.user.address[2]}} {{showInvoicedata?.user.address[3]}},<br/>
+                      {{showInvoicedata?.user.address[4]}}.
+                    </address>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row bg-light border rounded mt-3 ml-0 mr-0 mb-0">
+              <div class="col-lg-12 col-md-12 col-12 p-3">
+                <h6 class="m-0 text-left">Invoice For:</h6>
+                <div class="row m-0">
+                  <div class="col-lg-12 col-md-12 col-12 order-total p-0 mt-2 set-Fonts">
+                    <address class="mb-0">
+                      John Doe,<br/>
+                      109C Street Umm Suqeim 3<br/>
+                      PO Box 29662 Dubai,<br/>
+                      UAE.
+                    </address>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      	<!--================Footer Area =================-->
+<footer-page></footer-page>
+    </div>
+</ion-content>

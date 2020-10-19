@@ -1,0 +1,130 @@
+<!-- Generated template for the FooterPageComponent component -->
+<footer class="footer_area pt-lg-4 pb-lg-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-12 col-12">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+          <div class="collapse navbar-collapse productlistingfooter" id="navbarSupportedContent">
+            <ul class="navbar-nav set_fontSize mx-auto">
+              <li class="nav-item">
+                <a class="nav-link" (click)="callCMSPage('about-us')">About Dibdaa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="callCMSPage('announcements')">Announcements</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="callCMSPage('FaqPage')">FAQ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="callCMSPage('security-center')">Security Center</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="callCMSPage('resolutioncenter')">Resolution Center</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="callCMSPage('faq-listing')">Seller Center</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="callCMSPage('policies')">Policies</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="callCMSPage('affiliates')">Affiliates</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="callCMSPage('contactUs')">Help &amp; Contact</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="callCMSPage('site-map')">Site Map</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <div class="footer_copyright">
+			<div class="row">
+				<div class="col-lg-8 mt-lg-2 text-lg-right">
+					<h5 class="m-0 p-0">© {{showYear}} Copyright, All rights reserved |  <a (click)="callCMSPage('useragreement')">User Agreement,</a> <a (click)="callCMSPage('userprivacy')">Privacy ,</a><a (click)="callCMSPage('cookies')">Cookies</a></h5>
+				</div>
+				<div class="col-lg-4 text-lg-left">
+					<img src="assets/images/homepage_footerimg.png" />
+				</div>
+			</div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-12 col-12">
+        <div class="row m-0" *ngIf="platform.is('core') == true || platform.is('mobileweb') == true">
+          <div class="col-lg-12 col-md-6 col-12 p-0 pt-lg-0 pt-md-4 text-center">
+            <div class="SocialLink mt-lg-3 mb-lg-0 mb-md-0 mb-4">
+              <a class="ml-3 mr-2" href="https://www.facebook.com/dibdaa/" target="_blank" title="Facebook">
+                <img src="assets/images/SocialImages/fb.png"
+                     onmouseover="this.src='assets/images/SocialImages/fb_hover.png'"
+                     onmouseout="this.src='assets/images/SocialImages/fb.png'"
+                     border="0" alt="Facebook" width="20px"/>
+              </a>
+              <a class="mr-2" href="https://www.instagram.com/dibdaa/" target="_blank" title="Instagram">
+                <img src="assets/images/SocialImages/insta.png"
+                     onmouseover="this.src='assets/images/SocialImages/insta_hover.png'"
+                     onmouseout="this.src='assets/images/SocialImages/insta.png'"
+                     border="0" alt="Instagram" width="20px"/>
+              </a>
+              <a class="mr-2" href="https://twitter.com/dibdaa" target="_blank" title="Twitter">
+                <img src="assets/images/SocialImages/twitter.png"
+                     onmouseover="this.src='assets/images/SocialImages/twitter_hover.png'"
+                     onmouseout="this.src='assets/images/SocialImages/twitter.png'"
+                     border="0" alt="Twitter" width="20px"/>
+              </a>
+              <a class="mr-4" href="https://www.linkedin.com/company/dibdaa/" target="_blank" title="LinkedIn">
+                <img src="assets/images/SocialImages/link.png"
+                     onmouseover="this.src='assets/images/SocialImages/link_hover.png'"
+                     onmouseout="this.src='assets/images/SocialImages/link.png'"
+                     border="0" alt="LinkedIn" width="20px"/>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-6 col-12 p-0">
+            <h6 class=" mt-0 mt-lg-4 mt-md-0 mb-2 mb-lg-2 mb-md-2 text-center">DOWNLOAD OUR
+              APPS</h6>
+            <div class="row m-0 pt-2 pt-lg-2 pt-md-0">
+              <div class="col-lg-6 col-md-6 col-6 text-right">
+                <a><img class="img-fluid" src="assets/images/Play-Store-logo.png"></a>
+              </div>
+              <div class="col-lg-6 col-md-6 col-6 text-left">
+                <a><img class="img-fluid" src="assets/images/Apple-Store-logo.png"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row m-0" *ngIf="platform.is('core') == false && platform.is('mobileweb') == false">
+            <div class="col-lg-12 col-md-6 col-12 p-0 pt-lg-0 pt-md-4 text-center">
+                <div class="SocialLink mt-lg-3 mb-lg-0 mb-md-0 mb-4">
+                    <a class="ml-3 mr-2" (click)="openURLInBrowser('Facebook')" title="Facebook">
+                        <img src="assets/images/SocialImages/fb.png"
+                        onmouseover="this.src='assets/images/SocialImages/fb_hover.png'"
+                        onmouseout="this.src='assets/images/SocialImages/fb.png'"
+                        border="0" alt="Facebook" width="20px"/>
+                    </a>
+                    <a class="mr-2" (click)="openURLInBrowser('Instagram')" title="Instagram">
+                        <img src="assets/images/SocialImages/insta.png"
+                        onmouseover="this.src='assets/images/SocialImages/insta_hover.png'"
+                        onmouseout="this.src='assets/images/SocialImages/insta.png'"
+                        border="0" alt="Instagram" width="20px"/>
+                    </a>
+                    <a class="mr-2" (click)="openURLInBrowser('Twitter')" title="Twitter">
+                        <img src="assets/images/SocialImages/twitter.png"
+                        onmouseover="this.src='assets/images/SocialImages/twitter_hover.png'"
+                        onmouseout="this.src='assets/images/SocialImages/twitter.png'"
+                        border="0" alt="Twitter" width="20px"/>
+                    </a>
+                    <a class="mr-4" (click)="openURLInBrowser('LinkedIn')" title="LinkedIn">
+                        <img src="assets/images/SocialImages/link.png"
+                        onmouseover="this.src='assets/images/SocialImages/link_hover.png'"
+                        onmouseout="this.src='assets/images/SocialImages/link.png'"
+                        border="0" alt="LinkedIn" width="20px"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

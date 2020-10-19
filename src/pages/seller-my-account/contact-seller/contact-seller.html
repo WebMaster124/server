@@ -1,0 +1,100 @@
+<ion-content padding class="contact-seller">
+	<div class="wrapper">
+		<div class="container contact-seller-main mb-3">
+			<div class="row m-0">
+				<div class="col-lg-9 col-md-12 col-12">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-xl-12 col-12 mt-1 setFontSize p-0">
+							<p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+							<p class="setFont-size">
+								<a href="#/home" class="breadcrumblink">Dibdaa</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+								<a class="breadcrumblink" disabled>Contact seller</a>
+							</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-12 mt-2 mb-2 p-0">
+							<h5 class="m-0">Contact {{sellerBusiness_name?.business_name}}</h5>
+						</div>
+						<div class="col-lg-6 col-md-6 col-12 mt-2 mb-2 text-center text-lg-right text-md-right">
+							<span class="tell-us-think setFont-size"><a>Tell us what you think</a></span>
+						</div>
+					</div>
+					<div class="row bg-light mt-1 mr-lg-1 border rounded">
+						<div class="col-lg-12 col-md-12 col-12 mb-3 pt-3">
+							<form>
+								<h6 class="mb-2">Hi {{sellerBusiness_name?.business_name}},</h6>
+								<div class="form-group">
+									<textarea class="form-control seller-contact-textarea" name="message" rows="5" id="message" placeholder="Enter your message here...." #message="ngModel" required ngModel></textarea>
+									<div *ngIf="message.invalid && (message.dirty || message.touched)" class="error-box">
+										<div *ngIf="message.errors.required">
+											* Enter your message to this member.
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="row setFont-size">
+										<div class="col-lg-12 col-md-12 col-12 ">
+											<label>For added security, please enter the verification code shown in the
+												image.</label>
+												<div class="col-lg-12 col-md-12 col-12 warning" *ngIf="verification_code == false">
+													<span class="warning_msg"> <i class="fa fa-exclamation-triangle"></i> Sorry, the verification code you entered does not match against the image. Please try again.</span>
+												</div>
+										</div>
+										<div class="col-lg-3 col-md-3 col-12">
+											<input type="text" id="txtCaptcha" name="captcha" class="txtCaptcha" readonly onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" value="{{verification}}"/>
+										</div>
+										<div class="col-lg-4 col-md-6 col-12 mt-md-3 mt-3 mt-lg-0">
+											<input type="text" name="imgcaptcha" class="form-control" id="imgcaptcha" #imgcaptcha="ngModel" required ngModel maxlength="6">
+											<div *ngIf="imgcaptcha.invalid && (imgcaptcha.dirty || imgcaptcha.touched)" class="error-box">
+												<div *ngIf="imgcaptcha.errors.required">
+													* Enter captcha.
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row setFont-size">
+										<div class="col-lg-12 col-md-12 col-12">
+											<p class="mb-2">
+												<a (click)="changeNumber()" class="temporary-password">Change the image</a>
+											</p>
+										</div>
+									</div>
+									<div class="row setFont-size">
+										<div class="col-lg-12 col-md-12 col-12 mt-2">
+											<p class="mb-2">If you are a seller do NOT include your contact info or ask for
+												the buyer’s contact info. We scan and analyze messages to identify potential
+												fraud and <a>policy violations</a>. Sometimes it will keep us from sending your
+												message, even when there is no intention to commit fraud. Failure to follow
+												policies may trigger seller <a>fees</a>.</p>
+										</div>
+										<div class="col-lg-12 mt-3">
+											<div id="showMessage" class="mb-3"> </div>
+											<button class="btn theme-light-btn" role="button" (click)="contactSeller('send')" [disabled]="!imgcaptcha.valid || !message.valid">Send</button>
+											<button class="btn theme-dark-btn ml-2" role="reset" (click)="contactSeller('cancel')">Cancel</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-12 col-12 pl-3 pr-3 pt-3 pb-3 bg-light border rounded helpfull-hints">
+					<h6 class="m-0 text-left">Helpful hints</h6>
+					<div class="row m-0 setFont-size">
+						<div class="col-lg-12 col-md-12 col-12 order-total p-0 mt-2">
+							<p class="mb-2">My Dibdaa makes it easy to connect with other members. Follow these tips for a safe, secure, trusted experience.</p>
+							<ul>
+								<li>Communicate only on dibdaa</li>
+								<li>Be respectful at all times</li>
+								<li>Make sure transactions take place on dibdaa</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--================Footer Area =================-->
+<footer-page></footer-page>
+	</div>
+</ion-content>

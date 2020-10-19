@@ -1,0 +1,275 @@
+<ion-content padding class="sitemap">
+	<div class="wrapper">
+		<div class="container sitemap-main mb-3">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-xl-12 col-12 set_fontSize">
+					<p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+					
+					<p class="mb-2">
+						<a href="#/home" class="breadcrumblink">Home</a>&nbsp;<i class="fa fa-angle-right"></i>&nbsp;
+						<a class="breadcrumblink font-weight-bold" disableed>Sitemap</a>
+					</p>
+				</div>
+			</div>
+			<div class="row m-0">
+				<div class="col-lg-12 col-md-12 col-12 p-0">
+					<h5 class="m-0 p-0">Sitemap</h5>
+				</div>
+				<div class="col-lg-12 col-md-12 col-12 border rounded bg-light mt-3">
+					<div id="buy">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-12 pt-2 pb-2 pl-3 pr-3 border-left-0 border-top-0 border-right-0 border">
+								<h5 class="m-0">Buy</h5>
+							</div>
+						</div>
+						<div class="row set_fontSize" *ngFor="let stiedata of sitemapData?.data">
+							<div class="col-lg-12 col-md-12 col-12 pt-3 pl-4">
+								<h6 class="mb-3 categoryname"><a href="#/b/{{stiedata?.id}}">{{stiedata?.category_name}}</a></h6>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12" *ngFor="let subsite of stiedata?.sub_category">
+								<ul class="sitemap-ul">
+									<li><a href="#/c/{{subsite?.id}}">{{subsite?.category_name}}</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-12 border rounded bg-light mt-4">
+					<div id="sell">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-12 pt-2 pb-2 pl-3 pr-3 border-left-0 border-top-0 border-right-0 border">
+								<h5 class="m-0">Sell</h5>
+							</div>
+						</div>
+						<div class="row set_fontSize">
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a (click)="callCMSpagesiteMap('dibdaaPremium','')">Dibdaa Premium</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a (click)="callCMSpagesiteMap('selling-tools')">How To Selling Tools</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li>
+										<a *ngIf="localItem != null" (click)="callCMSpagesiteMap('add-product')">Start selling</a>
+										<a *ngIf="localItem == null" (click)="callCMSpagesiteMap('login','DraftListingPage')">Start selling</a>
+									</li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li>
+										<a *ngIf="localItem == null" (click)="callCMSpagesiteMap('register_business','')">Business Accounts</a>
+										<a *ngIf="localItem != null && localItem.role == 'buyer'" href="#/seller-business-info">Business Accounts</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-12 border rounded bg-light mt-4">
+					<div id="sell">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-12 pt-2 pb-2 pl-3 pr-3 border-left-0 border-top-0 border-right-0 border">
+								<h5 class="m-0">HELP & CONTACT</h5>
+							</div>
+						</div>
+						<div class="row set_fontSize">
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a href="#/CMS/about-us">About Us</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a href="#/contact-us">Conatct Us</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li>
+										<a (click)="callCMSpagesiteMap('return','')">Dibdaa Returns</a>
+									</li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li>
+										<a *ngIf="localItem != null" href="#/fees-calculator">Fees Calculator</a>
+									</li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li>
+										<a *ngIf="localItem == null" (click)="callCMSpagesiteMap('login','resolutionCenter')">Resolution Center</a>
+										<a *ngIf="localItem != null" href="#/seller-my-account/resolutionCenter">Resolution Center</a>
+									</li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a href="#/faq/listing/7">Seller Center</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a (click)="callCMSpagesiteMap('useragreement','')">User Agreement</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a (click)="callCMSpagesiteMap('userprivacy','')">User Privacy Notice</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a (click)="callCMSpagesiteMap('selleragreement','')"> Seller Agreement</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a (click)="callCMSpagesiteMap('sellerprivacy','')"> Seller Privacy Notice</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-12 border rounded bg-light mt-4">
+					<div id="sell">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-12 pt-2 pb-2 pl-3 pr-3 border-left-0 border-top-0 border-right-0 border">
+								<h5 class="m-0">Tools & apps</h5>
+							</div>
+						</div>
+						<div class="row set_fontSize">
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a class="alinkFooter" (click)="callCMSpagesiteMap('mobile-apps','')">Mobile apps</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a class="alinkFooter" (click)="callCMSpagesiteMap('security','')">Security Awareness</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-12 border rounded bg-light mt-4">
+					<div id="sell">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-12 pt-2 pb-2 pl-3 pr-3 border-left-0 border-top-0 border-right-0 border">
+								<h5 class="m-0">Stay connected</h5>
+							</div>
+						</div>
+						<div class="row set_fontSize">
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a href="https://www.facebook.com/dibdaa/" target="_blank"><i class="fa fa-facebook-square"></i> Facebook</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a href="https://www.instagram.com/dibdaa/" target="_blank"><i class="fa fa-instagram"></i> Instagram</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a href="https://www.linkedin.com/company/dibdaa/" target="_blank"><i class="fa fa-linkedin-square"></i> LinkedIN</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a href="https://twitter.com/dibdaa" target="_blank"><i class="fa fa-twitter-square"></i> Twitter</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-12 border rounded bg-light mt-4">
+					<div id="sell">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-12 pt-2 pb-2 pl-3 pr-3 border-left-0 border-top-0 border-right-0 border">
+								<h5 class="m-0">About Dibdaa</h5>
+							</div>
+						</div>
+						<div class="row set_fontSize">
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a class="alinkFooter"(click)="callCMSpagesiteMap('advertise','')">Advertise with us</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a class="alinkFooter" (click)="callCMSpagesiteMap('company-info','')">Company info</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a class="alinkFooter" (click)="callCMSpagesiteMap('careers','')">Careers</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a class="alinkFooter"(click)="callCMSpagesiteMap('investord','')">Investors</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a class="alinkFooter" (click)="callCMSpagesiteMap('news','')">News</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a class="alinkFooter" (click)="callCMSpagesiteMap('policies','')">Policies</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-12 border rounded bg-light mt-4">
+					<div id="sell">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-12 pt-2 pb-2 pl-3 pr-3 border-left-0 border-top-0 border-right-0 border">
+								<h5 class="m-0">Community</h5>
+							</div>
+						</div>
+						<div class="row set_fontSize">
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a (click)="callCMSpagesiteMap('announcements','')" class="alinkFooter">Announcements</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a (click)="callCMSpagesiteMap('charity','')" class="alinkFooter">Dibdaa for Charity</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a (click)="callCMSpagesiteMap('community','')" class="alinkFooter">Dibdaa Community</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a (click)="callCMSpagesiteMap('stuff','')" class="alinkFooter">Free Stuff</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-4 col-md-3 col-12">
+								<ul class="sitemap-ul">
+									<li><a (click)="callCMSpagesiteMap('knowledge','')" class="alinkFooter">Knowledge Base</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer-page></footer-page>
+	</div>
+</ion-content>

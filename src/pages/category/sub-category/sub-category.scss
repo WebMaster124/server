@@ -1,0 +1,636 @@
+page-sub-category {
+	.wrapper{
+		margin-top: 100px;
+	}
+	.category-listing {
+		@media only screen and (min-width: 320px) and (max-width: 568px) {
+			.borderproductbottom{
+				.col-lg-3{
+					width: 50%;
+					margin: 0 auto;
+				}
+			}
+			.top-left-sticker {
+				position: absolute !important;
+				top: -7px !important;
+				margin: 0 -5px !important;
+				left: unset !important;
+			}
+			.productlistingimg{
+				padding:5px !important;
+			}
+		}
+		figure{
+			width: auto;
+			height: 200px;
+			float: none;
+			display: block;
+			vertical-align: top;
+			position: relative;
+			a{
+				.img-fluid{
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					margin: auto;
+					min-width: auto;
+					max-width: 100%;
+					max-height: 100%;
+					width: auto;
+					height: auto;
+				}
+			}
+		}
+		.box-detail {
+			@media only screen and (min-width: 768px) and (max-width: 1024px) {
+				min-height: 160px;
+			}
+			@media only screen and (min-width: 320px) and (max-width: 767px) {
+				min-height: 200px;
+			}
+		}
+		.ratings {
+			position: relative;
+			vertical-align: middle;
+			display: inline-block;
+			color: #b1b1b1;
+			overflow: hidden;
+			letter-spacing: 3px;
+		}
+		.full-stars {
+			position: absolute;
+			left: 0;
+			top: 0;
+			white-space: nowrap;
+			overflow: hidden;
+			color: orange;
+		}
+		.empty-stars:before, .full-stars:before {
+			content:"\2605\2605\2605\2605\2605";
+			font-size: 14pt;
+		}
+		.empty-stars:before {
+			-webkit-text-stroke: 1px #848484;
+		}
+		.full-stars:before {
+			-webkit-text-stroke: 1px orange;
+		}
+		/* Webkit-text-stroke is not supported on firefox or IE */
+
+		/* Firefox */
+		 @-moz-document url-prefix() {
+			.full-stars {
+				color: #ECBE24;
+			}
+		}
+		.breadcrumblink_div {
+			font-size: 13px;
+			font-weight: 400;
+		}
+		.error_span{
+			margin:0 auto;
+		}
+		.text_capital{
+			text-transform: uppercase;
+		}
+		.top-left-sticker {
+			img{
+				max-width:78% !important;
+			}
+			position: absolute;
+			top: -7px;
+			left: -7px;
+		}
+		.sold-text{
+			color: #ffffff;
+			font-size: 13px;
+			font-weight: bold;
+			letter-spacing: 1px;
+			position: absolute;
+			width: 89%;
+			right: 10px;
+			-webkit-transform: rotate(315deg);
+			transform: rotate(315deg);
+			bottom: 70%;
+		}
+		background-color: $color_white;
+		h4{
+			font-size: 1.75rem !important;
+		}
+		  .productlistingimg {
+				width: 100%;
+				height: auto;
+				padding: 20px;
+				border: 1px solid #ccc;
+		  }
+		  .img-fluid{
+				height:auto !important;
+		  }
+		  @media (max-width: 768px) and (min-width: 320px){
+			  .img-fluid-cat{
+					height:auto !important;
+					width:100%;
+			  }
+		  }
+		  .img-fluid-cat{
+				height:350px ;
+				width:100%;
+		  }
+	  .top-left {
+		position: absolute;
+		top: 15px;
+		left: 30px;
+		h2 {
+		  font-size: $fontsizeh2;
+		  color: $color_blue;
+		}
+		p {
+		  color: $color_blue;
+		  font-size: $fontsizeone;
+		  font-weight: normal;
+		  letter-spacing: 0.5px;
+		}
+		.shopnowbtndetail {
+		  position: relative;
+		  top: 100px;
+		  border-radius: 0;
+		  color: $color_blue !important;
+		  border-color: $color_blue;
+		  box-shadow: $color_blue 0px 0px 0px 0px inset;
+		  background-color: inherit;
+		  -webkit-transition-duration: 0.2s;
+		  -webkit-transition-timing-function: linear;
+		  cursor: pointer;
+		}
+		.shopnowbtndetail:hover {
+		  box-shadow: 0 0 0 25px $color_blue inset;
+		  -webkit-transform: scale(1);
+		  color: #01D5C4 !important;
+		  cursor: pointer;
+		}
+	  }
+	  .productlistingimgdiv{
+			height:auto;
+	  }
+	  .shopbycategoryshortlist {
+		background-color: $color_white;
+		border: 1px solid $secondary_color;
+		box-shadow: 0 1px 2px 0 rgba(221, 221, 221, 0.5);
+		border-radius: 5px;
+		h2 {
+		  font-size: $fontsizeh2;
+		  color: #000000;
+		}
+		.menclothesimages {
+		  display: block;
+		  margin: 0 auto;
+		  border: 1px solid $color_white;
+		  border-radius: 5px;
+		}
+		.menclothesimages:hover {
+		  border: 1px solid $secondary_color;
+		}
+		h6 {
+		  color: $color_semiblack;
+		}
+		a:hover h6 {
+		  color: $frontColor;
+		  text-decoration: underline;
+		}
+
+	  }
+	  .Mensuperemxnorth {
+		margin-top: 50px;
+		background-color: $color_white;
+		border: 1px solid $secondary_color;
+		box-shadow: 0 1px 2px 0 rgba(221, 221, 221, 0.5);
+		border-radius: 5px;
+		.owl-prev {
+		  position: absolute;
+		  height: 70px;
+		  width: 28px;
+		  background: url(../assets/images/chevron-left.png) no-repeat center;
+		  left: 0;
+		  top: 22%;
+		  background-size: 50% 50%;
+		  font-size: 0;
+		  border: solid 1px #767676;
+		  border-radius: 0;
+		  z-index: 10;
+		  padding: 27px 6px;
+		  background-color: $color_white;
+		}
+		.owl-next {
+		  position: absolute;
+		  height: 70px;
+		  width: 28px;
+		  top: 22%;
+		  background: url(../assets/images/chevron-left.png) no-repeat center;
+		  background-size: 50% 50%;
+		  font-size: 0;
+		  transform: rotate(180deg);
+		  right: 0;
+		  border: solid 1px #767676;
+		  border-radius: 0;
+		  z-index: 10;
+		  padding: 27px 6px;
+		  background-color: $color_white;
+		}
+		.owl-carousel .owl-item img {
+		  height: 200px;
+		}
+		h2 {
+		  font-size: $fontsizeh2;
+		  color: $color_black;
+		}
+		h6 {
+		  color: $color_black;
+		  font-weight: $font-weightbold;
+		}
+		a {
+		  color: inherit;
+		  text-decoration: none;
+		}
+		a:hover p {
+		  text-decoration: underline;
+		}
+	  }
+
+	  .Featuredactivewearevent {
+		h2 {
+		  font-size: $fontsizeh2;
+		  color: $color_black;
+		}
+		.Featuredactiveweareventimg {
+		  width: 100%;
+		  border: 1px solid $secondary_color;
+		  box-shadow: 0 1px 2px 0 rgba(221, 221, 221, 0.5);
+		  border-top-left-radius: 5px;
+		  border-top-right-radius: 5px;
+		}
+		.workoutoutside {
+		  background-color: $color_white;
+		  border: 1px solid $secondary_color;
+		  box-shadow: 0 1px 2px 0 rgba(221, 221, 221, 0.5);
+		  border-bottom-left-radius: 5px;
+		  border-bottom-right-radius: 5px;
+		  border-top: 0;
+		}
+		h6 {
+		  color: $color_black;
+		  font-weight: $font-weight600;
+		}
+		p {
+		  font-size: 0.9rem;
+		}
+		a {
+		  color: inherit;
+		}
+		a:hover h6 {
+		  text-decoration: underline;
+		}
+		a:hover h6 {
+		  text-decoration: none;
+		}
+	  }
+	  .Shoptopbrands {
+		margin-top: 50px;
+		background-color: $color_white;
+		border: 1px solid $secondary_color;
+		box-shadow: 0 1px 2px 0 rgba(221, 221, 221, 0.5);
+		border-radius: 5px;
+		.owl-prev {
+		  position: absolute;
+		  height: 70px;
+		  width: 28px;
+		  background: url(../assets/images/chevron-left.png) no-repeat center;
+		  left: 0;
+		  top: 28%;
+		  background-size: 50% 50%;
+		  font-size: 0;
+		  border: solid 1px #767676;
+		  border-radius: 0;
+		  z-index: 10;
+		  padding: 27px 6px;
+		  background-color: $color_white;
+		}
+		.owl-next {
+		  position: absolute;
+		  height: 70px;
+		  width: 28px;
+		  top: 28%;
+		  background: url(../assets/images/chevron-left.png) no-repeat center;
+		  background-size: 50% 50%;
+		  font-size: 0;
+		  transform: rotate(180deg);
+		  right: 0;
+		  border: solid 1px #767676;
+		  border-radius: 0;
+		  z-index: 10;
+		  padding: 27px 6px;
+		  background-color: $color_white;
+		}
+		.owl-carousel .owl-item img {
+		  height: 200px;
+		}
+		h2 {
+		  font-size: $fontsizeh2;
+		  color: $color_black;
+		}
+		h6 {
+		  color: $color_black;
+		  font-weight: $font-weight600;
+		}
+		a {
+		  color: inherit;
+		  text-decoration: none;
+		}
+		a:hover h6 {
+		  color: $frontColor;
+		  text-decoration: underline;
+		}
+	  }
+
+	  .Shopbytrends {
+		margin-top: 50px;
+		background-color: $color_white;
+		border: 1px solid $secondary_color;
+		box-shadow: 0 1px 2px 0 rgba(221, 221, 221, 0.5);
+		border-radius: 5px;
+		.owl-prev {
+		  position: absolute;
+		  height: 70px;
+		  width: 28px;
+		  background: url(../assets/images/chevron-left.png) no-repeat center;
+		  left: 0;
+		  top: 28%;
+		  background-size: 50% 50%;
+		  font-size: 0;
+		  border: solid 1px #767676;
+		  border-radius: 0;
+		  z-index: 10;
+		  padding: 27px 6px;
+		  background-color: $color_white;
+		}
+		.owl-next {
+		  position: absolute;
+		  height: 70px;
+		  width: 28px;
+		  top: 28%;
+		  background: url(../assets/images/chevron-left.png) no-repeat center;
+		  background-size: 50% 50%;
+		  font-size: 0;
+		  transform: rotate(180deg);
+		  right: 0;
+		  border: solid 1px #767676;
+		  border-radius: 0;
+		  z-index: 10;
+		  padding: 27px 6px;
+		  background-color: $color_white;
+		}
+		.owl-carousel .owl-item img {
+		  height: 200px;
+		}
+		h2 {
+		  font-size: $fontsizeh2;
+		  color: $color_black;
+		}
+		h6 {
+		  color: $color_black;
+		  font-weight: $font-weight600;
+		}
+		a {
+		  color: inherit;
+		  text-decoration: none;
+		}
+		a:hover h6 {
+		  color: $frontColor;
+		  text-decoration: underline;
+		}
+	  }
+
+	  .shopthelook {
+		background-color: $color_white;
+		border: 1px solid $secondary_color;
+		box-shadow: 0 1px 2px 0 rgba(221, 221, 221, 0.5);
+		border-radius: 5px;
+		h2 {
+		  font-size: $fontsizeh2;
+		  color: #000000;
+		}
+		.shopthelookimg {
+		  display: block;
+		  margin: 0 auto;
+		  border: 1px solid $color_white;
+		  border-radius: 5px;
+		}
+		.menclothesimages:hover {
+		  border: 1px solid $secondary_color;
+		}
+		.top-right-plus {
+		  position: absolute;
+		  top: 3%;
+		  right: 20%;
+		  font-size: 2rem;
+		  -webkit-text-fill-color: $color_semiblack;
+		  -webkit-text-stroke-width: 1px;
+		  -webkit-text-stroke-color: $color_white;
+		  opacity: 0.5;
+		}
+		.top-right-plus-a {
+		  position: absolute;
+		  top: 20%;
+		  right: 41%;
+		  font-size: 2rem;
+		  -webkit-text-fill-color: $color_semiblack;
+		  -webkit-text-stroke-width: 1px;
+		  -webkit-text-stroke-color: $color_white;
+		  opacity: 0.5;
+		}
+		.top-right-plus-b {
+		  position: absolute;
+		  top: 47%;
+		  right: 26%;
+		  font-size: 2rem;
+		  -webkit-text-fill-color: $color_semiblack;
+		  -webkit-text-stroke-width: 1px;
+		  -webkit-text-stroke-color: $color_white;
+		  opacity: 0.5;
+		}
+		.top-right-plus-c {
+		  position: absolute;
+		  top: 85%;
+		  right: 34%;
+		  font-size: 2rem;
+		  -webkit-text-fill-color: $color_semiblack;
+		  -webkit-text-stroke-width: 1px;
+		  -webkit-text-stroke-color: $color_white;
+		  opacity: 0.5;
+		}
+	  }
+
+	  .Limitedtimedeals {
+		margin-top: 50px;
+		background-color: $color_white;
+		border: 1px solid $secondary_color;
+		box-shadow: 0 1px 2px 0 rgba(221, 221, 221, 0.5);
+		border-radius: 5px;
+		.owl-prev {
+		  position: absolute;
+		  height: 70px;
+		  width: 28px;
+		  background: url(../assets/images/chevron-left.png) no-repeat center;
+		  left: 0;
+		  top: 22%;
+		  background-size: 50% 50%;
+		  font-size: 0;
+		  border: solid 1px #767676;
+		  border-radius: 0;
+		  z-index: 10;
+		  padding: 27px 6px;
+		  background-color: $color_white;
+		}
+		.owl-next {
+		  position: absolute;
+		  height: 70px;
+		  width: 28px;
+		  top: 22%;
+		  background: url(../assets/images/chevron-left.png) no-repeat center;
+		  background-size: 50% 50%;
+		  font-size: 0;
+		  transform: rotate(180deg);
+		  right: 0;
+		  border: solid 1px #767676;
+		  border-radius: 0;
+		  z-index: 10;
+		  padding: 27px 6px;
+		  background-color: $color_white;
+		}
+		.owl-carousel .owl-item img {
+		  height: 230px;
+		}
+		h2 {
+		  font-size: $fontsizeh2;
+		  color: $color_black;
+		}
+		h6 {
+		  color: $color_black;
+		  font-weight: $font-weightbold;
+		}
+		a {
+		  color: inherit;
+		  text-decoration: none;
+		}
+		p {
+		  color: $color_semiblack;
+		}
+		a:hover p {
+		  text-decoration: underline;
+		}
+		.dollarcancle {
+		  font-size: $pfontsize;
+		  font-weight: $font-weight600;
+		  text-decoration: line-through;
+		}
+		.dollaroff {
+		  font-size: $pfontsize;
+		  font-weight: $font-weight600;
+		}
+
+	  }
+	  .gotonetosell {
+		background-color: $color_white;
+		border: 1px solid $secondary_color;
+		box-shadow: 0 1px 2px 0 rgba(221, 221, 221, 0.5);
+		border-radius: 5px;
+		.tagsicon {
+		  transform: rotate(90deg);
+		  font-size: 2rem;
+		}
+		h6 {
+		  color: $color_black;
+		  font-weight: $font-weight600;
+		  font-size: $fontsizeh2;
+		}
+		p {
+		  color: $color_semiblack;
+		}
+	  }
+	  .mensclothingdescription {
+		background-color: $color_white;
+		border: 1px solid $secondary_color;
+		box-shadow: 0 1px 2px 0 rgba(221, 221, 221, 0.5);
+		border-radius: 5px;
+		h6 {
+		  color: $color_black;
+		  font-weight: $font-weight600;
+		  font-size: $fontsizeh2;
+		}
+		p {
+		  color: $color_semiblack;
+		  font-size: $fontsizeone;
+		  letter-spacing: 0.5px;
+		}
+		.darkfont {
+		  font-weight: $font-weightbold;
+		}
+		ul.mensclothingdescriptionul {
+		  list-style: circle;
+		  margin: 0;
+		  padding: 0 0 0 50px;
+		  li {
+			color: $color_semiblack;
+			font-size: $fontsizeone;
+			letter-spacing: 0.5px;
+		  }
+		}
+	  }
+	  .navbar-expand-lg .navbar-nav {
+		margin: 0 auto;
+		a {
+		  color: $color_black;
+		  font-size: $pfontsize;
+		}
+		a:hover {
+		  color: $frontColor;
+		  font-size: $pfontsize;
+		  text-decoration: underline;
+		}
+	  }
+	}
+	.pricetxtbox{
+		width: 42px !important;
+		padding: 2px 5px;
+		font-size: 1rem;
+		line-height: 0.5;
+		color: #495057;
+		background-color: $color_white;
+		border-radius: 0;
+		margin-right: 5px;
+		margin-left: 5px;
+		margin-top: 10px;
+  }
+  .pricelabel {
+    position: relative;
+    top: 3px;
+	font-size:9px;
+	font-weight:300;
+  }
+   .arrowbtn{
+    background-color: #e6731c;
+    color: #fff;
+    line-height: 0.5;
+    font-size: 20px;
+    padding: 3px 10px;
+    position: relative;
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+  }
+  .arrowbtn:hover,.arrowbtn:active,.arrowbtn:focus{
+    background-color: #e6731c !important;
+    opacity: 1 !important;
+  }
+}

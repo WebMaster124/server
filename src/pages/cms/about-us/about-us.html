@@ -1,0 +1,30 @@
+<ion-content class="faq">
+  <div class="wrapper">
+    <div class="container faq-page-main">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-xl-12 col-12 setFontSize">
+			<p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+			<p class="mb-2"><a href="#/home" class="breadcrumblink">Dibdaa</a> &nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+            <a class="breadcrumblink font-weight-bold" disabled>{{showaboutData?.cms.data.page_title}}</a></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-12">
+          <h4 class="m-0">{{showaboutData?.cms.data.page_title}}</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-12 mt-3 mb-0">
+          <img src="{{bannerImg}}{{showaboutData?.cms.data.banner}}" *ngIf="showaboutData?.cms.data.banner != ''" class="faq-banner-image img-fluid mx-auto d-block">
+          <img src="assets/images/placeholder_banner.jpg" *ngIf="showaboutData?.cms.data.banner == ''" class="faq-banner-image img-fluid mx-auto d-block">
+        </div>
+      </div>
+      <div class="row m-0 bg-light">
+        <div class="col-lg-12 col-md-12 col-12 mt-2 pt-2 pb-2 setFontSize" id="about-us" [innerHTML]="showaboutData?.cms.data.page_content">
+		
+        </div>
+      </div>
+    </div>
+    <footer-page></footer-page>
+  </div>
+</ion-content>

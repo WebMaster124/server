@@ -1,0 +1,911 @@
+<ion-content padding class="product-listing">
+<div class="wrapper">
+		<div class="container mb-3">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-xl-12 col-12 breadcrumblink_div">
+					<p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+					<p>
+						<a href="#/home" class="breadcrumblink">Dibdaa</a> &nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+						<a href="#/advance-search" class="breadcrumblink" *ngIf="ifadvanceSearch == true">Advance Search</a>
+						<a href="#/seller-my-account/SavedSearches" class="breadcrumblink" *ngIf="ifadvanceSearch == false">Saved Search</a>
+						<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+						<a class="breadcrumblink font-weight-bold" disabled> {{ convert_parse?.keyword }}</a>
+					</p>
+				</div>
+			</div>
+			<!--Varticle menu start-->
+			<div class="row justify-content-center">
+				<div class="col-lg-10 col-md-12" *ngIf="searchData?.total > 0 && ifadvanceSearch == true;">
+					<div class="gridviewlistview ml-0 mr-0 p-3 mt-3">
+						<div class="row d-lg-block d-md-none d-none">
+							<div class="col-lg-12 col-md-12 col-12 pt-3 pb-3 pl-3 pl-lg-4">
+								<!-- Nav tabs -->
+								<h6>Result for {{convert_parse?.keyword}}</h6>
+								<div class="row">
+									<div class="col-lg-12 col-12 col-md-12">
+										<ul class="nav" role="tablist">
+											<li role="presentation" class="active">
+												<a href="#alllisting_adsrch" role="tab" class="btn tablistinbtn active show" data-toggle="tab">All Listings</a>
+											</li>
+											<li role="presentation">
+												<a href="#auction_adsrch" class="btn tablistinbtn" role="tab" data-toggle="tab">Auction</a>
+											</li>
+											<li role="presentation">
+												<a href="#buyitnow_adsrch" class="btn tablistinbtn" role="tab"  data-toggle="tab">Buy It Now</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<!-- Tab panes -->
+								<div class="tab-content">
+									<div role="tabpanel" class="tab-pane active" id="alllisting_adsrch">
+										<div class="resultcount mt-3 mb-3 ml-1">
+											<p>{{searchData?.from}} - {{searchData?.to}} of {{searchData?.total}} Results <!--for &lt;!&ndash;<b>{{convert_parse?.keyword}}</b>&ndash;&gt;-->
+												<a class="ml-3" (click)="saveSearch()" *ngIf="search_not == false"><i class="fa fa-heart-o"> Save this search </i></a>
+												<a class="ml-3" *ngIf="search_not == true"><i class="fa fa-heart"> Saved </i></a>
+											</p> 
+										</div>
+										<div *ngIf="searchData?.data.length <= 0;else showAllItem">
+											<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom">
+												Item not available!
+											</div>
+										</div>
+										<ng-template #showAllItem>
+											<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom" *ngFor="let dta of searchData?.data | paginate: {itemsPerPage: searchData?.per_page, currentPage:searchData?.current_page, id: 'advanceSearchAll' ,totalItems:searchData?.total}; let i = index">
+												<div class="col-lg-3 col-md-4 p-0">
+													<a (click)="GoToProDetail(dta?.id)">
+														<img src="{{pro_image}}{{dta?.id}}/L/{{dta?.photos[0]}}" class="img-fluid productlistingimg">
+													</a>
+													<div class="top-left-sticker" *ngIf="dta?.time == 'End'">
+														<img src="assets/images/sold.png">
+														<p class="m-0 sold-text">ENDED</p>
+													</div>
+												</div>
+												<div class="col-lg-9 col-md-8 col-12 p-0 pl-lg-2 pr-lg-2 pt-2 pt-lg-0 pl-md-2 pr-md-2">
+													<a (click)="GoToProDetail(dta?.id)">
+														<h6 class="producttitle font-weight-bold m-1">
+															{{dta?.title}}
+														</h6>
+													</a>
+													<div *ngIf="dta?.subtitle != null && dta?.subtitle != ''" class="breadcrumblink_div ml-1">
+														{{dta?.subtitle}}
+													</div>
+													<span class="ratings">
+														<div class="empty-stars"></div> 
+														<div class="full-stars" style="width:0%" *ngIf="dta?.product_avg == 0"></div>
+														<div class="full-stars" style="width:20%" *ngIf="dta?.product_avg == 1"></div>
+														<div class="full-stars" style="width:40%" *ngIf="dta?.product_avg == 2"></div>
+														<div class="full-stars" style="width:60%" *ngIf="dta?.product_avg == 3"></div>
+														<div class="full-stars" style="width:80%" *ngIf="dta?.product_avg == 4"></div>
+														<div class="full-stars" style="width:100%" *ngIf="dta?.product_avg == 5"></div>
+													</span>
+													<table class="table set_fontSize">
+														<tbody>
+															<tr>
+																<td class="price w-50" *ngIf="dta?.selling_type =='Auction style'">{{ dta?.last_bid }} AED</td>
+																<td class="price w-50" *ngIf="dta?.selling_type =='Fixed price'">{{ dta?.price - (dta?.price*dta?.discount) / 100 }} AED</td>
+																<td class="w-50" *ngIf="dta?.product_address != null">From {{dta?.product_address}}</td>
+															</tr>
+															<tr>
+																<td *ngIf="dta?.selling_type =='Fixed price' && dta?.discount != 0">Was: <span class="dollarcancle"> {{dta?.price}} AED</span></td>
+															</tr>
+															<tr>
+																<td>Free shipping</td>
+															</tr>
+															<tr>
+																<td *ngIf="dta?.quantity > 10">{{dta?.quantity}} left!</td>
+																<td class="sold-item" *ngIf="dta?.quantity <= 10 && dta?.quantity >= 1">Only {{dta?.quantity}} left!</td>
+																<td class="sold-item" *ngIf="dta?.quantity <= 0">Not available!</td>
+															</tr>
+															<tr>
+																<td *ngIf="dta?.make_offer == 1">Best Offer</td>
+															</tr>
+															<tr>
+																<td *ngIf="dta?.selling_type == 'Fixed price'">Buy It Now</td>
+																<td *ngIf="dta?.selling_type == 'Auction style'">Auction</td>
+															</tr>
+															<tr>
+																<td *ngIf="dta?.time == 'Started'" [ngClass]="{'text-danger': dta?.endsoon == '0'}">Time left: {{dta?.days_left | removeplusSign:dta?.days_left}}</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</ng-template>
+									</div>
+									<div role="tabpanel" class="tab-pane" id="auction_adsrch">
+										<div class="resultcount mt-3 mb-3 ml-1">
+											<p>{{searchData?.from}} - {{searchData?.to}} of {{searchData?.total}} Results </p> <!-- for <b>{{convert_parse?.keyword}}</b> -->
+										</div>
+										<div *ngIf="searchData?.data.length <= 0;else showauction">
+											<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom">
+												Item not available!
+											</div>
+										</div>
+										<ng-template #showauction>
+											<div *ngFor="let dta of searchData?.data | paginate: {itemsPerPage: searchData?.per_page, currentPage:searchData?.current_page, id: 'advanceSearchAll' ,totalItems:searchData?.total}; let i = index">
+												<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom" *ngIf="dta?.selling_type == 'Auction style'">
+													<div class="col-lg-3 col-md-4 p-0">
+														<a (click)="GoToProDetail(dta?.id)">
+															<img src="{{pro_image}}{{dta?.id}}/L/{{dta?.photos[0]}}" class="img-fluid productlistingimg">
+														</a>
+														<div class="top-left-sticker" *ngIf="dta?.time == 'End'">
+															<img src="assets/images/sold.png">
+															<p class="m-0 sold-text">ENDED</p>
+														</div>
+													</div>
+													<div class="col-lg-9 col-md-8 col-12 p-0 pl-lg-2 pr-lg-2 pt-2 pt-lg-0 pl-md-2 pr-md-2">
+														<a (click)="GoToProDetail(dta?.id)">
+															<h6 class="producttitle font-weight-bold m-1">{{dta?.title}}</h6>
+														</a>
+														<div *ngIf="dta?.subtitle != null && dta?.subtitle != ''" class="breadcrumblink_div ml-1">
+															{{dta?.subtitle}}
+														</div>
+														<span class="ratings">
+															<div class="empty-stars"></div> 
+															<div class="full-stars" style="width:0%" *ngIf="dta?.product_avg == 0"></div>
+															<div class="full-stars" style="width:20%" *ngIf="dta?.product_avg == 1"></div>
+															<div class="full-stars" style="width:40%" *ngIf="dta?.product_avg == 2"></div>
+															<div class="full-stars" style="width:60%" *ngIf="dta?.product_avg == 3"></div>
+															<div class="full-stars" style="width:80%" *ngIf="dta?.product_avg == 4"></div>
+															<div class="full-stars" style="width:100%" *ngIf="dta?.product_avg == 5"></div>
+														</span>
+														<table class="table breadcrumblink_div">
+															<tbody>
+																<tr>
+																	<td class="price w-50">{{ dta?.last_bid }} AED</td>
+																	<td class="w-50" *ngIf="dta?.product_address != null">From {{dta?.product_address}}</td>
+																</tr>
+																<tr>
+																	<td>Free shipping</td>
+																</tr>
+																<tr>
+																	<td *ngIf="dta?.quantity > 10">{{dta?.quantity}} left!</td>
+																	<td class="sold-item" *ngIf="dta?.quantity <= 10 && dta?.quantity >= 1">Only {{dta?.quantity}} left!</td>
+																	<td class="sold-item" *ngIf="dta?.quantity <= 0">Not available!</td>
+																</tr>
+																<tr>
+																	<td *ngIf="dta?.make_offer == 1">Best Offer</td>
+																</tr>
+																<tr>
+																	<td>Auction</td>
+																</tr>
+																<tr>
+																	<td *ngIf="dta?.time == 'Started'" [ngClass]="{'text-danger': dta?.endsoon == '0'}">Time left: {{dta?.days_left | removeplusSign:dta?.days_left}}</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</ng-template>
+									</div>
+									<div role="tabpanel" class="tab-pane" id="buyitnow_adsrch">
+										<div class="resultcount mt-3 mb-3 ml-1">
+											<p>{{searchData?.from}} - {{searchData?.to}} of {{searchData?.total}} Results </p>
+										</div> 
+										<div *ngIf="searchData?.data.length <= 0;else showbuynow">
+											<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom">
+												Item not available!
+											</div>
+										</div>
+										<ng-template #showbuynow>
+											<div *ngFor="let dta of searchData?.data | paginate: {itemsPerPage: searchData?.per_page, currentPage:searchData?.current_page, id: 'advanceSearchAll' ,totalItems:searchData?.total}; let i = index">
+												<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom" *ngIf="dta?.selling_type == 'Fixed price'">
+													<!--;else nobuynow -->
+													<div class="col-lg-3 col-md-4 p-0">
+														<a (click)="GoToProDetail(dta?.id)">
+															<img src="{{pro_image}}{{dta?.id}}/L/{{dta?.photos[0]}}" class="img-fluid productlistingimg">
+														</a>
+														<div class="top-left-sticker" *ngIf="dta?.time == 'End'">
+															<img src="assets/images/sold.png">
+															<p class="m-0 sold-text">ENDED</p>
+														</div>
+													</div>
+													<div class="col-lg-9 col-md-8 col-12 p-0 pl-lg-2 pr-lg-2 pt-2 pt-lg-0 pl-md-2 pr-md-2">
+														<a (click)="GoToProDetail(dta?.id)">
+															<h6 class="producttitle font-weight-bold m-1">{{dta?.title}}</h6>
+														</a>
+														<div *ngIf="dta?.subtitle != null && dta?.subtitle != ''" class="breadcrumblink_div ml-1">
+															{{dta?.subtitle}}
+														</div>
+														<span class="ratings">
+															<div class="empty-stars"></div> 
+															<div class="full-stars" style="width:0%" *ngIf="dta?.product_avg == 0"></div>
+															<div class="full-stars" style="width:20%" *ngIf="dta?.product_avg == 1"></div>
+															<div class="full-stars" style="width:40%" *ngIf="dta?.product_avg == 2"></div>
+															<div class="full-stars" style="width:60%" *ngIf="dta?.product_avg == 3"></div>
+															<div class="full-stars" style="width:80%" *ngIf="dta?.product_avg == 4"></div>
+															<div class="full-stars" style="width:100%" *ngIf="dta?.product_avg == 5"></div>
+														</span>
+														<table class="table breadcrumblink_div">
+															<tbody>
+															<tr>
+																<td class="price w-50">{{ dta?.price - (dta?.price*dta?.discount) / 100 }} AED</td>
+																<td class="w-50" *ngIf="dta?.product_address != null">From {{dta?.product_address}}</td>
+															</tr>
+															<tr>
+																<td *ngIf="dta?.selling_type =='Fixed price' && dta?.discount != 0">Was: <span class="dollarcancle"> {{dta?.price}} AED</span></td>
+															</tr>
+															<tr>
+																<td>Free shipping</td>
+															</tr>
+															<tr>
+																<td *ngIf="dta?.quantity > 10">{{dta?.quantity}} left!</td>
+																<td class="sold-item" *ngIf="dta?.quantity <= 10 && dta?.quantity >= 1">Only {{dta?.quantity}} left!</td>
+																<td class="sold-item" *ngIf="dta?.quantity <= 0">Not available!</td>
+															</tr>
+															<tr>
+																<td *ngIf="dta?.make_offer == 1">Best Offer</td>
+															</tr>
+															<tr>
+																<td>Buy It Now</td>
+															</tr>
+															<tr>
+																<td *ngIf="dta?.time == 'Started'" [ngClass]="{'text-danger': dta?.endsoon == '0'}">Time left: {{dta?.days_left | removeplusSign:dta?.days_left}}</td>
+															</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</ng-template>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row d-lg-none d-md-block d-block">
+							<div class="col-lg-12 col-md-12 col-12 pt-3 pb-3 pl-3 pl-lg-4">
+								<!-- Nav tabs -->
+								<h6>Result for {{convert_parse?.keyword}}</h6>
+								<div class="row">
+									<div class="col-lg-12 col-12 col-md-12">
+										<ul class="nav" role="tablist">
+											<li role="presentation" class="active">
+												<a href="#alllisting_mobile{{random_number}}" role="tab" class="btn tablistinbtn active show" data-toggle="tab">All Listings</a>
+											</li>
+											<li role="presentation">
+												<a href="#auction_mobile{{random_number}}" class="btn tablistinbtn" role="tab" data-toggle="tab">Auction</a>
+											</li>
+											<li role="presentation">
+												<a href="#buyitnow_mobile{{random_number}}" class="btn tablistinbtn" role="tab" data-toggle="tab">Buy It Now</a>
+											</li>
+										</ul>
+									</div>
+									
+									<!-- Tab panes -->
+									<div class="tab-content w-100">
+										<div role="tabpanel" class="tab-pane active" id="alllisting_mobile{{random_number}}">
+											<div class="resultcount m-3">
+												<p>{{searchData?.from}} - {{searchData?.to}} of {{searchData?.total}} Results 
+													<a class="ml-3" (click)="saveSearch()" *ngIf="search_not == false"><i class="fa fa-heart-o"> Save this search </i></a>
+													<a class="ml-3" *ngIf="search_not == true"><i class="fa fa-heart"> Saved </i></a>
+												</p> 
+											</div>
+											<div *ngIf="searchData?.data.length <= 0;else showAllItem_mobile">
+												<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom">
+													Item not available!
+												</div>
+											</div>
+											<ng-template #showAllItem_mobile>
+												<div class="container pl-2 pr-2">
+													<div class="row set_fontSize">
+														<div class="col-md-4 col-6 marB30" *ngFor="let dta of searchData?.data | paginate: {itemsPerPage: searchData?.per_page, currentPage:searchData?.current_page, id: 'advanceSearchAll' ,totalItems:searchData?.total}; let i = index">
+															<div class="box-a mb-4 border rounded">
+																<figure class="m-0">
+																	<a (click)="GoToProDetail(dta?.id)" title="{{dta?.title}}">
+																		<img src="{{pro_image}}{{dta?.id}}/L/{{dta?.photos[0]}}" class="img-fluid" alt="{{dta?.title}}">
+																	</a>
+																</figure>
+																<div class="box-detail bg-light p-1 breadcrumblink_div">
+																	<p class="mt-2 mb-1"><a (click)="GoToProDetail(dta?.id)" class="text-primary" title="{{dta?.title}}">{{(dta?.title.length > 15)? (dta?.title | slice:0:15)+'...':(dta?.title)}}</a></p>
+																	<div class="row p-0 m-0">
+																		<div class="col-lg-6 col-md-6 p-0 m-0">
+																			<span class="ratings">
+																				<div class="empty-stars"></div> 
+																				<div class="full-stars" style="width:0%" *ngIf="dta?.product_avg == 0"></div>
+																				<div class="full-stars" style="width:20%" *ngIf="dta?.product_avg == 1"></div>
+																				<div class="full-stars" style="width:40%" *ngIf="dta?.product_avg == 2"></div>
+																				<div class="full-stars" style="width:60%" *ngIf="dta?.product_avg == 3"></div>
+																				<div class="full-stars" style="width:80%" *ngIf="dta?.product_avg == 4"></div>
+																				<div class="full-stars" style="width:100%" *ngIf="dta?.product_avg == 5"></div>
+																			</span>
+																		</div>
+																		<div class="col-lg-6 col-md-6 p-0 m-0 text-md-right pr-md-2">
+																			<span class="text-danger" *ngIf="dta?.quantity <= 5">Only {{dta?.quantity}} left! </span>
+																			<span *ngIf="dta?.quantity > 5">{{dta?.quantity}} left! </span>
+																		</div>
+																	</div>
+																	<span *ngIf="dta?.selling_type =='Auction style'">{{ dta?.last_bid }} AED</span> 
+																	<span *ngIf="dta?.selling_type =='Fixed price'">{{dta?.price - (dta?.price*dta?.discount) / 100 }} AED</span> 
+																	<span *ngIf="dta?.selling_type =='Fixed price' && dta?.discount != 0 "> | <del><span class="grey">{{dta?.price}} AED</span></del>
+																		| <span class="text-uppercase">{{dta?.discount}}% off</span>
+																	</span>
+																	<p class="mb-1 mt-0">From <a title="{{dta?.product_address}}" *ngIf="dta?.product_address != null">{{(dta?.product_address.length > 13)? (dta?.product_address | slice:0:13)+'...':(dta?.product_address)}}</a></p>
+																	<p class="mb-1 mt-0">Free shipping</p>
+																	<p class="mb-1 mt-0" *ngIf="dta?.selling_type == 'Auction style'">Auction style</p>
+																	<p class="mb-1 mt-0" *ngIf="dta?.selling_type =='Fixed price'">Buy It Now</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</ng-template>
+										</div>
+										<div role="tabpanel" class="tab-pane" id="auction_mobile{{random_number}}">
+											<div class="resultcount m-3">
+												<p> {{searchData?.from}} - {{searchData?.to}} of {{searchData?.total}} Results</p>
+											</div>
+											<div *ngIf="searchData?.data.length <= 0;else showauction_mobile">
+												<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom text-center d-block">
+													Item not available!
+												</div>
+											</div>
+											<ng-template #showauction_mobile>
+												<div class="container pl-2 pr-2">
+													<div class="row set_fontSize">
+														<div [ngClass]="{'col-md-4 col-6 marB30' : dta?.selling_type == 'Auction style' }" *ngFor="let dta of searchData?.data | paginate: {itemsPerPage: searchData?.per_page, currentPage:searchData?.current_page, id: 'advanceSearchAll' ,totalItems:searchData?.total}; let i = index">
+															<div class="box-a mb-4 border rounded" *ngIf="dta?.selling_type == 'Auction style'">
+																<figure class="m-0">
+																	<a (click)="GoToProDetail(dta?.id)" title="{{dta?.title}}">
+																		<img src="{{pro_image}}{{dta?.id}}/L/{{dta?.photos[0]}}" class="img-fluid" alt="{{dta?.title}}">
+																	</a>
+																</figure>
+																<div class="box-detail bg-light p-1 breadcrumblink_div">
+																	<p class="mt-2 mb-1"><a (click)="GoToProDetail(dta?.id)" class="text-primary" title="{{dta?.title}}">{{(dta?.title.length > 15)? (dta?.title | slice:0:15)+'...':(dta?.title)}}</a></p>
+																	<div class="row p-0 m-0">
+																		<div class="col-lg-6 col-md-6 p-0 m-0">
+																			<span class="ratings">
+																				<div class="empty-stars"></div> 
+																				<div class="full-stars" style="width:0%" *ngIf="dta?.product_avg == 0"></div>
+																				<div class="full-stars" style="width:20%" *ngIf="dta?.product_avg == 1"></div>
+																				<div class="full-stars" style="width:40%" *ngIf="dta?.product_avg == 2"></div>
+																				<div class="full-stars" style="width:60%" *ngIf="dta?.product_avg == 3"></div>
+																				<div class="full-stars" style="width:80%" *ngIf="dta?.product_avg == 4"></div>
+																				<div class="full-stars" style="width:100%" *ngIf="dta?.product_avg == 5"></div>
+																			</span>
+																		</div>
+																		<div class="col-lg-6 col-md-6 p-0 m-0 text-md-right pr-md-2">
+																			<span class="text-danger" *ngIf="dta?.quantity <= 5">Only {{dta?.quantity}} left! </span>
+																			<span *ngIf="dta?.quantity > 5">{{dta?.quantity}} left! </span>
+																		</div>
+																	</div>
+																	<span>{{ dta?.last_bid }} AED</span> 
+																	<p class="mb-1 mt-0">From <a title="{{dta?.product_address}}" *ngIf="dta?.product_address != null">{{(dta?.product_address.length > 13)? (dta?.product_address | slice:0:13)+'...':(dta?.product_address)}}</a></p>
+																	<p class="mb-1 mt-0">Free shipping</p>
+																	<p class="mb-1 mt-0">Auction style</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</ng-template>
+										</div>
+										<div role="tabpanel" class="tab-pane" id="buyitnow_mobile{{random_number}}">
+											<div class="resultcount m-3">
+												<p> {{searchData?.from}} - {{searchData?.to}} of {{searchData?.total}} Results</p>
+											</div>
+											<div *ngIf="searchData?.data.length <= 0;else showbuynow_mobile">
+												<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom text-center d-block">
+													Item not available!
+												</div>
+											</div>
+											<ng-template #showbuynow_mobile>
+												<div class="container pl-2 pr-2">
+													<div class="row set_fontSize">
+														<div [ngClass]="{'col-md-4 col-6 marB30' : dta?.selling_type == 'Fixed price' }" *ngFor="let dta of searchData?.data | paginate: {itemsPerPage: searchData?.per_page, currentPage:searchData?.current_page, id: 'advanceSearchAll' ,totalItems:searchData?.total}; let i = index">
+															<div class="box-a mb-4 border rounded" *ngIf="dta?.selling_type == 'Fixed price'">
+																<figure class="m-0">
+																	<a (click)="GoToProDetail(dta?.id)" title="{{dta?.title}}">
+																		<img src="{{pro_image}}{{dta?.id}}/L/{{dta?.photos[0]}}" class="img-fluid" alt="{{dta?.title}}">
+																	</a>
+																</figure>
+																<div class="box-detail bg-light p-1 breadcrumblink_div">
+																	<p class="mt-2 mb-1"><a (click)="GoToProDetail(dta?.id)" class="text-primary" title="{{dta?.title}}">{{(dta?.title.length > 15)? (dta?.title | slice:0:15)+'...':(dta?.title)}}</a></p>
+																	<div class="row p-0 m-0">
+																		<div class="col-lg-6 col-md-6 p-0 m-0">
+																			<span class="ratings">
+																				<div class="empty-stars"></div> 
+																				<div class="full-stars" style="width:0%" *ngIf="dta?.product_avg == 0"></div>
+																				<div class="full-stars" style="width:20%" *ngIf="dta?.product_avg == 1"></div>
+																				<div class="full-stars" style="width:40%" *ngIf="dta?.product_avg == 2"></div>
+																				<div class="full-stars" style="width:60%" *ngIf="dta?.product_avg == 3"></div>
+																				<div class="full-stars" style="width:80%" *ngIf="dta?.product_avg == 4"></div>
+																				<div class="full-stars" style="width:100%" *ngIf="dta?.product_avg == 5"></div>
+																			</span>
+																		</div>
+																		<div class="col-lg-6 col-md-6 p-0 m-0 text-md-right pr-md-2">
+																			<span class="text-danger" *ngIf="dta?.quantity <= 5">Only {{dta?.quantity}} left! </span>
+																			<span *ngIf="dta?.quantity > 5">{{dta?.quantity}} left! </span>
+																		</div>
+																	</div>
+																	<span>{{dta?.price - (dta?.price*dta?.discount) / 100 }} AED</span> 
+																	<span *ngIf="dta?.selling_type =='Fixed price' && dta?.discount != 0 "> | <del><span class="grey">{{dta?.price}} AED</span></del>
+																		| <span class="text-uppercase">{{dta?.discount}}% off</span>
+																	</span>
+																	<p class="mb-1 mt-0">From <a title="{{dta?.product_address}}" *ngIf="dta?.product_address != null">{{(dta?.product_address.length > 13)? (dta?.product_address | slice:0:13)+'...':(dta?.product_address)}}</a></p>
+																	<p class="mb-1 mt-0">Free shipping</p>
+																	<p class="mb-1 mt-0">Buy It Now</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</ng-template>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-lg-12 paginationlist">
+								<pagination-controls (pageChange)="page = getServerData($event)" id="advanceSearchAll" maxSize="{{searchData?.last_page}}" directionLinks="true" autoHide="false" class="text-center breadcrumblink_div"></pagination-controls>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-10 col-md-12" *ngIf="searchData?.total > 0 && ifadvanceSearch == false;">
+					<div class="gridviewlistview ml-0 mr-0 p-3 mt-3">
+						<div class="row d-lg-block d-md-none d-none">
+							<div class="col-lg-12 col-md-12 col-12 pt-3 pb-3 pl-3 pl-lg-4">
+								<!-- Nav tabs -->
+								<div class="row">
+									<div class="col-lg-12 col-12 col-md-12">
+										<ul class="nav" role="tablist">
+											<li role="presentation" class="active">
+												<a href="#alllisting_adsrch" role="tab" class="btn tablistinbtn active show" data-toggle="tab">All Listings</a>
+											</li>
+											<li role="presentation">
+												<a href="#auction_adsrch" class="btn tablistinbtn" role="tab" data-toggle="tab">Auction</a>
+											</li>
+											<li role="presentation">
+												<a href="#buyitnow_adsrch" class="btn tablistinbtn" role="tab"  data-toggle="tab">Buy It Now</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<!-- Tab panes -->
+								<div class="tab-content">
+									<div class="bootstrap-tagsinput mt-3">
+										
+									</div>
+									<div role="tabpanel" class="tab-pane active" id="alllisting_adsrch">
+										<div class="resultcount mt-3 mb-3 ml-1">
+											<p>{{searchData?.from}} - {{searchData?.to}} of {{searchData?.total}} Results</p>
+										</div>
+										<div *ngIf="searchData?.data.length <= 0;else showAllItem">
+											<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom">
+												Item not available!
+											</div>
+										</div>
+										<ng-template #showAllItem>
+											<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom" *ngFor="let dta of searchData?.data | paginate: {itemsPerPage: searchData?.per_page, currentPage:searchData?.current_page, id: 'searchId' ,totalItems:searchData?.total}; let i = index">
+												<div class="col-lg-3 col-md-4 p-0">
+													<a (click)="GoToProDetail(dta?.id)">
+														<img src="{{pro_image}}{{dta?.id}}/L/{{dta?.photos[0]}}" class="img-fluid productlistingimg">
+													</a>
+													<div class="top-left-sticker" *ngIf="dta?.time == 'End'">
+														<img src="assets/images/sold.png">
+														<p class="m-0 sold-text">ENDED</p>
+													</div>
+												</div>
+												<div class="col-lg-9 col-md-8 col-12 p-0 pl-lg-2 pr-lg-2 pt-2 pt-lg-0 pl-md-2 pr-md-2">
+													<a (click)="GoToProDetail(dta?.id)">
+														<h6 class="producttitle font-weight-bold m-1">
+															{{dta?.title}}
+														</h6>
+													</a>
+													<div *ngIf="dta?.subtitle != null && dta?.subtitle != ''" class="breadcrumblink_div ml-1">
+														{{dta?.subtitle}}
+													</div>
+													<span class="ratings">
+														<div class="empty-stars"></div> 
+														<div class="full-stars" style="width:0%" *ngIf="dta?.product_avg == 0"></div>
+														<div class="full-stars" style="width:20%" *ngIf="dta?.product_avg == 1"></div>
+														<div class="full-stars" style="width:40%" *ngIf="dta?.product_avg == 2"></div>
+														<div class="full-stars" style="width:60%" *ngIf="dta?.product_avg == 3"></div>
+														<div class="full-stars" style="width:80%" *ngIf="dta?.product_avg == 4"></div>
+														<div class="full-stars" style="width:100%" *ngIf="dta?.product_avg == 5"></div>
+													</span>
+													<table class="table set_fontSize">
+														<tbody>
+														<tr>
+															<td class="price w-50" *ngIf="dta?.selling_type =='Auction style'">{{ dta?.last_bid }} AED</td>
+															<td class="price w-50" *ngIf="dta?.selling_type =='Fixed price'">{{ dta?.price - (dta?.price*dta?.discount) / 100 }} AED</td>
+															<td class="w-50" *ngIf="dta?.product_address != null">From {{dta?.product_address}}</td>
+														</tr>
+														<tr>
+															<td *ngIf="dta?.selling_type =='Fixed price' && dta?.discount != 0;">Was: <span class="dollarcancle"> {{dta?.price}} AED</span></td>
+														</tr>
+														<tr>
+															<td>Free shipping</td>
+														</tr>
+														<tr>
+															<td *ngIf="dta?.quantity > 10">{{dta?.quantity}} left!</td>
+															<td class="sold-item" *ngIf="dta?.quantity <= 10 && dta?.quantity >= 1">Only {{dta?.quantity}} left!</td>
+															<td class="sold-item" *ngIf="dta?.quantity <= 0">Not available!</td>
+														</tr>
+														<tr>
+															<td *ngIf="dta?.make_offer == 1">Best Offer</td>
+														</tr>
+														<tr>
+															<td *ngIf="dta?.selling_type == 'Fixed price'">Buy It Now</td>
+															<td *ngIf="dta?.selling_type == 'Auction style'">Auction</td>
+														</tr>
+														<tr>
+															<td *ngIf="dta?.time == 'Started'" [ngClass]="{'text-danger': dta?.endsoon == '0'}">Time left: {{dta?.days_left | removeplusSign:dta?.days_left}}</td>
+														</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</ng-template>
+									</div>
+									<div role="tabpanel" class="tab-pane" id="auction_adsrch">
+										<div class="resultcount mt-3 mb-3 ml-1">
+											<p>{{searchData?.from}} - {{searchData?.to}} of {{searchData?.total}} Results</p>
+										</div>
+										<div *ngIf="searchData?.data.length <= 0;else showauction">
+											<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom">
+												Item not available!
+											</div>
+										</div>
+										<ng-template #showauction>
+											<div *ngFor="let dta of searchData?.data | paginate: {itemsPerPage: searchData?.per_page, currentPage:searchData?.current_page, id: 'searchId' ,totalItems:searchData?.total}; let i = index">
+												<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom" *ngIf="dta?.selling_type == 'Auction style'">
+													<div class="col-lg-3 col-md-4 p-0">
+														<a (click)="GoToProDetail(dta?.id)">
+															<img src="{{pro_image}}{{dta?.id}}/L/{{dta?.photos[0]}}" class="img-fluid productlistingimg">
+														</a>
+														<div class="top-left-sticker" *ngIf="dta?.time == 'End'">
+															<img src="assets/images/sold.png">
+															<p class="m-0 sold-text">ENDED</p>
+														</div>
+													</div>
+													<div class="col-lg-9 col-md-8 col-12 p-0 pl-lg-2 pr-lg-2 pt-2 pt-lg-0 pl-md-2 pr-md-2">
+														<a (click)="GoToProDetail(dta?.id)">
+															<h6 class="producttitle font-weight-bold m-1">{{dta?.title}}</h6>
+														</a>
+														<div *ngIf="dta?.subtitle != null && dta?.subtitle != ''" class="breadcrumblink_div ml-1">
+															{{dta?.subtitle}}
+														</div>
+														<span class="ratings">
+															<div class="empty-stars"></div> 
+															<div class="full-stars" style="width:0%" *ngIf="dta?.product_avg == 0"></div>
+															<div class="full-stars" style="width:20%" *ngIf="dta?.product_avg == 1"></div>
+															<div class="full-stars" style="width:40%" *ngIf="dta?.product_avg == 2"></div>
+															<div class="full-stars" style="width:60%" *ngIf="dta?.product_avg == 3"></div>
+															<div class="full-stars" style="width:80%" *ngIf="dta?.product_avg == 4"></div>
+															<div class="full-stars" style="width:100%" *ngIf="dta?.product_avg == 5"></div>
+														</span>
+														<p class="productdescription"> {{dta?.description}}</p>
+														<table class="table breadcrumblink_div">
+															<tbody>
+															<tr>
+																<td class="price w-50">{{ dta?.last_bid }} AED</td>
+																<td class="w-50" *ngIf="dta?.product_address != null">From {{dta?.product_address}}</td>
+															</tr>
+															<tr>
+																<td>Free shipping</td>
+															</tr>
+															<tr>															
+																<td *ngIf="dta?.quantity > 10">{{dta?.quantity}} left!</td>
+																<td class="sold-item" *ngIf="dta?.quantity <= 10 && dta?.quantity >= 1">Only {{dta?.quantity}} left!</td>
+																<td class="sold-item" *ngIf="dta?.quantity <= 0">Not available!</td>
+															</tr>
+															<tr>
+																<td *ngIf="dta?.make_offer == 1">Best Offer</td>
+															</tr>
+															<tr>
+																<td>Auction</td>
+															</tr>
+															<tr>
+																<td *ngIf="dta?.time == 'Started'" [ngClass]="{'text-danger': dta?.endsoon == '0'}">Time left: {{dta?.days_left | removeplusSign:dta?.days_left}}</td>
+															</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</ng-template>
+									</div>
+									<div role="tabpanel" class="tab-pane" id="buyitnow_adsrch">
+										<div class="resultcount mt-3 mb-3 ml-1">
+											<p>{{searchData?.from}} - {{searchData?.to}} of {{searchData?.total}} Results</p>
+										</div>
+										<div *ngIf="searchData?.data.length <= 0;else showbuynow">
+											<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom">
+												Item not available!
+											</div>
+										</div>
+										<ng-template #showbuynow>
+											<div *ngFor="let dta of searchData?.data | paginate: {itemsPerPage: searchData?.per_page, currentPage:searchData?.current_page, id: 'searchId' ,totalItems:searchData?.total}; let i = index">
+												<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom" *ngIf="dta?.selling_type == 'Fixed price'">
+													<!--;else nobuynow -->
+													<div class="col-lg-3 col-md-4 p-0">
+														<a (click)="GoToProDetail(dta?.id)">
+															<img src="{{pro_image}}{{dta?.id}}/L/{{dta?.photos[0]}}" class="img-fluid productlistingimg">
+														</a>
+														<div class="top-left-sticker" *ngIf="dta?.time == 'End'">
+															<img src="assets/images/sold.png">
+															<p class="m-0 sold-text">ENDED</p>
+														</div>
+													</div>
+													<div class="col-lg-9 col-md-8 col-12 p-0 pl-lg-2 pr-lg-2 pt-2 pt-lg-0 pl-md-2 pr-md-2">
+														<a (click)="GoToProDetail(dta?.id)">
+															<h6 class="producttitle font-weight-bold m-1">{{dta?.title}}</h6>
+														</a>
+														<div *ngIf="dta?.subtitle != null && dta?.subtitle != ''" class="breadcrumblink_div ml-1">
+															{{dta?.subtitle}}
+														</div>
+														<span class="ratings">
+															<div class="empty-stars"></div> 
+															<div class="full-stars" style="width:0%" *ngIf="dta?.product_avg == 0"></div>
+															<div class="full-stars" style="width:20%" *ngIf="dta?.product_avg == 1"></div>
+															<div class="full-stars" style="width:40%" *ngIf="dta?.product_avg == 2"></div>
+															<div class="full-stars" style="width:60%" *ngIf="dta?.product_avg == 3"></div>
+															<div class="full-stars" style="width:80%" *ngIf="dta?.product_avg == 4"></div>
+															<div class="full-stars" style="width:100%" *ngIf="dta?.product_avg == 5"></div>
+														</span>
+														<table class="table breadcrumblink_div">
+															<tbody>
+															<tr>
+																<td class="price w-50">{{ dta?.price - (dta?.price*dta?.discount) / 100 }} AED</td>
+																<td class="w-50" *ngIf="dta?.product_address != null">From {{dta?.product_address}}</td>
+															</tr>
+															<tr>
+																<td *ngIf="dta?.selling_type =='Fixed price' && dta?.discount != 0">Was: <span class="dollarcancle"> {{dta?.price}} AED</span></td>
+															</tr>
+															<tr>
+																<td>Free shipping</td>
+															</tr>
+															<tr>
+																<td *ngIf="dta?.quantity > 10">{{dta?.quantity}} left!</td>
+																<td class="sold-item" *ngIf="dta?.quantity <= 10 && dta?.quantity >= 1">Only {{dta?.quantity}} left!</td>
+																<td class="sold-item" *ngIf="dta?.quantity <= 0">Not available!</td>
+															</tr>
+															<tr>
+																<td *ngIf="dta?.make_offer == 1">Best Offer</td>
+															</tr>
+															<tr>
+																<td>Buy It Now</td>
+															</tr>
+															<tr>
+																<td *ngIf="dta?.time == 'Started'" [ngClass]="{'text-danger': dta?.endsoon == '0'}">Time left: {{dta?.days_left | removeplusSign:dta?.days_left}}</td>
+															</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</ng-template>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row d-lg-none d-md-block d-block">
+							<div class="col-lg-12 col-md-12 col-12 pt-3 pb-3 pl-3 pl-lg-4">
+								<!-- Nav tabs -->
+								<div class="row">
+									<div class="col-lg-12 col-12 col-md-12">
+										<ul class="nav" role="tablist">
+											<li role="presentation" class="active">
+												<a href="#alllistingview_search_mobile{{random_number}}" role="tab" class="btn tablistinbtn active show" data-toggle="tab">All Listings</a>
+											</li>
+											<li role="presentation">
+												<a href="#auctionview_search_mobile{{random_number}}" class="btn tablistinbtn" role="tab" data-toggle="tab">Auction</a>
+											</li>
+											<li role="presentation">
+												<a href="#buyitnowview_search_mobile{{random_number}}" class="btn tablistinbtn" role="tab" data-toggle="tab">Buy It Now</a>
+											</li>
+										</ul>
+									</div>
+									
+									<!-- Tab panes -->
+									<div class="tab-content w-100">
+										<div class="bootstrap-tagsinput mt-3 ml-3">
+										
+										</div>
+										<div role="tabpanel" class="tab-pane active" id="alllistingview_search_mobile{{random_number}}">
+											<div class="resultcount m-3">
+												<p>{{searchData?.from}} - {{searchData?.to}} of {{searchData?.total}} Results</p>
+											</div>
+											<div *ngIf="searchData?.data.length <= 0;else showAllItem_mobile">
+												<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom">
+													Item not available!
+												</div>
+											</div>
+											<ng-template #showAllItem_mobile>
+												<div class="container pl-2 pr-2">
+													<div class="row set_fontSize">
+														<div class="col-md-4 col-6 marB30" *ngFor="let dta of searchData?.data | paginate: {itemsPerPage: searchData?.per_page, currentPage:searchData?.current_page, id: 'searchId' ,totalItems:searchData?.total}; let i = index">
+															<div class="box-a mb-4 border rounded">
+																<figure class="m-0">
+																	<a (click)="GoToProDetail(dta?.id)" title="{{dta?.title}}">
+																		<img src="{{pro_image}}{{dta?.id}}/L/{{dta?.photos[0]}}" class="img-fluid" alt="{{dta?.title}}">
+																	</a>
+																</figure>
+																<div class="box-detail bg-light p-1 breadcrumblink_div">
+																	<p class="mt-2 mb-1"><a (click)="GoToProDetail(dta?.id)" class="text-primary" title="{{dta?.title}}">{{(dta?.title.length > 15)? (dta?.title | slice:0:15)+'...':(dta?.title)}}</a></p>
+																	<div class="row p-0 m-0">
+																		<div class="col-lg-6 col-md-6 p-0 m-0">
+																			<span class="ratings">
+																				<div class="empty-stars"></div> 
+																				<div class="full-stars" style="width:0%" *ngIf="dta?.product_avg == 0"></div>
+																				<div class="full-stars" style="width:20%" *ngIf="dta?.product_avg == 1"></div>
+																				<div class="full-stars" style="width:40%" *ngIf="dta?.product_avg == 2"></div>
+																				<div class="full-stars" style="width:60%" *ngIf="dta?.product_avg == 3"></div>
+																				<div class="full-stars" style="width:80%" *ngIf="dta?.product_avg == 4"></div>
+																				<div class="full-stars" style="width:100%" *ngIf="dta?.product_avg == 5"></div>
+																			</span>
+																		</div>
+																		<div class="col-lg-6 col-md-6 p-0 m-0 text-md-right pr-md-2">
+																			<span class="text-danger" *ngIf="dta?.quantity <= 5">Only {{dta?.quantity}} left! </span>
+																			<span *ngIf="dta?.quantity > 5">{{dta?.quantity}} left! </span>
+																		</div>
+																	</div>
+																	<span *ngIf="dta?.selling_type =='Auction style'">{{ dta?.last_bid }} AED</span> 
+																	<span *ngIf="dta?.selling_type =='Fixed price'">{{dta?.price - (dta?.price*dta?.discount) / 100 }} AED</span> 
+																	<span *ngIf="dta?.selling_type =='Fixed price' && dta?.discount != 0 "> | <del><span class="grey">{{dta?.price}} AED</span></del>
+																		| <span class="text-uppercase">{{dta?.discount}}% off</span>
+																	</span>
+																	<p class="mb-1 mt-0">From <a title="{{dta?.product_address}}" *ngIf="dta?.product_address != null">{{(dta?.product_address.length > 13)? (dta?.product_address | slice:0:13)+'...':(dta?.product_address)}}</a></p>
+																	<p class="mb-1 mt-0">Free shipping</p>
+																	<p class="mb-1 mt-0" *ngIf="dta?.selling_type == 'Auction style'">Auction style</p>
+																	<p class="mb-1 mt-0" *ngIf="dta?.selling_type =='Fixed price'">Buy It Now</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</ng-template>
+										</div>
+										<div role="tabpanel" class="tab-pane" id="auctionview_search_mobile{{random_number}}">
+											<div class="resultcount m-3">
+												<p>{{searchData?.from}} - {{searchData?.to}} of {{searchData?.total}} Results</p>
+											</div>
+											<div *ngIf="searchData?.data.length <= 0;else showauction_mobile">
+												<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom text-center d-block">
+													Item not available!
+												</div>
+											</div>
+											<ng-template #showauction_mobile>
+												<div class="container pl-2 pr-2">
+													<div class="row set_fontSize">
+														<div [ngClass]="{'col-md-4 col-6 marB30' : dta?.selling_type == 'Auction style' }" *ngFor="let dta of searchData?.data | paginate: {itemsPerPage: searchData?.per_page, currentPage:searchData?.current_page, id: 'searchId' ,totalItems:searchData?.total}; let i = index">
+															<div class="box-a mb-4 border rounded" *ngIf="dta?.selling_type == 'Auction style'">
+																<figure class="m-0">
+																	<a (click)="GoToProDetail(dta?.id)" title="{{dta?.title}}">
+																		<img src="{{pro_image}}{{dta?.id}}/L/{{dta?.photos[0]}}" class="img-fluid" alt="{{dta?.title}}">
+																	</a>
+																</figure>
+																<div class="box-detail bg-light p-1 breadcrumblink_div">
+																	<p class="mt-2 mb-1"><a (click)="GoToProDetail(dta?.id)" class="text-primary" title="{{dta?.title}}">{{(dta?.title.length > 15)? (dta?.title | slice:0:15)+'...':(dta?.title)}}</a></p>
+																	<div class="row p-0 m-0">
+																		<div class="col-lg-6 col-md-6 p-0 m-0">
+																			<span class="ratings">
+																				<div class="empty-stars"></div> 
+																				<div class="full-stars" style="width:0%" *ngIf="dta?.product_avg == 0"></div>
+																				<div class="full-stars" style="width:20%" *ngIf="dta?.product_avg == 1"></div>
+																				<div class="full-stars" style="width:40%" *ngIf="dta?.product_avg == 2"></div>
+																				<div class="full-stars" style="width:60%" *ngIf="dta?.product_avg == 3"></div>
+																				<div class="full-stars" style="width:80%" *ngIf="dta?.product_avg == 4"></div>
+																				<div class="full-stars" style="width:100%" *ngIf="dta?.product_avg == 5"></div>
+																			</span>
+																		</div>
+																		<div class="col-lg-6 col-md-6 p-0 m-0 text-md-right pr-md-2">
+																			<span class="text-danger" *ngIf="dta?.quantity <= 5">Only {{dta?.quantity}} left! </span>
+																			<span *ngIf="dta?.quantity > 5">{{dta?.quantity}} left! </span>
+																		</div>
+																	</div>
+																	<span>{{ dta?.last_bid }} AED</span> 
+																	<p class="mb-1 mt-0">From <a title="{{dta?.product_address}}" *ngIf="dta?.product_address != null">{{(dta?.product_address.length > 13)? (dta?.product_address | slice:0:13)+'...':(dta?.product_address)}}</a></p>
+																	<p class="mb-1 mt-0">Free shipping</p>
+																	<p class="mb-1 mt-0">Auction style</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</ng-template>
+										</div>
+										<div role="tabpanel" class="tab-pane" id="buyitnowview_search_mobile{{random_number}}">
+											<div class="resultcount m-3">
+												<p>{{searchData?.from}} - {{searchData?.to}} of {{searchData?.total}} Results</p>
+											</div>
+											<div *ngIf="searchData?.data.length <= 0;else showbuynow_mobile">
+												<div class="row ml-0 mt-3 mr-0 pb-3 borderproductbottom text-center d-block">
+													Item not available!
+												</div>
+											</div>
+											<ng-template #showbuynow_mobile>
+												<div class="container pl-2 pr-2">
+													<div class="row set_fontSize">
+														<div [ngClass]="{'col-md-4 col-6 marB30' : dta?.selling_type == 'Fixed price' }" *ngFor="let dta of searchData?.data | paginate: {itemsPerPage: searchData?.per_page, currentPage:searchData?.current_page, id: 'searchId' ,totalItems:searchData?.total}; let i = index">
+															<div class="box-a mb-4 border rounded" *ngIf="dta?.selling_type == 'Fixed price'">
+																<figure class="m-0">
+																	<a (click)="GoToProDetail(dta?.id)" title="{{dta?.title}}">
+																		<img src="{{pro_image}}{{dta?.id}}/L/{{dta?.photos[0]}}" class="img-fluid" alt="{{dta?.title}}">
+																	</a>
+																</figure>
+																<div class="box-detail bg-light p-1 breadcrumblink_div">
+																	<p class="mt-2 mb-1"><a (click)="GoToProDetail(dta?.id)" class="text-primary" title="{{dta?.title}}">{{(dta?.title.length > 15)? (dta?.title | slice:0:15)+'...':(dta?.title)}}</a></p>
+																	<div class="row p-0 m-0">
+																		<div class="col-lg-6 col-md-6 p-0 m-0">
+																			<span class="ratings">
+																				<div class="empty-stars"></div> 
+																				<div class="full-stars" style="width:0%" *ngIf="dta?.product_avg == 0"></div>
+																				<div class="full-stars" style="width:20%" *ngIf="dta?.product_avg == 1"></div>
+																				<div class="full-stars" style="width:40%" *ngIf="dta?.product_avg == 2"></div>
+																				<div class="full-stars" style="width:60%" *ngIf="dta?.product_avg == 3"></div>
+																				<div class="full-stars" style="width:80%" *ngIf="dta?.product_avg == 4"></div>
+																				<div class="full-stars" style="width:100%" *ngIf="dta?.product_avg == 5"></div>
+																			</span>
+																		</div>
+																		<div class="col-lg-6 col-md-6 p-0 m-0 text-md-right pr-md-2">
+																			<span class="text-danger" *ngIf="dta?.quantity <= 5">Only {{dta?.quantity}} left! </span>
+																			<span *ngIf="dta?.quantity > 5">{{dta?.quantity}} left! </span>
+																		</div>
+																	</div>
+																	<span>{{dta?.price - (dta?.price*dta?.discount) / 100 }} AED</span> 
+																	<span *ngIf="dta?.selling_type =='Fixed price' && dta?.discount != 0 "> | <del><span class="grey">{{dta?.price}} AED</span></del>
+																		| <span class="text-uppercase">{{dta?.discount}}% off</span>
+																	</span>
+																	<p class="mb-1 mt-0">From <a title="{{dta?.product_address}}" *ngIf="dta?.product_address != null">{{(dta?.product_address.length > 13)? (dta?.product_address | slice:0:13)+'...':(dta?.product_address)}}</a></p>
+																	<p class="mb-1 mt-0">Free shipping</p>
+																	<p class="mb-1 mt-0">Buy It Now</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</ng-template>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-lg-12 paginationlist">
+								<pagination-controls (pageChange)="page = getServerData($event)" id="searchId" maxSize="{{searchData?.last_page}}" directionLinks="true" autoHide="false" class="text-center breadcrumblink_div"></pagination-controls>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-10 col-md-12" *ngIf="searchData?.total <= 0 && ifadvanceSearch == true;">
+					<div class="gridviewlistview ml-0 mr-0 p-3 mt-3">
+						<div class="row">
+							<div class="col-lg-5 col-md-6 col-12 text-center">
+								<a class="ml-3" (click)="saveSearch()" *ngIf="search_not == false"><i class="fa fa-heart-o"> Save this search </i></a>
+								<a class="ml-3" *ngIf="search_not == true"><i class="fa fa-heart"> Saved </i></a>
+							</div>
+							<div class="col-lg-5 col-md-6 col-12 text-center">
+								<span class="error_span">No Data Found</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-10 col-md-12" *ngIf="searchData?.total <= 0 && ifadvanceSearch == false;">
+					<div class="gridviewlistview ml-0 mr-0 p-3 mt-3">
+						<div class="bootstrap-tagsinput mt-3 row">
+										
+						</div>
+						<div class="row">
+							<span class="error_span">No Data Found</span>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+		<!--================Footer Area =================-->
+	<footer-page></footer-page>
+</div>
+</ion-content>

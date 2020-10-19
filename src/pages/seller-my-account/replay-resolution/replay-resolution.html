@@ -1,0 +1,89 @@
+
+<ion-content padding>
+<div class="leave-message">
+	<div class="wrapper">
+		<div class="container leave-message-main">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-xl-12 col-12 breadcrumblink_div">
+					<p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+					<p class="setFont-size mb-0">
+						<a href="#/home" class="breadcrumblink">Dibdaa</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+						<a href="#/seller-my-account/return" class="breadcrumblink">My Dibdaa</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+						<a class="breadcrumblink" disabled>Message Details</a>
+					</p>
+				</div>
+			</div>
+			<div class="row m-0">
+				<div class="col-sm-12 col-lg-12 col-md-12 col-12 message_section mb-3 mt-3">
+
+					<div class="row">
+						<div class="chat_area" id="chat_area">
+							<div class="row product-detail-area m-0 pt-3 pb-3">
+								<div class="col-lg-1 col-md-2 col-4 col-sm-4 pr-0">
+									<img src="{{trandingImgUrl}}/product/{{ProducrId}}/S/{{show_msgdata?.data[0].photos[0]}}" class="img-fluid productimages rounded-circle">
+								</div>
+								<div class="col-lg-11 col-md-10 col-8 col-sm-8 pl-0">
+									<a>
+										<h5 class="product-name">{{show_msgdata?.data[0].question}}</h5> <br /><br />
+										<h6>TicketId : {{show_msgdata?.data[0].ticket_id}}</h6>
+									</a>
+								</div>
+							</div>
+							<ul class="list-unstyled setFont-size">
+								<div *ngFor="let msgdata of show_msgdata?.data">
+									<li class="left clearfix admin_chat" *ngIf="msgdata?.requested_by == 'seller';else showbuyer;"> <!-- -->
+										<div class="chat-img1 pull-right" *ngIf="msgdata?.photos.length != 0;else notimg">
+											<img src="{{trandingImgUrl}}/user/{{msgdata?.seller_id}}/{{msgdata?.seller_pic}}" alt="User Avatar" class="img-fluid rounded-circle">
+											<p class="username-chat text-center mb-0">{{msgdata?.seller_f_name}}</p>
+										</div>
+										<ng-template #notimg>
+											<div class="chat-img1 pull-right">
+												<img src="assets/images/men-placeholder.png" alt="User Avatar" class="img-fluid rounded-circle">
+												<p class="username-chat text-center mb-0">{{msgdata?.seller_f_name}}</p>
+											</div>
+										</ng-template>
+										<div class="chat-body1 sender clearfix">
+											<p class="text-right">{{msgdata?.answer}}</p>
+											<div class="chat_time pull-right mb-2">{{msgdata?.created_date}} </div>
+										</div>
+									</li>
+									<ng-template #showbuyer>
+										<li class="left clearfix">
+											<div class="chat-img1 pull-left" *ngIf="msgdata?.photos.length != 0;else notimgadmin">
+												<img src="{{trandingImgUrl}}/user/{{msgdata?.buyer_id}}/{{msgdata?.buyer_pic}}" alt="User Avatar" class="img-fluid rounded-circle">
+												<p class="username-chat text-center mb-0">{{msgdata?.buyer_f_name}}</p>
+											</div>
+											<ng-template #notimgadmin>
+												<div class="chat-img1 pull-left">
+													<img src="assets/images/men-placeholder.png" alt="User Avatar" class="img-fluid rounded-circle">
+													<p class="username-chat text-center mb-0">{{msgdata?.buyer_f_name}}</p>
+												</div>
+											</ng-template>
+											<div class="chat-body1 receiver clearfix">
+												<p class="text-left" *ngIf="msgdata?.answer == null">{{msgdata?.question}}</p>
+												<p class="text-left" *ngIf="msgdata?.answer != null">{{msgdata?.answer}}</p>
+												<div class="chat_time pull-left mb-2">{{msgdata?.created_date}}</div>
+											</div>
+										</li>
+									</ng-template>
+
+								</div>
+							</ul>
+						</div><!--chat_area-->
+						<div class="message_write" *ngIf="show_msgdata?.data[0].ticket_status == 'Open'">
+							<textarea class="form-control" placeholder="type question" id="sendmsg" name="sendmsg" #sendmsg="ngModel" required ngModel></textarea>
+							<div class="clearfix"></div>
+							<div class="chat_bottom">
+								<button class="btn theme-light-btn sendbutton" (click)="sendMessage()" [disabled]="!sendmsg.valid">Send Message</button>
+								<button class="btn theme-light-btn sendbutton" (click)="changeStatus()" *ngIf="Userrole?.id == show_msgdata?.data[0].seller_id && show_msgdata?.data[0].ticket_status == 'Open'">Close Ticket</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+			<!--================Footer Area =================-->
+<footer-page></footer-page>
+	</div>
+</div>
+</ion-content>

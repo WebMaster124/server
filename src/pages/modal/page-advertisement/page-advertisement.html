@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar class="title_Advertisement">
+  <ion-title ><h6 class="p-0 m-0">{{advertiseData?.data.title}}</h6></ion-title>
+	 <ion-buttons end>
+		<button ion-button (click)="closeModal()">X</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="main-view col-xl-12 col-12">
+<!-- <div class="overlay" (click)="dismiss()"></div> -->
+<div class="modal_content dibdaa-advertisement col-lg-12 col-md-12 col-xl-12 col-sm-12 col-12 p-0">
+	<a href="{{advertiseData?.data.url}}" target="_blank">
+		<img src="{{bannerImgUrl}}/advertisement/{{advertiseData?.data.id}}/{{advertiseData?.data.image}}" *ngIf="advertiseData?.data.image != '';else noImageFound;" />
+	</a>
+	<ng-template #noImageFound>
+		<a href="{{advertiseData?.data.url}}" target="_blank">
+			<img src="assets/images/advertise-image.jpg" />
+		</a>
+	</ng-template>
+</div>
+</ion-content>

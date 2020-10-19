@@ -1,0 +1,93 @@
+page-show-error {
+  .Error-not-found {
+    .wrapper{
+      margin-top: 110px;
+    }
+
+    @media (max-width: 768px) and (min-width: 320px){
+      .wrapper{
+        margin-top: 100px;
+      }
+    }
+    letter-spacing: 0.5px;
+    .solid_banner_inner {
+      padding: 68px 0;
+      h3 {
+        font-size: 1rem;
+        text-transform: uppercase;
+        color: #000;
+        font-family: $OpenSans-Regular;
+        font-weight: 600;
+        letter-spacing: .60px;
+        padding-bottom: 10px;
+      }
+      ul {
+        li {
+          display: inline-block;
+          margin-right: 12px;
+          a {
+            font-size: 14px;
+            font-family: $OpenSans-Regular;
+            font-weight: normal;
+            letter-spacing: .35px;
+            color: #000;
+            position: relative;
+            display: inline-block;
+            &:before {
+              content: ">";
+              position: absolute;
+              right: -10px;
+              top: 54%;
+              transform: translateY(-50%);
+            }
+          }
+          &:last-child {
+            margin-right: 0px;
+            a {
+              &:before {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+    .error_area {
+      text-align: center;
+    }
+    .error_inner {
+      h4 {
+        font-size: 72px;
+        font-weight: 600;
+        font-family: $OpenSans-Regular;
+        color: #000;
+        letter-spacing: 1.8px;
+      }
+      h5 {
+        font-size: 24px;
+        font-family: $OpenSans-Regular;
+        color: #000;
+        font-weight: 600;
+        letter-spacing: .60px;
+        padding-top: 12px;
+      }
+      p {
+        font-size: 16px;
+        font-family: $OpenSans-Regular;
+        color: $pfont;
+        letter-spacing: .5px;
+      }
+      h6 {
+        text-transform: uppercase;
+        font-size: 16px;
+        font-family: $OpenSans-Regular;
+        color: $pfont;
+        letter-spacing: .40px;
+        a {
+          color: #000;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

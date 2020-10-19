@@ -1,0 +1,164 @@
+<ion-content padding>
+<div class="compare-item">
+	<div class="wrapper">
+		<div class="container compare-item-main mb-3 text-center">
+			<div class="row text-left">
+				<div class="col-lg-12 col-md-12 col-xl-12 col-12 breadcrumblink_div">
+					<p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+					<p class="set-Fonts">
+						<a href="#/home" class="breadcrumblink">Dibdaa</a>&nbsp;<i class="fa fa-angle-right"></i>&nbsp;
+						<a href="#/seller-my-account/WishList" class="breadcrumblink">My Dibdaa &nbsp;<i class="fa fa-angle-right"> </i>&nbsp;</a>
+						<a class="breadcrumblink" disabled>Compare-Items</a>
+					</p>
+				</div>
+			</div>
+			<div class="row m-0">
+				<div class="col-lg-12 col-md-12 col-xl-12 col-12 pl-3 pt-2 pb-2 mb-4 frontbg">
+					<h6 class="m-0 text-left">Compare Items</h6>
+				</div>
+			</div>
+			<div class="row m-0">
+				<div class="col-lg-12 col-md-12 col-xl-12 col-12 p-0">
+					<div class="table-responsive">
+
+						<table class="table table-bordered compare-item-table set-Fonts">
+							<thead class="thead-light">
+							<tr>
+								<th scope="col">Titles</th>
+								<th scope="col">Item 1 Description</th>
+								<th scope="col">Item 2 Description</th>
+								<th scope="col" *ngIf="compareData?.data.length == 3">Item 3 Description</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td class="first-td-compare" rowspan="2">Item</td>
+								<td *ngFor="let compdta of compareData?.data" class="second-td-compare">
+									<a>
+										<img class="img-fluid product-compare-img" src="{{trandingImgUrl}}{{compdta?.product_id}}/S/{{compdta?.photos}}">
+									</a>
+									<br/><br/>
+									<a class="product-link text-primary" (click)="goToProductdetail(compdta?.product_id)">
+										{{compdta?.title}}
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td *ngFor="let compdta of compareData?.data">
+									<a class="btn theme-light-btn" (click)="goToProductdetail(compdta?.product_id)" *ngIf="compdta?.time == 'Started'">
+										<span *ngIf="compdta?.selling_type != 'Fixed price'">Place bid</span>
+										<span *ngIf="compdta?.selling_type == 'Fixed price'">Buy It Now</span>
+									</a>
+									<a class="btn theme-light-btn" (click)="goToProductdetail(compdta?.product_id)" *ngIf="compdta?.time == 'End'" disabled>
+										<span *ngIf="compdta?.selling_type != 'Fixed price'">Place bid</span>
+										<span *ngIf="compdta?.selling_type == 'Fixed price'">Buy It Now</span>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="first-td-compare">Time Left</td>
+								<td class="second-td-compare" *ngFor="let compdta of compareData?.data">
+									<span *ngIf="compdta?.time == 'End';else showTime"> {{ compdta?.time }}</span>
+									<ng-template #showTime>
+										{{compdta?.days_left | removeplusSign:compdta?.days_left}}
+									</ng-template>
+								</td>
+							</tr>
+							<tr>
+								<td class="first-td-compare">Seller</td>
+								<td class="second-td-compare" *ngFor="let compdta of compareData?.data">
+									<p class="mb-0"><a (click)="getTouserProfile(compdta?.user_id)" class="text-primary">{{compdta?.business_name}}</a></p>
+									<p class="mb-0 mt-2">( <span class="text-primary">{{compdta?.feedback_count}}</span> <i class="fa fa-star text-info"></i>) {{compdta?.feedback_avg | number : '2.2-2'}}% Positive </p>
+								</td>
+							</tr>
+							<tr>
+								<td class="first-td-compare">Price</td>
+								<td class="second-td-compare" *ngFor="let compdta of compareData?.data">
+									<p class="mb-0"> {{compdta?.price}} AED</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="first-td-compare">Shipping</td>
+								<td class="second-td-compare">Free</td>
+								<td class="second-td-compare">Free</td>
+								<td class="second-td-compare" *ngIf="compareData?.data.length == 3">Free</td>
+							</tr>
+							<tr>
+								<td class="first-td-compare">Ships From</td>
+								<td class="second-td-compare" *ngFor="let compdta of compareData?.data">
+									{{compdta?.product_address}}
+								</td>
+							</tr>
+							<tr>
+								<td class="first-td-compare">Condition</td>
+								<td class="second-td-compare" *ngFor="let compdta of compareData?.data">
+									{{(compdta?.p_condition == null?'-':compdta?.p_condition)}}
+								</td>
+							</tr>
+							<tr>
+								<td class="first-td-compare">Item Specification</td>
+								<td *ngFor="let compdta of compareData?.data;let i= index" class="td_ItemSpecification">
+									<table class="table breadcrumblink_div">
+										<tbody>
+											<tr *ngFor="let itmsp of specification_arr[i]">
+												<td class="firsttd" *ngIf="itmsp[1][0] != null">
+													{{itmsp[0] | removeUnderscore:itmsp[0]}}
+												</td>
+												<td class="secondtd" *ngIf="itmsp[1][0] != null">
+													<span *ngIf="itmsp[1].length > 1;else showSinglearr">
+														<span *ngFor="let itm of itmsp[1];">
+															{{ itm }} ,
+														</span>
+													</span>
+													<ng-template #showSinglearr>
+													   <span [innerHTML]="itmsp[1][0]"></span>
+													</ng-template>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td class="first-td-compare">Payment Methods</td>
+								<td class="second-td-compare" *ngFor="let compdta of compareData?.data">
+									<span *ngFor="let comdta of compdta?.payment_opt">
+										<span *ngIf="comdta == '1'">
+											<img src="assets/images/logopaypal.png" class="img-fluid">
+											<img src="assets/images/payment_icons.png" class="img-fluid">
+										</span> &nbsp;
+										<span *ngIf="comdta == '2'">Cash on Delivery</span>
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="first-td-compare bg-second-light" colspan="4"><b>Return Policy</b></td>
+							</tr>
+							<tr>
+								<td class="first-td-compare">
+								After receiving the item, your buyer should cancel the purchase within
+								</td>
+								<td class="second-td-compare" *ngFor="let compdta of compareData?.data">
+									<span *ngIf="compdta?.return_opt != 'No'">{{compdta?.return_opt | replaceString:compdta.return_opt}} day return</span>
+									<span *ngIf="compdta?.return_opt == 'No'">{{compdta?.return_opt}}</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="first-td-compare">Return policy details</td>
+								<td class="second-td-compare" *ngFor="let compdta of compareData?.data">
+									<span *ngIf="compdta?.return_policy == null"> - </span>
+									<span *ngIf="compdta?.return_policy != null"> {{ compdta?.return_policy }} </span>
+								</td>
+
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--================Footer Area =================-->
+<footer-page></footer-page>
+	</div>
+</div>
+</ion-content>

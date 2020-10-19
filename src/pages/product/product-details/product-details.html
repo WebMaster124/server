@@ -1,0 +1,921 @@
+<ion-content padding class="product-detail">
+    <div class="wrapper">
+        <div class="container mb-3" *ngIf="show_categoryDetails?.data.length > 0;">
+            <div class="row ">
+                <div class="col-lg-12 col-md-12 col-xl-12 col-12 breadcrumblink_div">
+                    <p class="m-0" navPop *ngIf="plt.is('core') == false && plt.is('mobileweb') == false"><i class="fa fa-angle-left backButtonIcon"></i> <span class="backButtonText">Back</span></p>
+					<p>
+                        <a href="#/home" class="breadcrumblink">Dibdaa</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+                        <a href="#/b/{{show_categoryDetails?.data[0].parent_cat_id}}" class="breadcrumblink">{{show_categoryDetails?.data[0].parent_cat_name}}</a>
+                        &nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;
+                        <a class="breadcrumblink" disabled>{{show_categoryDetails?.data[0].sub_category_name}}</a>
+                    </p>
+                </div>
+            </div>
+            <div class="row m-0 justify-content-center">
+                <div class="col-lg-12 col-md-12 col-12 whish_listDiv"
+                     *ngIf="show_categoryDetails?.data[0].save_wishlist == true">
+                    <span>Saved in your </span>
+                    <span class="whish_listspan" (click)="showwishList()">Wish list</span><span> | </span><span
+                        class="whish_listspan" (click)="removewishList()">Remove</span>
+                </div>
+                <div class="col-lg-4 col-md-6 col-10 pl-lg-0">
+                    <div id="magnific">
+                        <div class="row">
+                            <div class="large-5 column mr-3 col-12">
+                                <div class="xzoom-container text-center" id="disp_zoom_img">
+                                    <div class="setImage_middle">
+										<img id="zoom_demo" class="galleryimg zoom_demo" src="" />
+									</div>
+                                    <div class="top-left-sticker" *ngIf="show_categoryDetails?.data[0].time == 'End' && show_categoryDetails?.data[0].status == 1">
+                                        <img src="assets/images/sold.png">
+                                        <p class="m-0 sold-text">ENDED</p>
+                                    </div>
+                                    <div class="xzoom-thumbs gallery_demo" id="gallery_demo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="large-7 column"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12" *ngIf="localItem != null">
+                        <div class="Upgrading text-center mb-md-3 mb-3 mb-lg-0">
+                            <span class="Upgradingtxt breadcrumblink_div">Upgrading? Sell it, don't trade it. </span>
+                            <a *ngIf="localItem?.role == 'buyer'" class="btn theme-light-btn" role="button" href="#/seller-business-info">Sell Now</a>
+                            <a *ngIf="localItem?.role == 'seller'" class="btn theme-light-btn" role="button" href="#/draft-listing">Sell Now</a>
+                            <!--<a class="btn theme-light-btn" role="button" href="#/draft-listing">Sell Similar Item</a>-->
+                            
+                        </div>
+                    </div>
+					<div class="col-lg-12" *ngIf="localItem == null">
+                        <div class="Upgrading text-center mb-md-3 mb-3 mb-lg-0">
+                            <span class="Upgradingtxt breadcrumblink_div">Upgrading? Sell it, don't trade it. </span>
+                            <a class="btn theme-light-btn" role="button" (click)="callLoginPage('gotoSellerinfo')">Sell Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-12 col-12 p-lg-0">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-12 pb-2 itemdescription mt-2">
+                            <h5 class="mb-1">{{show_categoryDetails?.data[0].title}}</h5>
+                            <h6 class="m-0" *ngIf="show_categoryDetails?.data[0].subtitle != null && show_categoryDetails?.data[0].subtitle != ''">{{show_categoryDetails?.data[0].subtitle}}</h6>
+                            <p class="mb-1 breadcrumblink_div">Warranty :
+                                {{show_categoryDetails?.data[0].specification[0].Warranty}}
+							</p>
+							<p class="mb-1">
+								<span class="ratings">
+									<div class="empty-stars"></div> 
+									<div class="full-stars" style="width:0%" *ngIf="show_categoryDetails?.data[0].product_avg == 0"></div>
+									<div class="full-stars" style="width:20%" *ngIf="show_categoryDetails?.data[0].product_avg == 1"></div>
+									<div class="full-stars" style="width:40%" *ngIf="show_categoryDetails?.data[0].product_avg == 2"></div>
+									<div class="full-stars" style="width:60%" *ngIf="show_categoryDetails?.data[0].product_avg == 3"></div>
+									<div class="full-stars" style="width:80%" *ngIf="show_categoryDetails?.data[0].product_avg == 4"></div>
+									<div class="full-stars" style="width:100%" *ngIf="show_categoryDetails?.data[0].product_avg == 5"></div>
+								</span>
+                                <span class="text-primary">
+                                   <a (click)="showBottom()">{{show_categoryDetails?.data[0].product_rate_cnt}} product ratings </a>
+                                </span>
+								<span class="writeDiv" *ngIf="show_categoryDetails?.data[0].status == 1">
+									<b>|</b> &nbsp;<a (click)="leaveFeedback(show_categoryDetails?.data[0].product_id,show_categoryDetails?.data[0].title,show_categoryDetails?.data[0].photos[0],show_categoryDetails?.data[0].seller_id)" class="atag_textReview">Write a review</a>
+								</span>
+								<span class="writeDiv" *ngIf="show_categoryDetails?.data[0].status != 1">
+									<b>|</b> &nbsp;<a class="atag_textReview">Write a review</a>
+								</span>
+							</p>
+                            <div class="row m-0">
+                                <div class="col-lg-6 col-md-6 col-12 p-0">
+                                    <p class="m-0 totalview"><i class="fa fa-eye"></i> {{ perHourcnt }} viewed per hour</p>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-12 p-0">
+                                    <p class="text-lg-right text-md-left text-left m-0">SKU No : {{show_categoryDetails?.data[0].product_sku }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 col-md-12 col-12 pb-2 mt-3 itemconditionform p-md-0">
+                            <form class="form-horizontal breadcrumblink_div">
+                                <div class="form-group row mb-1">
+                                    <label class="control-label col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right mt-1">Condition:</label>
+                                    <div class="col-sm-10 col-lg-10 col-md-9 col-9">
+                                        <p class="font-weight-bold m-0">
+                                            <span *ngIf="show_categoryDetails?.data[0].p_condition != 'Refurbished';else showRefurbishedtop;">{{ show_categoryDetails?.data[0].p_condition }}</span>
+                                            <span *ngIf="show_categoryDetails?.data[0].p_condition == ''"> - </span>
+                                            <ng-template #showRefurbishedtop>
+                                                <span>Refurbished</span>
+                                            </ng-template>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-1">
+                                    <label class="control-label col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right mt-1"></label>
+                                    <div class="col-sm-10 col-lg-10 col-md-9 col-9">
+                                        <p class="font-italic">{{ show_categoryDetails?.data[0].condition_description }}
+                                    </div>
+                                </div>
+								 <div class="form-group row mb-1" *ngIf="show_categoryDetails?.data[0].time == 'Started'">
+									<label class="control-label col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right mt-1">Time left: </label>
+									<div class="col-sm-10 col-lg-10 col-md-9 col-9">
+										<p class="font-weight-bold m-0" [ngClass]="{'text-danger': show_categoryDetails?.data[0].endsoon == '0'}">{{show_categoryDetails?.data[0].days_left | removeplusSign:show_categoryDetails?.data[0].days_left}}</p>
+									</div>
+								 </div>
+                                <form [formGroup]="colorForm" id="color-form" method="post" role="form" class="form" *ngIf="show_categoryDetails?.data[0].selling_type == 'Fixed price'">
+                                    <div class="form-group row mb-1" *ngIf="show_categoryDetails?.data[0].specification[0].Color.length > 0 && show_categoryDetails?.data[0].specification[0].Color[0] != null">
+                                        <label class="control-label col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right mt-1">
+											<span class="text-danger font-weight-bold ">*</span>Color:
+										</label>
+                                        <div class="col-sm-10 col-lg-10 col-md-9 col-9">
+                                            <select class="form-control selectcolor select-color" id="color" name="select_color" [formControl]="colorForm.controls['color']" [ngClass]="{'error-border':!colorForm.controls['color'].valid}">
+                                               <option value="-1">-Select-</option>
+                                               <option *ngFor="let colorData of show_categoryDetails?.data[0].specification[0].Color;" [value]="colorData">{{colorData}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-1 mt-3"
+                                         *ngIf="show_categoryDetails?.data[0].specification[0].Size.length > 0 && show_categoryDetails?.data[0].specification[0].Size[0] != null">
+                                        <label class="control-label col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right mt-1"><span
+                                                class="text-danger font-weight-bold ">*</span>Size:</label>
+                                        <div class="col-sm-10 col-lg-10 col-md-9 col-9">
+                                            <select class="form-control selectcolor select-size" id="size"
+                                                    [formControl]="colorForm.controls['size']"
+                                                    [ngClass]="{'error-border':!colorForm.controls['size'].valid}" (change)="filterbySize(colorForm.controls['size'])">
+                                                <option value="-1">-Select-</option>
+                                                <option *ngFor="let sizeData of show_categoryDetails?.data[0].specification[0].Size;"
+                                                        [value]="sizeData">{{sizeData}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="priceformform-group row mt-3">
+                                    <label class="control-label col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right mt-1 pricelabel"><span
+                                            class="text-danger font-weight-bold ">*</span>Quantity:</label>
+                                    <div class="col-sm-3 col-lg-3 col-md-3 col-3">
+                                        <input type="number" class="form-control pricetxtbox price1" id="price1"
+                                               disabled value="1"
+                                               *ngIf="show_categoryDetails?.data[0].selling_type == 'Auction style'">
+                                        <input type="number" class="form-control pricetxtbox price1" id="price1"
+                                               value="1"
+                                               *ngIf="show_categoryDetails?.data[0].selling_type == 'Fixed price'">
+                                    </div>
+                                    <p class="control-label col-sm-7 col-lg-7 col-md-5 col-6 p-lg-0 text-left pricelabel">
+                                        <a><span class="solditem"
+                                                 *ngIf="show_categoryDetails?.data[0].quantity < 5 && show_categoryDetails?.data[0].quantity >= 1 ">Hurry, Only {{ show_categoryDetails?.data[0].quantity }} left !</span></a>
+                                        <span class="solditem" *ngIf="show_categoryDetails?.data[0].quantity >= 5"> <b>{{ show_categoryDetails?.data[0].quantity }}</b> Quantity available</span>
+                                        <a><span class="solditem" *ngIf="show_categoryDetails?.data[0].quantity <= 0">Item not available</span></a>
+                                    </p>
+                                </div>
+                            </form>
+
+                            <div class="quantity_error d-none add_cartError"
+                                 *ngIf="show_categoryDetails?.data[0].save_cart == false" id="add_cartError">
+                                <span> You have to enter the quantity between 1 to <b> {{ show_categoryDetails?.data[0].quantity }} </b> quantity</span>
+                            </div>
+                            <div class="quantity_error d-none buynow_Error" id="buynow_Error">
+                                <span> You have to enter the quantity between 1 to <b> {{ show_categoryDetails?.data[0].quantity }} </b> quantity</span>
+                            </div>
+                            <div class="quantity_error d-none Selection_Error" id="Selection_Error">
+                                <span id="error-color" class="d-none error-color"> Select <b> Color  </b> </span>
+                                <span id="error-size" class="d-none error-size"> Select <b> Size </b></span>
+                            </div>
+							
+							<div class="quantity_error User_Error">
+                                <span id="error-makeoffer" class="d-none error-makeoffer">Sorry you cannot make offer on your own items.</span>
+                                <span id="error-bid" class="d-none error-bid">Sorry you cannot bid on your own items.</span>
+                                <span id="error-buy" class="d-none error-buy"> Sorry you cannot buy your own items.</span>
+                                <span id="error-wishlist" class="d-none error-wishlist"> Sorry you cannot add your own items.</span>
+                            </div>
+							
+                            <div class="row itempricediv ml-0 mr-0 mt-0 pt-2 pb-2 mb-2 mt-3 breadcrumblink_div" *ngIf="show_categoryDetails?.data[0].selling_type == 'Auction style';else showfixprice">
+                                <div class="row itempricediv ml-0 mr-0 mt-0 breadcrumblink_div" *ngIf="show_categoryDetails?.data[0].last_bid[0] == null && show_categoryDetails?.data[0].time == 'Started';else showbidsdata">
+                                    <div class="col-lg-6 col-md-12 col-12 priceusdollar text-left">
+                                        <div class="row">
+                                            <div class="col-lg-5 col-md-5 col-5 text-right pr-2">
+                                                Starting bid:
+                                            </div>
+                                            <div class="col-lg-7 col-md-7 col-7 pl-1">
+                                                <span class="pl-2 usdollarprice">{{show_categoryDetails?.data[0].min_price}} AED</span>
+                                                <div class="row m-0">
+                                                    <div class="col-lg-12 col-md-12 col-12 pl-1">
+                                                        <div class="form-group">
+                                                            <form #frm_bids="ngForm" class="form" method="post" role="form" novalidate>
+                                                                <input class="form-control form-control-sm bid-input" id="inputbid" type="number" name="inputbid" #inputbid="ngModel" required ngModel>
+                                                                <div *ngIf="inputbid.invalid && (inputbid.dirty || inputbid.touched)" class="error-box">
+                                                                    <div *ngIf="inputbid.errors.required">
+                                                                        * Enter Bid Amount.
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-12 pl-1 pr-0">
+                                                        <p class="m-0 enter-price">Enter {{show_categoryDetails?.data[0].min_price}} AED or more</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-7 col-7 offset-5 pl-2 offset-lg-0 offset-md-5 addtocart">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-12">
+                                                [<a> 0 bids </a>]
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-12 mt-2">
+                                                <button class="btn theme-light-btn" (click)="openModal(show_categoryDetails?.data[0].product_id,show_categoryDetails?.data[0].user_id,show_categoryDetails?.data[0].min_price,'one')" [disabled]="!frm_bids.valid">Place bid
+                                                </button>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-12 mt-2">
+                                                <a (click)="addwishlist()"  *ngIf="show_categoryDetails?.data[0].save_wishlist == false && show_categoryDetails?.data[0].status == 1">
+                                                    <p class="mb-1 addtowatchlist">
+                                                        <i class="fa fa-plus pr-1"></i> Add to wish list
+                                                    </p>
+                                                </a>
+												<a *ngIf="show_categoryDetails?.data[0].save_wishlist == false && show_categoryDetails?.data[0].status != 1">
+                                                    <p class="mb-1 addtowatchlist">
+                                                        <i class="fa fa-plus pr-1"></i> Add to wish list
+                                                    </p>
+                                                </a>
+                                                <a (click)="showwishList()" *ngIf="show_categoryDetails?.data[0].save_wishlist == true">
+                                                    <p class="mb-1 addtowatchlist">
+                                                        <i class="fa fa-eye pr-1"></i> View wish list
+                                                    </p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="errorbids" class="text-center error-box d-none w-100"> You have to bid at
+                                        least {{show_categoryDetails?.data[0].min_price}}
+                                    </div>
+                                </div>
+                                <ng-template #showbidsdata>
+                                    <div class="row itempricediv ml-0 mr-0 mt-0 breadcrumblink_div" *ngIf="show_categoryDetails?.data[0].last_bid[0] == null && show_categoryDetails?.data[0].time == 'End'">
+                                        <div class="col-lg-6 col-md-12 col-12 priceusdollar text-left">
+                                            <div class="row">
+                                                <div class="col-lg-5 col-md-5 col-5 text-right pr-2">
+                                                    Starting bid:
+                                                </div>
+                                                <div class="col-lg-7 col-md-7 col-7 pl-1">
+                                                    <span class="pl-2 usdollarprice">{{show_categoryDetails?.data[0].min_price}} AED</span>
+                                                    <div class="row m-0">
+                                                        <div class="col-lg-12 col-md-12 col-12 pl-1">
+                                                            <div class="form-group">
+                                                                <form #frm_bids="ngForm" class="form" method="post"
+                                                                      role="form" novalidate>
+                                                                    <input class="form-control form-control-sm bid-input"
+                                                                           id="inputbid" type="number" name="inputbid"
+                                                                           #inputbid="ngModel" required ngModel>
+                                                                    <div *ngIf="inputbid.invalid && (inputbid.dirty || inputbid.touched)"
+                                                                         class="error-box">
+                                                                        <div *ngIf="inputbid.errors.required">
+                                                                            * Enter bid amount.
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12 col-md-12 col-12 pl-1 pr-0">
+                                                            <p class="m-0 enter-price">Enter
+                                                                {{show_categoryDetails?.data[0].min_price}} AED or
+                                                                more</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-7 col-7 offset-5 pl-2 offset-lg-0 offset-md-5 addtocart">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-12">
+                                                    [<a> 0 bids </a>]
+                                                </div>
+												<div class="col-lg-12 col-md-12 col-12 mt-2">
+                                                    <a (click)="addwishlist()" *ngIf="show_categoryDetails?.data[0].save_wishlist == false && show_categoryDetails?.data[0].status == 1">
+                                                        <p class="mb-1 addtowatchlist">
+                                                            <i class="fa fa-plus pr-1"></i> Add to wish list
+                                                        </p>
+                                                    </a>
+													<a *ngIf="show_categoryDetails?.data[0].save_wishlist == false && show_categoryDetails?.data[0].status != 1">
+														<p class="mb-1 addtowatchlist">
+															<i class="fa fa-plus pr-1"></i> Add to wish list
+														</p>
+													</a>
+                                                    <a (click)="showwishList()" *ngIf="show_categoryDetails?.data[0].save_wishlist == true">
+                                                        <p class="mb-1 addtowatchlist">
+                                                            <i class="fa fa-eye pr-1"></i> View wish list
+                                                        </p>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row itempricediv ml-0 mr-0 mt-0 breadcrumblink_div" *ngIf="show_categoryDetails?.data[0].last_bid[0] != null">
+                                        <div class="col-lg-6 col-md-12 col-12 priceusdollar text-left">
+                                            <div class="row">
+                                                <div class="col-lg-5 col-md-5 col-5 text-right pr-2">
+                                                    Starting bid:
+                                                </div>
+                                                <div class="col-lg-7 col-md-7 col-7 pl-1">
+                                                    <span class="pl-2 usdollarprice">{{show_categoryDetails?.data[0].last_bid[0].bid_price + 1}} AED</span>
+                                                    <div class="row m-0">
+                                                        <div class="col-lg-12 col-md-12 col-12 pl-1">
+                                                            <div class="form-group">
+                                                                <form #frm_bids="ngForm" class="form" method="post"
+                                                                      role="form" novalidate>
+                                                                    <input class="form-control form-control-sm bid-input"
+                                                                           id="inputbid" type="number" name="inputbid"
+                                                                           #inputbid="ngModel" required ngModel>
+                                                                    <div *ngIf="inputbid.invalid && (inputbid.dirty || inputbid.touched)"
+                                                                         class="error-box">
+                                                                        <div *ngIf="inputbid.errors.required">
+                                                                            * Enter bid amount.
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12 col-md-12 col-12 pl-1 pr-0">
+                                                            <p class="m-0 enter-price">Enter
+                                                                {{show_categoryDetails?.data[0].last_bid[0].bid_price + 1}}
+                                                                AED or more</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-7 col-7 offset-5 pl-2 offset-lg-0 offset-md-5 addtocart">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-12">
+                                                    [<a href="#/viewbids/{{show_categoryDetails?.data[0].product_id}}">
+                                                    {{show_categoryDetails?.data[0].last_bid[0].count}} bids </a>]
+                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-12 mt-2" *ngIf="show_categoryDetails?.data[0].time == 'Started'">
+                                                    <button class="btn theme-light-btn" (click)="openModal(show_categoryDetails?.data[0].product_id,show_categoryDetails?.data[0].user_id,show_categoryDetails?.data[0].last_bid[0].bid_price,'morethanone')" [disabled]="!frm_bids.valid">Place bid</button>
+                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-12 mt-2">
+                                                    <a (click)="addwishlist()" *ngIf="show_categoryDetails?.data[0].save_wishlist == false && show_categoryDetails?.data[0].status == 1">
+                                                        <p class="mb-1 addtowatchlist">
+                                                            <i class="fa fa-plus pr-1"></i> Add to wish list
+                                                        </p>
+                                                    </a>
+													
+													<a *ngIf="show_categoryDetails?.data[0].save_wishlist == false && show_categoryDetails?.data[0].status != 1">
+                                                        <p class="mb-1 addtowatchlist">
+                                                            <i class="fa fa-plus pr-1"></i> Add to wish list
+                                                        </p>
+                                                    </a>
+													
+                                                    <a (click)="showwishList()" *ngIf="show_categoryDetails?.data[0].save_wishlist == true">
+                                                        <p class="mb-1 addtowatchlist">
+                                                            <i class="fa fa-eye pr-1"></i> view wish list
+                                                        </p>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="errorbids" class="text-center error-box d-none w-100"> You have to bid at
+                                            least {{show_categoryDetails?.data[0].last_bid[0].bid_price + 1}} AED
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </div>
+                            <ng-template #showfixprice>
+                                <div class="row itempricediv m-0 pt-2 mb-lg-4 breadcrumblink_div mb-3" *ngIf="dispMakeOffer == false;else showofferInput;">
+                                    <div class="col-lg-6 col-md-12 col-12 priceusdollar text-left" *ngIf="show_categoryDetails?.data[0].discount > 0">
+                                        List price: <span class="pl-2 text_deco"> {{ show_categoryDetails?.data[0].price}} AED </span>
+                                        <br/>
+                                        You save: <span class="pl-2"> {{ show_categoryDetails?.data[0].price - show_categoryDetails?.data[0].final_price | number:'1.2-2'}} AED ({{ show_categoryDetails?.data[0].discount }} % OFF) </span>
+                                        <br/>
+                                        Now: <span class="pl-2 usdollarprice"> {{ show_categoryDetails?.data[0].final_price}} AED </span>
+                                    </div>
+									<div class="col-lg-6 col-md-12 col-12 priceusdollar text-left" *ngIf="show_categoryDetails?.data[0].discount <= 0">
+										Price: <span class="pl-2 usdollarprice">{{ show_categoryDetails?.data[0].price}} AED </span>
+									</div>
+
+                                    <div class="col-lg-6 col-md-12 col-12 addtocart">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-4 col-6 mt-lg-0 mt-md-2 mt-2"
+                                                 *ngIf="show_categoryDetails?.data[0].quantity > 0">
+                                                <a class="btn theme-light-btn" role="button" disabled
+                                                   *ngIf="show_categoryDetails?.data[0].time == 'End';else showBuynow;">Buy
+                                                    It Now</a>
+                                                <ng-template #showBuynow>
+                                                    <a class="btn theme-light-btn" role="button"
+                                                       (click)="buyNow(show_categoryDetails?.data[0].quantity)">Buy It
+                                                        Now</a>
+                                                </ng-template>
+                                            </div>
+                                            <div class="col-lg-12 col-md-4 col-6 mt-lg-0 mt-md-2 mt-0"
+                                                 *ngIf="show_categoryDetails?.data[0].quantity <= 0">
+                                                <button class="btn theme-light-btn" disabled>Buy It Now</button>
+                                            </div>
+
+                                            <div class="col-lg-12 col-md-4 col-6 mt-2 mt-md-2" *ngIf="show_categoryDetails?.data[0].quantity > 0">
+											<span *ngFor="let chkpymnt of show_categoryDetails?.data[0].payment_opt">
+												<a class="btn theme-dark-btn" role="button"
+                                                   (click)="addCart(show_categoryDetails?.data[0].quantity)"
+                                                   *ngIf="show_categoryDetails?.data[0].save_cart == false && show_categoryDetails?.data[0].time == 'Started' && chkpymnt == '1'">Add to cart</a>
+											</span>
+                                                <a class="btn theme-dark-btn" role="button" disabled
+                                                   *ngIf="show_categoryDetails?.data[0].save_cart == false && show_categoryDetails?.data[0].time == 'End'">Add
+                                                    To Cart</a>
+                                                <a class="btn theme-dark-btn" role="button" (click)="viewCart()"
+                                                   *ngIf="show_categoryDetails?.data[0].save_cart == true">View Cart</a>
+                                            </div>
+                                            <div class="col-lg-12 col-md-4 col-6 mt-2 mt-md-2" *ngIf="show_categoryDetails?.data[0].quantity <= 0">
+                                                <button class="btn theme-dark-btn" *ngIf="show_categoryDetails?.data[0].save_cart == false"
+                                                        disabled>Add To Cart
+                                                </button>
+                                                <button class="btn theme-dark-btn" *ngIf="show_categoryDetails?.data[0].save_cart == true"
+                                                        disabled>View Cart
+                                                </button>
+                                            </div>
+                                            <div class="col-lg-12 col-md-4 col-12 text-lg-left text-md-left text-center mt-2" *ngIf="show_categoryDetails?.data[0].make_offer == 1">
+                                                <button class="btn theme-dark-btn"  *ngIf="show_categoryDetails?.data[0].make_offer_status == false && show_categoryDetails?.data[0].time == 'Started'"
+                                                        (click)="showDiv('open')">Make Offer
+                                                </button>
+                                                <a class="btn theme-dark-btn" *ngIf="show_categoryDetails?.data[0].make_offer_status == true" href="#/seller-my-account/Bids">View Offer</a>
+                                            </div>
+                                            <div class="col-lg-12 col-md-4 col-12 mt-2 text-lg-left text-md-left text-center">
+                                                <a (click)="addwishlist()" *ngIf="show_categoryDetails?.data[0].save_wishlist == false && show_categoryDetails?.data[0].status == 1">
+                                                    <p class="mb-1 addtowatchlist">
+                                                        <i class="fa fa-plus pr-1"></i> Add to wish list
+                                                    </p>
+                                                </a>
+												<a *ngIf="show_categoryDetails?.data[0].save_wishlist == false && show_categoryDetails?.data[0].status != 1">
+                                                    <p class="mb-1 addtowatchlist">
+                                                        <i class="fa fa-plus pr-1"></i> Add to wish list
+                                                    </p>
+                                                </a>
+                                                <a (click)="showwishList()" *ngIf="show_categoryDetails?.data[0].save_wishlist == true">
+                                                    <p class="mb-1 addtowatchlist">
+                                                        <i class="fa fa-eye pr-1"></i> view wish list
+                                                    </p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-12 mt-1 morethansold text-center pt-2 pb-2 borderrightsold">
+                                        <p class="m-0 solditem">
+                                            <span *ngIf="show_categoryDetails?.data[0].sold_quantity == null"> 0 </span>
+                                            <span *ngIf="show_categoryDetails?.data[0].sold_quantity != null"> {{show_categoryDetails?.data[0].sold_quantity}} </span>
+                                            sold
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-12 mt-1 morethansold text-center pt-2 pb-2 borderrightsold">
+                                        <p class="m-0">{{show_categoryDetails?.data[0].sold_avg | number:'2.2-4'}}% sold</p>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12 col-12 mt-1 morethansold text-center pt-2 pb-2">
+                                        <p class="m-0">{{ show_categoryDetails?.data[0].return_opt |
+                                            replaceString:show_categoryDetails?.data[0].return_opt }} 
+											<span *ngIf="show_categoryDetails?.data[0].return_opt != 'No'">days </span>
+                                            returns</p>
+                                    </div>
+                                </div>
+                                <ng-template #showofferInput>
+                                    <div class="row itempricediv m-0 pt-2 mb-lg-4 breadcrumblink_div mb-3">
+										<div class="col-lg-6 col-md-6 col-12 priceusdollar text-left mb-md-0 mb-sm-3 mb-3 mb-lg-0" *ngIf="show_categoryDetails?.data[0].discount > 0">
+											List price: <span class="pl-2 text_deco"> {{ show_categoryDetails?.data[0].price}} AED </span>
+											<br/>
+											You save: <span class="pl-2"> {{ show_categoryDetails?.data[0].price - show_categoryDetails?.data[0].final_price | number:'1.2-2'}} AED ({{ show_categoryDetails?.data[0].discount }} % OFF) </span>
+											<br/>
+											Now: <span class="pl-2 usdollarprice"> {{ show_categoryDetails?.data[0].final_price}} AED </span>
+											<!--<span class="bestoffer" *ngIf="show_categoryDetails?.data[0].make_offer == 1">Best Offer:</span>-->
+										</div>
+										<div class="col-lg-6 col-md-6 col-12 priceusdollar text-left mb-md-0 mb-sm-3 mb-3 mb-lg-0" *ngIf="show_categoryDetails?.data[0].discount <= 0">
+											Price: <span class="pl-2 usdollarprice"> {{ show_categoryDetails?.data[0].price}} AED </span>
+										</div>
+										
+										<div class="col-lg-6 col-md-6 col-12 addtocart">
+                                            <div class="row justify-content-center">
+                                                <div class="col-lg-8 col-md-6 col-9 text-center">
+                                                    <input type="number" class="w-100" id="offerInput" placeholder="Enter your offer price" #inputnumber="ngModel" ngModel/>
+												</div>
+													
+													
+                                                <div class="quantity_error w-100 text-center d-none" id="offer_price">
+                                                    <span> Please enter a price of AED 1 or more. </span>
+                                                </div>
+												<!--<div class="bg-info text-warning w-100 text-center mt-2" *ngIf="inputnumber?.value > show_categoryDetails?.data[0].final_price">
+                                                    <span>Dear buyer you are about to make an offer greater than the cost of the item. If you would like to continue please click continue. </span>
+                                                </div> -->
+                                                <div class="col-lg-12 col-md-12 col-12 text-center mt-3 mb-3">
+                                                    <button class="btn theme-dark-btn" (click)="addtomakeOffer(show_categoryDetails?.data[0].quantity)">
+                                                        Review Offer
+                                                    </button>
+                                                    <button class="btn theme-light-btn" (click)="showDiv('cancel')">
+                                                        Cancel
+                                                    </button>
+                                                </div>
+											</div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ng-template>
+                            <div class="row mb-1 shiptedcondition breadcrumblink_div">
+                                <div class="col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right">Shipping:</div>
+                                <div class="col-sm-10 col-lg-10 col-md-9 col-9">
+                                    <p class="font-weight-bold m-0 notshipindia">
+                                        <span *ngIf="show_categoryDetails?.data[0].ship_to == 'buyer'"> Buyer pays for return shipping </span>
+                                        <span *ngIf="show_categoryDetails?.data[0].ship_to == 'seller'"> Seller pays for return shipping </span>
+                                        <span *ngIf="show_categoryDetails?.data[0].ship_to != 'seller' && show_categoryDetails?.data[0].ship_to != 'buyer'"> </span>
+                                        <a (click)="shipingtabseedetail()"><span
+                                                class="seedetails"> &nbsp;See details</span></a></p>
+                                    <p class="m-0 itemlocation">item location: {{
+                                        show_categoryDetails?.data[0].product_address }}</p>
+                                    <p class="m-0 itemlocation">Ships to:
+                                        <span> {{show_categoryDetails?.data[0].product_address}} </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row mb-1 mt-1 breadcrumblink_div">
+                                <div class="col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right">Delivery:</div>
+                                <div class="col-sm-10 col-lg-10 col-md-9 col-9">
+                                    <p class="deleveryans m-0"
+                                       *ngFor="let stype of show_categoryDetails?.data[0].shipment_type;index as i">
+                                        <span>-{{ stype }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row mb-1 mt-1 paymentcondition breadcrumblink_div">
+                                <div class="col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right">Payment:</div>
+                                <div class="col-sm-10 col-lg-10 col-md-9 col-9">
+                                    <div class="m-0"><!--<img src="assets/images/logopaypal.png" class="mr-3"> -->
+                                        <span *ngFor="let ptype of show_categoryDetails?.data[0].payment_opt">
+											<span *ngIf="ptype == '1'">
+												<img src="assets/images/logopaypal.png">
+												<img src="assets/images/payment_icons.png">
+											</span> &nbsp;
+											<span *ngIf="ptype == '2'">Cash on Delivery</span>
+										</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-1 mt-1 returnscondition breadcrumblink_div">
+                                <div class="col-sm-2 col-lg-2 col-md-3 col-3 p-lg-0 text-lg-right text-md-left text-right">Returns:</div>
+                                <div class="col-sm-10 col-lg-10 col-md-9 col-9">
+                                    <p class="deleveryans m-0">{{ show_categoryDetails?.data[0].return_opt |
+                                        replaceString:show_categoryDetails?.data[0].return_opt}} <span
+                                                *ngIf="show_categoryDetails?.data[0].return_opt != 'No'">days </span>
+                                        returns. <span *ngIf="show_categoryDetails?.data[0].return_opt != 'No'">{{show_categoryDetails?.data[0].return_policy}}</span>
+                                        <!-- <a href="#"><span class="seedetails"> See details</span></a> --></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-12 pb-2 mt-3 pr-0 topratedplus">
+                            <div class="row m-0">
+
+                            </div>
+                            <div class="row pr-3">
+                                <div class="col-lg-12 col-md-6 col-12 toprateddiv pt-2 pb-2">
+                                    <div class="row starcontent pb-1">
+                                        <div class="col-lg-9 col-md-8 col-8 pl-0 pr-0 breadcrumblink_div">
+                                            <a (click)="goTouserProfile(show_categoryDetails?.data[0].seller_id)">
+												<p class="buysprytxt mb-1">
+													{{ show_categoryDetails?.data[0].display_name }} ( {{ show_categoryDetails?.data[0].feedback_count }} <i class="fa fa-star star"></i> )
+												</p>
+											</a>
+                                            <p class="mb-1">
+												{{ show_categoryDetails?.data[0].feedback_avg | number : '2.2-2'}}% Positive feedback
+											</p>
+                                        </div>
+                                    </div>
+                                    <div class="row saveseller pt-1 breadcrumblink_div">
+                                        <div class="col-lg-12 col-md-12 col-12 pl-0 pr-0">
+                                            <a *ngIf="show_categoryDetails?.data[0].save_seller == false">
+                                                <p class="savesellertxt mb-1" (click)="save_seller('save')" *ngIf="localItem != null && show_categoryDetails?.data[0].seller_id != localItem?.id">
+                                                    <i class="fa fa-heart-o"></i> Save this seller
+                                                </p>
+                                            </a>
+                                            <a *ngIf="show_categoryDetails?.data[0].save_seller == true">
+                                                <p class="savesellertxt mb-1" (click)="save_seller('remove')" *ngIf="localItem != null && show_categoryDetails?.data[0].seller_id != localItem?.id">
+                                                    <i class="fa fa-heart"></i> Saved
+                                                </p>
+                                            </a>
+                                            <a (click)="contactSeller(show_categoryDetails?.data[0].display_name,show_categoryDetails?.data[0].user_id,show_categoryDetails?.data[0].product_id)" *ngIf="localItem != null && show_categoryDetails?.data[0].seller_id != localItem?.id">
+                                                <p class="savesellertxt mb-1"> Contact seller</p></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row productdescriptiontabrow">
+                <div class="col-lg-12 col-md-12 col-12 productdescriptiontab p-0">
+                    <!-- Nav tabs -->
+                    <div class="row ml-0 mr-0">
+                        <div class="col-lg-11 col-9 col-md-10 p-0">
+                            <ul class="nav detailnavigationtab" role="tablist">
+                                <li role="presentation" class="descriptiontabing active" id="descriptiontab">
+                                    <a href="#description" role="tab" class="btn tablistinbtn active show"
+                                       data-toggle="tab">Description</a>
+                                </li>
+                                <li role="presentation" class="descriptiontabing">
+                                    <a href="#shippingandpayments" id="seedetailactivtab" class="btn tablistinbtn"
+                                       role="tab" data-toggle="tab">Shipping ,Returns and Payments</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-1 col-3 col-md-2 text-right pl-0 pr-0 pr-xl-3 pr-lg-3">
+                            <a (click)="ReportItem(show_categoryDetails?.data[0].product_id,show_categoryDetails?.data[0].business_name,show_categoryDetails?.data[0].title,show_categoryDetails?.data[0].product_sku,show_categoryDetails?.data[0].photos[0])" *ngIf="show_categoryDetails?.data[0].status == 1;else showstaticreposrlink">
+                                <p class="reportitem itemfortxt mb-0 breadcrumblink_div">Report item</p>
+							</a>
+							<ng-template #showstaticreposrlink>
+								<a>
+									<p class="reportitem itemfortxt mb-0 breadcrumblink_div">Report item</p>
+								</a>
+							</ng-template>
+                        </div>
+                        <!-- Tab panes -->
+                        <div class="col-lg-12 col-md-12 col-12 tab-content p-lg-4 p-md-3 p-2">
+                            <div role="tabpanel" class="tab-pane active" id="description">
+                                <div class="col-lg-12 col-md-12 col-12 pl-0 pr-0 mb-3 breadcrumblink_div">
+                                    <p class="text-right itemnumber mb-2">SKU No :
+                                        {{show_categoryDetails?.data[0].product_sku}}</p>
+                                    <p class="mb-2">Seller assumes all responsibility for this listing.</p>
+                                    <p class="mb-0">Last updated on
+                                        <span class="font-weight-bold">{{show_categoryDetails?.data[0].updated_date}}</span>
+                                    </p>
+                                </div>
+                                <div class="row mb-2 mb-lg-3 mb-xl-3 ml-0 mr-0 frontbg">
+                                    <div class="col-lg-12 col-md-12 col-12 pl-3 pt-2 pb-2">
+                                        <h6 class="m-0">Item specifics</h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-12 pl-3 pt-3 pb-1 pr-3 itemspecifics">
+                                    <div class="row sellerrefurbished m-0 p-2 breadcrumblink_div">
+                                        <div class="col-lg-1 col-md-2 col-4 p-0">
+                                            <p class="m-0">Condition:</p>
+                                        </div>
+                                        <div class="col-lg-11 col-md-10 col-8 p-0">
+                                            <p class="m-0 font-weight-bold">
+                                                <span *ngIf="show_categoryDetails?.data[0].p_condition != 'Refurbished';else showRefurbished;">{{show_categoryDetails?.data[0].p_condition}}</span>
+                                                <ng-template #showRefurbished>
+                                                    <span>Refurbished</span>
+                                                </ng-template>
+                                            </p>
+                                        </div>
+                                        <div class="col-lg-1 col-md-2 col-4 p-0"
+                                             *ngIf="show_categoryDetails?.data[0].specification[0].Item_Condition == 'New' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'Old' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'Used' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'Brands' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'Best Sellers' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'On Sales' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'Best Offers' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'Deals';else showRefurbisheddiv;">
+                                            <p class="m-0 d-none">Seller Notes:</p>
+                                        </div>
+                                        <ng-template #showRefurbisheddiv>
+                                            <div class="col-lg-1 col-md-2 col-4 p-0">
+                                                <p class="m-0">Seller Notes:</p>
+                                            </div>
+                                        </ng-template>
+
+                                        <div class="col-lg-11 col-md-10 col-8 p-0"
+                                             *ngIf="show_categoryDetails?.data[0].specification[0].Item_Condition == 'New' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'Old' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'Used' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'Brands' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'Best Sellers' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'On Sales' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'Best Offers' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'Deals';else showRefurbisheddiv2;">
+                                            <p class="m-0 d-none">-</p>
+                                        </div>
+                                        <ng-template #showRefurbisheddiv2>
+                                            <div class="col-lg-11 col-md-10 col-8 p-0">
+                                                <p class="m-0"
+                                                   *ngIf="show_categoryDetails?.data[0].specification[0].Item_Condition == 'New' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'Old' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'Used' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'Brands' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'Best Sellers' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'On Sales' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'Best Offers' || show_categoryDetails?.data[0].specification[0].Item_Condition == 'Deals';else showRefurbisheddetails;">
+                                                    -</p>
+                                                <ng-template #showRefurbisheddetails>
+                                                    <p>
+                                                        {{show_categoryDetails?.data[0].specification[0].Item_Condition}}</p>
+                                                </ng-template>
+                                            </div>
+                                        </ng-template>
+                                    </div>
+
+                                    <div class="row itemspecificssub m-0 pl-0 pr-0 pt-2 pb-2">
+                                        <div class="col-lg-6 col-md-12 col-12 p-0">
+                                            <table class="table breadcrumblink_div">
+                                                <tbody>
+                                                <tr *ngFor="let itmsp of specification_arr">
+                                                    <td class="firsttd" *ngIf="itmsp[1][0] != null && itmsp[0] != 'Item_Description'">
+                                                        {{itmsp[0] | removeUnderscore:itmsp[0]}} :
+                                                    </td>
+                                                    <td class="secondtd" *ngIf="itmsp[1][0] != null && itmsp[0] != 'Item_Description'">
+														<span *ngIf="itmsp[1].length > 1;else showSinglearr">
+															<span *ngFor="let itm of itmsp[1];">
+																{{ itm }} ,
+															</span>
+														</span>
+                                                        <ng-template #showSinglearr>
+                                                           <span>{{itmsp[1][0]}}</span>
+                                                        </ng-template>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="firsttd">UPC/EAN/ISBN :</td>
+                                                    <td class="secondtd">
+                                                        <span *ngIf="show_categoryDetails?.data[0].isbn == 0">Does not apply</span>
+                                                        <span *ngIf="show_categoryDetails?.data[0].isbn != 0">{{show_categoryDetails?.data[0].isbn}}</span>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3 mb-2 mb-lg-3 mb-xl-3 ml-0 mr-0 frontbg target_div">
+                                    <div class="col-lg-12 col-md-12 col-12 pl-3 pt-2 pb-2">
+                                        <h6 class="m-0">Product Description</h6>
+                                    </div>
+                                </div>
+                                <div class="row mt-3 ml-0 mr-0 pb-3">
+                                    <div class="col-lg-12 col-md-12 col-12 pl-4 pt-2 pb-2 shopvarticledetail">
+                                        <div class="shopvarticledetailsublaw mb-lg-3 breadcrumblink_div" [innerHTML]="show_categoryDetails?.data[0].specification[0].Item_Description">
+                                            
+                                        </div>
+									
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="shippingandpayments">
+                                <div class="col-lg-12 col-md-12 col-12 pl-0 pr-0 mb-3">
+                                    <p class="mb-2 breadcrumblink_div">Seller assumes all responsibility for this
+                                        listing.</p>
+                                </div>
+                                <div class="row mb-2 mb-lg-3 mb-xl-3 ml-0 mr-0 frontbg">
+                                    <div class="col-lg-12 col-md-12 col-12 pl-3 pt-2 pb-2">
+                                        <h6 class="m-0">Shipping and handling</h6>
+                                    </div>
+                                </div>
+                                <div class="row shipingandhandling m-0 pb-3" id="shippingandhandlingtabdetail">
+                                    <div class="col-lg-12 col-md-12 col-12 pl-3 pt-3 pb-1 pr-3">
+                                        <table class="table breadcrumblink_div">
+                                            <tbody>
+                                            <tr>
+                                                <td class="firsttd">Item location:</td>
+                                                <td class="secondtd">{{show_categoryDetails?.data[0].product_address}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="firsttd">Shipping to:</td>
+                                                <td class="secondtd"><span
+                                                        *ngIf="show_categoryDetails?.data[0].ship_to == null; else spto"> - </span>
+                                                    <ng-template #spto>
+                                                        <span> {{show_categoryDetails?.data[0].ship_to}}</span>
+                                                    </ng-template>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row mb-2 mb-lg-3 mb-xl-3 ml-0 mr-0 frontbg">
+                                    <div class="col-lg-12 col-md-12 col-12 pl-3 pt-2 pb-2">
+                                        <h6 class="m-0">Return policy <span class="pl-4"
+                                                                            *ngIf="show_categoryDetails?.data[0].return_opt == 'No'">Not Applicable</span>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div class="row shipingandhandling ml-0 mr-0 mt-3 mb-0 pb-3">
+                                    <div class="col-lg-12 col-md-12 col-12 pl-3 pt-3 pb-1 pr-3" id="returnpolicy"
+                                         *ngIf="show_categoryDetails?.data[0].return_opt != 'No'">
+                                        <table class="table breadcrumblink_div">
+                                            <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col" class="pl-3">After receiving the item, contact seller
+                                                    within
+                                                </th>
+                                                <th scope="col">Refund will be given as</th>
+                                                <th scope="col">Return shipping</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td class="pl-3">
+													<span>
+														{{ show_categoryDetails?.data[0].return_opt | replaceString:show_categoryDetails?.data[0].return_opt }} <span
+                                                            *ngIf="show_categoryDetails?.data[0].return_opt != 'No'">days </span> returns
+													</span>
+                                                </td>
+                                                <td>-</td>
+                                                <td>
+                                                    <span *ngIf="show_categoryDetails?.data[0].ship_to == 'buyer'">Buyer pays for return shipping</span>
+                                                    <span *ngIf="show_categoryDetails?.data[0].ship_to == 'seller'">Seller pays for return shipping</span>
+                                                    <span *ngIf="show_categoryDetails?.data[0].ship_to != 'seller' && show_categoryDetails?.data[0].ship_to != 'seller'">-</span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-12">
+                                        <div class="returnpolicydetails pl-3 pt-1 pb-1 pr-3">
+                                            <p class="m-0 breadcrumblink_div">Return policy details</p>
+                                        </div>
+                                        <div class="returnpolicydetailstxt pl-3 pt-1 pb-1 pr-3 breadcrumblink_div">
+                                            <p class="m-1">
+                                                {{ show_categoryDetails?.data[0].return_policy }}
+                                            </p>
+                                            <p *ngIf="show_categoryDetails?.data[0].return_policy == null">
+                                                Seller does not have a return policy
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-2 mb-lg-3 mb-xl-3 ml-0 mr-0 frontbg">
+                                    <div class="col-lg-12 col-md-12 col-12 pl-3 pt-2 pb-2">
+                                        <h6 class="m-0">Payment details</h6>
+                                    </div>
+                                </div>
+                                <div class="row shipingandhandling ml-0 mr-0 mt-3 mb-0 pb-3" id="paypalaccepted">
+                                    <div class="col-lg-12 col-md-12 col-12 pt-2">
+                                        <div class="row m-0 returnpolicydetails pl-3 pt-1 pb-1 pr-3">
+                                            <div class="col-lg-5 col-md-5 col-7 pl-0">
+                                                <p class="m-0 breadcrumblink_div">Payment method</p>
+                                            </div>
+                                            <div class="col-lg-7 col-md-7 col-5 pl-0">
+                                                <p class="m-0 breadcrumblink_div"> Preferred / Accepted</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-12 pt-2">
+                                        <div class="row m-0 pl-3 pt-1 pb-1 pr-3" *ngFor="let pym_opt of show_categoryDetails?.data[0].payment_opt">
+                                            <div class="col-lg-5 col-md-5 col-7 pt-2 pl-lg-4">
+                                                <p *ngIf="pym_opt == '1'">
+													<img src="assets/images/logopaypal.png" class="img-fluid">
+													<img src="assets/images/payment_icons.png" class="img-fluid">
+												</p>
+                                                <p *ngIf="pym_opt == '2'" class="breadcrumblink_div">Cash on Delivery</p>
+                                            </div>
+                                            <div class="col-lg-5 col-md-5 col-5 pt-2 pl-lg-1">
+                                                <p class="m-0 breadcrumblink_div" *ngIf="pym_opt != '3'">Accepted</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+			<div class="row mt-3 writeReview_div productdescriptiontabrow">
+				<div class="col-sm-12" *ngIf="localItem != null && show_categoryDetails?.data[0].seller_id != localItem?.id">
+					<div class="row pt-4 pb-4">
+						<div class="col-sm-4 col-md-4 col-lg-4 col-12">
+							Ratings and Reviews
+						</div>
+						<div class="col-sm-8 col-md-8 col-lg-8 col-12 text-left text-lg-right text-md-right mt-2 mt-lg-0 mt-md-0">
+							<a (click)="leaveFeedback(show_categoryDetails?.data[0].product_id,show_categoryDetails?.data[0].title,show_categoryDetails?.data[0].photos[0],show_categoryDetails?.data[0].seller_id)"
+                            class="atag_text">Write a review</a>
+						</div>
+					</div>
+					<hr>
+				</div>
+                <div class="col-sm-12 col-md-12 col-lg-12 col-12" *ngIf="show_categoryDetails?.feedback.total != 0">
+                    <div class="row pt-4 pb-4">
+                        <div class="col-sm-8 col-md-6 col-lg-6 col-12 text-left">
+                            Ratings and Reviews
+                        </div>
+                        <div class="col-sm-4 col-md-6 col-lg-6 col-12 text-left text-lg-right text-md-right mt-2 mt-lg-0 mt-md-0">
+                            <a href="#/product-reviews/{{show_categoryDetails?.data[0].product_id}}" class="atag_text">See all {{show_categoryDetails?.feedback.total}} reviews </a>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-sm-12 mt-3">
+					<div class="set_fontSize" >
+                        <div class="row pt-2 pb-2 itemdescription" *ngFor="let ratingdisp of show_categoryDetails?.feedback.data">
+							<div class="col-sm-3 col-md-3 col-lg-3 col-12 mb-3 mb-lg-0 mb-md-0 mb-sm-0">
+								<div>
+									<span class="ratings">
+										<div class="empty-stars"></div> 
+										<div class="full-stars" style="width:0%" *ngIf="ratingdisp?.rate == 0"></div>
+										<div class="full-stars" style="width:20%" *ngIf="ratingdisp?.rate == 1"></div>
+										<div class="full-stars" style="width:40%" *ngIf="ratingdisp?.rate == 2"></div>
+										<div class="full-stars" style="width:60%" *ngIf="ratingdisp?.rate == 3"></div>
+										<div class="full-stars" style="width:80%" *ngIf="ratingdisp?.rate == 4"></div>
+										<div class="full-stars" style="width:100%" *ngIf="ratingdisp?.rate == 5"></div>
+									</span>
+								</div>
+                                <div>by <a href="#/UserProfile/{{ratingdisp?.buyer_id}}">{{ratingdisp?.buyer_display_name}}</a></div>
+								<div>{{ratingdisp?.created_date}}</div>
+							</div>
+							<div class="col-sm-9 col-md-9 col-lg-9 col-12">
+								<div>
+									<h5 class="mb-1 m-0">{{ratingdisp?.title}}</h5>
+								</div>
+								<div>{{ratingdisp?.description}}</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="set_fontSize text-center" *ngIf="show_categoryDetails?.feedback.total == 0">
+						<h5>No rating available</h5>
+					</div>
+				</div>
+			</div>
+        </div>
+        <div *ngIf="show_categoryDetails?.data.length <= 0">
+            <div class="row bg-light m-0 text-center">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <div class="error_inner pt-3 d-none">
+                        <h4>404</h4>
+                        <h5 class="mb-3">Error - Not Found</h5>
+                        <p class="mb-3">Sorry We’re not able to find this product</p>
+                        <h6 class="mb-3">back to <a href="#/home">Home</a></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<!--================Footer Area =================-->
+	<footer-page></footer-page>
+</ion-content>
